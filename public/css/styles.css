@@ -1,0 +1,770 @@
+
+.navegation-bar{
+    height:90px;
+    background: linear-gradient(90deg, #48ADFF -4.8%, #7661FE 47.6%, #9331FF 100%);
+}
+.link-nav{
+  color:#fff !important;
+  text-decoration: none;
+  font-size:18px;
+  font-weight:600;
+  gap: 30px;
+
+}
+.body-box{
+  background-color: #ECF6FE!important;
+}
+.login-box{
+    background: linear-gradient(-90deg, #48ADFF -4.8%, #7661FE 47.6%, #9331FF 100%);
+}
+.welcome{
+  font-family: 'Inter'!important;
+  font-style: normal!important;
+  font-weight: 600!important;
+  font-size: 23px!important;
+  line-height: 28px!important;
+  padding:30px 0;
+  color: #2D2D8D!important;
+}
+
+.custom-icon {
+    color: #2D2D8D !important;
+  }
+
+  .cursor-pointer{
+    cursor: pointer;
+    color: #2D2D8D !important;
+  }
+  .cursor-pointer:hover{
+    text-decoration: underline;
+  }
+  .recuperar{
+    color: #2D2D8D !important;
+    text-transform: none !important;
+    letter-spacing: normal;
+    padding: 18px !important;
+    font-size: 18px;
+    border-radius:8px !important;
+    --v-btn-height: 0 !important;
+    width: 220px;
+  }
+  .recuperar:hover{
+    color:#fff !important;
+    border-radius:8px !important;
+    background: linear-gradient(90deg, #48ADFF -4.8%, #7661FE 47.6%, #9331FF 100%);
+  }
+  .perfil{
+    border: 3px solid #E1B03E;
+    border-radius:100%;
+    padding: 2px;
+    max-width: 70px;
+    max-height: 70px;
+  }
+  .info{
+    color: #2D2D8D!important;
+  }
+  .info h2 {
+    margin-top: -10px!important;
+    font-weight: 400!important;
+  }
+  .info span{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+  }
+
+  .header-tabla{
+    height: 50px;
+    color:#fff;
+    font-size:20px;
+    font-weight:600;
+    background: linear-gradient(90deg, #48ADFF -4.8%, #7661FE 47.6%, #9331FF 100%);
+  }
+  .listado-tabla{
+    color: #2D2D8D!important;
+  }
+  .listado-tabla h{
+    font-weight: 600 !important;
+  }
+  
+  .btn-tabs{
+    text-transform: none !important;
+    letter-spacing: normal;
+    font-size: 20px;
+    font-weight: 400;
+    color: #2D2D8D!important;
+  }
+
+  .divisas .v-text-field input, .divisas .v-select .v-field.v-field{
+    background:#f1f1f1;
+    border-radius:5px;
+    border:rgba(0,0,0,0) 0px !important;
+  }
+
+  .btn-add-divisa{
+    color: #2D2D8D !important;
+    text-transform: none !important;
+    letter-spacing: normal;
+    padding: 18px !important;
+    font-size: 18px;
+    border-radius:8px !important;
+    --v-btn-height: 0 !important;
+    width: 220px;
+  }
+
+  .btn-add-divisa:hover{
+    color:#fff !important;
+    border-radius:8px !important;
+    background: linear-gradient(90deg, #48ADFF -4.8%, #7661FE 47.6%, #9331FF 100%);
+  }
+
+  .btn-delete-divisa{
+    text-transform: none !important;
+    letter-spacing: normal;
+    padding: 18px !important;
+    font-size: 18px;
+    border-radius:8px !important;
+    --v-btn-height: 0 !important;
+  }
+
+  .btn-color{
+    text-transform: none !important;
+    letter-spacing: normal;
+    padding: 18px !important;
+    font-size: 18px;
+    border-radius:8px !important;
+    --v-btn-height: 0 !important;
+    width: 180px;
+    color:#fff !important;
+    background: linear-gradient(90deg, #48ADFF -4.8%, #7661FE 47.6%, #9331FF 100%);
+  }
+  .btn-seccion-principal{
+    font-size: 18px;
+    color: #2D2D8D !important;
+    border-radius:8px !important;
+    cursor:pointer;
+  }
+  .btn-seccion-principal:hover{
+    color:#fff !important;
+    background: linear-gradient(90deg, #48ADFF -4.8%, #7661FE 47.6%, #9331FF 100%);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+.bancos{
+	padding-top: 52px!important;
+	padding-left:20px!important;
+}
+.bancos p{
+	font-family: 'Inter';
+font-style: normal;
+font-weight: 400;
+font-size: 18px;
+line-height: 22px;
+color: #2D2D8D;
+}
+
+.logobanco{
+	cursor:pointer;
+
+	padding-top: 25px;
+	padding-bottom: 25px;
+	padding-left: 50px;
+	padding-right: 50px;
+	
+height:150px;
+  border-radius: 10px;
+	  border: 1px solid transparent;
+	  background: linear-gradient(white, white) padding-box,
+              linear-gradient(90deg, #48ADFF -4.8%, #7661FE 47.6%, #9331FF 100%) border-box;
+}
+
+.logobanco:hover{
+	  border: 4px solid transparent;
+	 background: linear-gradient(white, white) padding-box,
+              linear-gradient(90deg, #48ADFF -4.8%, #7661FE 47.6%, #9331FF 100%) border-box;
+}
+
+.active{
+	  border: 4px solid transparent;
+	  background: linear-gradient(white, white) padding-box,
+              linear-gradient(90deg, #48ADFF -4.8%, #7661FE 47.6%, #9331FF 100%) border-box;
+			  
+			  
+			
+}
+
+.std{padding-top: 28px;}
+
+.mt-8{margin-top: 100px;}
+
+.btn_s{
+	font-family: 'Inter';
+font-style: normal;
+font-weight: 700;
+font-size: 20px;
+line-height: 24px;
+text-align: center;
+width:94px;
+height:24px;
+padding-bottom: 20px;
+padding-top: 20px;
+padding-left: 60px;
+padding-right: 60px;
+text-decoration:none;
+color: #FFFFFF;
+	background: linear-gradient(90deg, #48ADFF -4.8%, #7661FE 47.6%, #9331FF 100%);
+box-shadow: 0px 2.23267px 2.23267px rgba(0, 0, 0, 0.17);
+border-radius: 6.21713px;
+cursor:pointer;
+}
+.btn_s:hover{
+	color:white!important;
+}
+.volver{
+	font-family: 'Inter';
+font-style: normal;
+font-weight: 400;
+font-size: 18px;
+line-height: 22px;
+/* identical to box height */
+
+cursor:pointer;
+/* Azul */
+
+color: #2D2D8D;
+text-decoration:none;
+	
+}
+
+.bancos ul li{
+
+margin-right: -10px!important;
+     padding-left:0px;
+     padding-right:0px;
+}
+
+/*bancos2*/
+
+
+.bancos2{
+	margin-top: -12px!important;
+	padding-left:20px!important;
+}
+.bancos2 p{
+	font-family: 'Inter';
+font-style: normal;
+font-weight: 400;
+font-size: 18px;
+line-height: 22px;
+color: #2D2D8D;
+}
+
+.bancos2 ul li{
+
+margin-right: -10px!important;
+     padding-left:0px;
+     padding-right:0px;
+}
+
+
+.logobanco2{
+	cursor:pointer;
+
+
+	
+height:102px!important;
+
+  border-radius: 10px;
+	  border: 1px solid transparent;
+ background: linear-gradient(white, white) padding-box,
+              linear-gradient(90deg, #48ADFF -4.8%, #7661FE 47.6%, #9331FF 100%) border-box;
+}
+
+.logobanco2:hover{
+	  border: 4px solid transparent;
+	 background: linear-gradient(white, white) padding-box,
+              linear-gradient(90deg, #48ADFF -4.8%, #7661FE 47.6%, #9331FF 100%) border-box;
+}
+
+
+
+.active2{
+	  border: 4px solid transparent!important;
+	  background: linear-gradient(white, white) padding-box,
+              linear-gradient(90deg, #48ADFF -4.8%, #7661FE 47.6%, #9331FF 100%) border-box!important;
+}
+
+.bancos2 img{
+padding-top:15px!important;
+padding-bottom:15px!important;
+margin-top: -15px;
+}
+
+
+
+.bancos2 .title{
+	font-family: 'Inter';
+font-style: normal;
+font-weight: 700;
+font-size: 13px;
+line-height: 51px;
+/* or 394% */
+
+display: flex;
+align-items: center;
+
+/* Azul */
+
+color: #2D2D8D;
+
+}
+
+.bancos2 .subtitle{
+	font-family: 'Inter';
+font-style: normal;
+font-weight: 400;
+font-size: 18px;
+line-height: 22px;
+/* identical to box height */
+
+
+/* Azul */
+
+color: #2D2D8D;
+}
+
+
+
+
+
+
+
+
+
+
+/*bancos3*/
+
+
+.bancos3{
+	margin-top: -12px!important;
+	padding-left:20px!important;
+}
+.bancos3 p{
+	font-family: 'Inter';
+font-style: normal;
+font-weight: 400;
+font-size: 18px;
+line-height: 22px;
+color: #2D2D8D;
+}
+
+.bancos3 ul li{
+
+margin-right: -10px!important;
+     padding-left:0px;
+     padding-right:0px;
+}
+
+
+.logobanco2{
+	cursor:pointer;
+
+
+	
+height:102px!important;
+
+  border-radius: 10px;
+	  border: 1px solid transparent;
+ background: linear-gradient(white, white) padding-box,
+              linear-gradient(90deg, #48ADFF -4.8%, #7661FE 47.6%, #9331FF 100%) border-box;
+}
+
+.logobanco2:hover{
+	  border: 4px solid transparent;
+	 background: linear-gradient(white, white) padding-box,
+              linear-gradient(90deg, #48ADFF -4.8%, #7661FE 47.6%, #9331FF 100%) border-box;
+}
+
+.bancos3 img{
+padding-top:18px!important;
+padding-bottom:15px!important;
+
+}
+
+
+
+.bancos3 .title{
+	font-family: 'Inter';
+font-style: normal;
+font-weight: 700;
+font-size: 20px;
+line-height: 24px;
+margin-top: 25px!important;
+position:absolute;
+/* Azul */
+
+color: #2D2D8D;
+
+}
+
+.bancos3 .subtitle{
+	font-family: 'Inter';
+font-style: normal;
+font-weight: 400;
+font-size: 18px;
+line-height: 22px;
+/* identical to box height */
+
+
+/* Azul */
+
+color: #2D2D8D;
+}
+
+.bancos3 .form-control{
+	background: #F1F1F1;
+border: 1px solid #E6E6E6;
+border-radius: 5px;
+width:398px;
+margin-left:26px;
+font-family: 'Inter';
+font-style: normal;
+font-weight: 700;
+font-size: 18px;
+line-height: 22px;
+/* identical to box height */
+
+
+/* Azul */
+
+color: #2D2D8D;
+}
+
+.bancos3 label{
+	font-family: 'Inter';
+font-style: normal;
+font-weight: 500;
+font-size: 18px;
+line-height: 22px;
+/* identical to box height */
+
+
+/* Azul */
+
+color: #2D2D8D;
+}
+
+.ch{margin-left: 20px;}
+.ch2{margin-left: 30px;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*bancos4*/
+
+
+.bancos4{
+	margin-top: -12px!important;
+	padding-left:20px!important;
+}
+.bancos4 p{
+	font-family: 'Inter';
+font-style: normal;
+font-weight: 400;
+font-size: 18px;
+line-height: 22px;
+color: #2D2D8D;
+}
+
+.bancos4 ul li{
+
+margin-right: -10px!important;
+     padding-left:0px;
+     padding-right:0px;
+}
+
+
+.logobanco2{
+	cursor:pointer;
+
+
+	
+height:102px!important;
+
+  border-radius: 10px;
+	  border: 1px solid transparent;
+ background: linear-gradient(white, white) padding-box,
+              linear-gradient(90deg, #48ADFF -4.8%, #7661FE 47.6%, #9331FF 100%) border-box;
+}
+
+.logobanco2:hover{
+	  border: 4px solid transparent;
+	 background: linear-gradient(white, white) padding-box,
+              linear-gradient(90deg, #48ADFF -4.8%, #7661FE 47.6%, #9331FF 100%) border-box;
+}
+
+.bancos4 img{
+padding-top:18px!important;
+padding-bottom:15px!important;
+
+}
+
+
+
+.bancos4 .title{
+	font-family: 'Inter';
+font-style: normal;
+font-weight: 700;
+font-size: 20px;
+line-height: 24px;
+margin-top: 25px!important;
+position:absolute;
+/* Azul */
+
+color: #2D2D8D;
+
+}
+
+.bancos4 .box{
+	width: 347px;
+height: 234px;
+padding-top: 50px;
+/* Blue light */
+
+background: #E1F2FF;
+border-radius: 10px;
+}
+
+
+.bancos4 .np{
+	font-family: 'Inter';
+font-style: normal;
+font-weight: 700;
+font-size: 17px;
+position:absolute;
+ margin-left: 51%;
+ margin-top:-100px;
+ text-align:right;
+ line-height:25px;
+
+color: #2D2D8D;
+}
+.bancos4 .hr2{
+	margin-top:25px;
+	margin-bottom:25px;
+}
+
+.bancos4 .form-control{
+	background: #F1F1F1;
+border: 1px solid #E6E6E6;
+border-radius: 5px;
+width:207px;
+margin-left:26px;
+text-align:center;
+
+font-family: 'Inter';
+font-style: normal;
+font-weight: 700;
+font-size: 18px;
+line-height: 22px;
+/* identical to box height */
+
+
+/* Azul */
+
+color: #2D2D8D;
+}
+
+.bancos4 label{
+	font-family: 'Inter';
+font-style: normal;
+font-weight: 500;
+font-size: 18px;
+line-height: 22px;
+/* identical to box height */
+
+
+/* Azul */
+
+color: #2D2D8D;
+}
+
+.bancos4 .fa-edit{
+	position:absolute;
+	color: #2D2D8D;
+	margin-top: -26.8px;
+	margin-left: 200px;
+}
+
+.bancos4 h2{
+	font-family: 'Inter'!important;
+font-style: normal!important;
+font-weight: 500!important;
+font-size: 35px!important;
+line-height: 42px!important;
+
+/* Azul */
+
+color: #2D2D8D!important;
+}
+
+
+
+
+
+
+
+/*bancos5*/
+
+
+.bancos5{
+	margin-top: -12px!important;
+	padding-left:20px!important;
+}
+.bancos5 p{
+	font-family: 'Inter';
+font-style: normal;
+font-weight: 400;
+font-size: 18px;
+line-height: 22px;
+color: #2D2D8D;
+}
+
+.bancos5 ul li{
+
+margin-right: -10px!important;
+     padding-left:0px;
+     padding-right:0px;
+}
+
+
+
+
+.bancos5 .img1{
+padding-top:18px!important;
+padding-bottom:15px!important;
+
+}
+
+.bancos5 .img2{
+position:absolute;
+margin-top: 63px;
+margin-left:-12px;
+}
+
+
+
+
+.bancos5 .title{
+	font-family: 'Inter';
+font-style: normal;
+font-weight: 700;
+font-size: 20px;
+line-height: 24px;
+margin-top: 25px!important;
+position:absolute;
+/* Azul */
+
+color: #2D2D8D;
+
+}
+
+
+
+.bancos5 .np{
+	font-family: 'Inter';
+font-style: normal;
+font-weight: 700;
+font-size: 17px;
+position:absolute;
+ margin-left: 40%;
+ margin-top:-75px;
+ text-align:right;
+ line-height:25px;
+
+color: #2D2D8D;
+}
+
+
+
+
+
+.bancos5 .chr2{
+	width:409px!important;
+
+}
+
+.bancos5 h2{
+font-family: 'Inter'!important;
+font-style: normal!important;
+font-weight: 400!important;
+font-size: 22px!important;
+line-height: 131%!important;
+/* or 29px */
+padding-left:0px!important;
+
+
+/* Azul */
+
+color: #2D2D8D!important;
+}
+
+
+
+.logobanco5{
+	cursor:pointer;
+
+
+	text-align:left!important;
+height:55px!important;
+width:240px!important;
+
+  border-radius: 10px;
+	  border: 1px solid transparent;
+ background: linear-gradient(white, white) padding-box,
+              linear-gradient(90deg, #48ADFF -4.8%, #7661FE 47.6%, #9331FF 100%) border-box;
+}
+
+.logobanco5:hover{
+	  border: 4px solid transparent;
+	 background: linear-gradient(white, white) padding-box,
+              linear-gradient(90deg, #48ADFF -4.8%, #7661FE 47.6%, #9331FF 100%) border-box;
+}
+
+.rec{
+font-weight: 400!important;
+font-size: 10px!important;
+
+/* or 608% */
+
+display: flex!important;
+align-items: center!important;
+letter-spacing: -0.011em!important;
+
+color: #9D9D9D!important;
+}
