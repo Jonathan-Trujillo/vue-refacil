@@ -7,35 +7,35 @@
                 </v-icon>
                 Bancos
             </v-card>
-            <v-card class="mb-3 pa-6 d-flex align-center" style="height: 80px">
-                <v-icon>
+            <v-card class="mb-3 pa-6 d-flex align-center btn-seccion-principal" style="height: 80px" @click="mostrar_bancos()">
+                <v-icon class="mr-2">
                     mdi-close-circle
                 </v-icon>
-                Bancos
+                Cobranzas
             </v-card>
-            <v-card class="mb-3 pa-6 d-flex align-center" style="height: 80px">
-                <v-icon>
+            <v-card class="mb-3 pa-6 d-flex align-center btn-seccion-principal" style="height: 80px" @click="mostrar_bancos()">
+                <v-icon class="mr-2">
                     mdi-close-circle
                 </v-icon>
-                Bancos
+                Boleto Electrónico
             </v-card>
-            <v-card class="mb-3 pa-6 d-flex align-center" style="height: 80px">
-                <v-icon>
+            <v-card class="mb-3 pa-6 d-flex align-center btn-seccion-principal" style="height: 80px" @click="mostrar_bancos()">
+                <v-icon class="mr-2">
                     mdi-close-circle
                 </v-icon>
-                Bancos
+                Cooperativas
             </v-card>
-            <v-card class="mb-3 pa-6 d-flex align-center" style="height: 80px">
-                <v-icon>
+            <v-card class="mb-3 pa-6 d-flex align-center btn-seccion-principal" style="height: 80px" @click="mostrar_bancos()">
+                <v-icon class="mr-2">
                     mdi-close-circle
                 </v-icon>
-                Bancos
+                Impuestos
             </v-card>
-            <v-card class="mb-3 pa-6 d-flex align-center" style="height: 80px">
-                <v-icon>
+            <v-card class="mb-3 pa-6 d-flex align-center btn-seccion-principal" style="height: 80px" @click="mostrar_bancos()">
+                <v-icon class="mr-2">
                     mdi-close-circle
                 </v-icon>
-                Bancos
+                Cambios
             </v-card>
         </v-col>
         <v-col cols="12" md="9">
