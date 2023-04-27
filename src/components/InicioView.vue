@@ -1,51 +1,51 @@
 <template>
 
-    <v-row cols="12" class="ma-0 d-flex align-start" dense>
+    <v-row cols="12" class="ma-0 d-flex align-center">
         <v-col class="d-flex align-center" cols="12" md="5">
             <v-img src='../assets/images/perfil.png' class="perfil mr-4" />
             <div class='info'>
-            <h1>Bienvenido, Alfonso Rodriguez</h1>
-            <h2><span>Sucursal:</span> 203 La Esquina<br />
+            <h2>Bienvenido, Alfonso Rodriguez</h2>
+            <span>Sucursal:</span> 203 La Esquina<br />
                 <span>Turno:</span> Tarde
-            </h2>
             </div>
         </v-col>
 
         <v-col cols="12" md="7">
             <v-card >
             <v-row class="ma-0">
-                <v-col cols="12" class="pa-8 header-tabla d-flex justify-space-between align-center">
+                <v-col cols="12" class="px-8 py-0 header-tabla d-flex justify-space-between align-center">
                 Saldos
                 <h>{{ fechaHoraFormateada }}</h>
                 </v-col>
-                <v-col>
-                <v-row class="listado-tabla">
-                    <v-col cols="12" md="2" class="my-4 d-flex align-center justify-center flex-column"
-                    style="border-right:1px solid #2D2D8D">
+                <v-col class="py-0">
+                <v-row class="listado-tabla" dense>
+                    <v-col cols="12" md="2" class="pa-0 my-3 d-flex align-center justify-center flex-column"
+                    style="border-right:1px solid #2D2D8D; height:100% !important;">
                     <h>Saldo Ap:</h>
                     <span>$1,200</span>
                     </v-col>
-                    <v-col cols="12" md="2" class="my-4 d-flex align-center justify-center flex-column"
-                    style="border-right:1px solid #2D2D8D">
+                    <v-col cols="12" md="2" class="pa-0 my-3 d-flex align-center justify-center flex-column"
+                    style="border-right:1px solid #2D2D8D; height:100% !important;">
                     <h>Cantidad Trx:</h>
                     <span>-</span>
                     </v-col>
-                    <v-col cols="12" md="2" class="my-4 d-flex align-center justify-center flex-column"
-                    style="border-right:1px solid #2D2D8D">
+                    <v-col cols="12" md="2" class="pa-0 my-3 d-flex align-center justify-center flex-column"
+                    style="border-right:1px solid #2D2D8D; height:100% !important;">
                     <h>Cheques:</h>
                     <span>-</span>
                     </v-col>
-                    <v-col cols="12" md="2" class="my-4 d-flex align-center justify-center flex-column"
-                    style="border-right:1px solid #2D2D8D">
+                    <v-col cols="12" md="2" class="pa-0 my-3 d-flex align-center justify-center flex-column"
+                    style="border-right:1px solid #2D2D8D; height:100% !important;">
                     <h>Efectivo:</h>
                     <span>-</span>
                     </v-col>
-                    <v-col cols="12" md="2" class="my-4 d-flex align-center justify-center flex-column"
-                    style="border-right:1px solid #2D2D8D">
+                    <v-col cols="12" md="2" class="pa-0 my-3 d-flex align-center justify-center flex-column"
+                    style="border-right:1px solid #2D2D8D; height:100% !important;">
                     <h>Cambios:</h>
                     <span>-</span>
                     </v-col>
-                    <v-col cols="12" md="2" class="my-4 d-flex align-center justify-center flex-column">
+                    <v-col cols="12" md="2" class="pa-0 my-3 d-flex align-center justify-center flex-column"
+                    style="height:100% !important;">
                     <h>Tipo Cambio:</h>
                     <span>-</span>
                     </v-col>

@@ -30,7 +30,7 @@
                                             <v-text-field variant="outlined" background-color="#f00 !important" dense />
                                         </v-col>
                                         <v-col cols="12" md="4" v-model="fila.campo2" class="pa-0 d-flex align-center">
-                                            <h style="font-size:20px; color:#2D2D8D;" class="mx-4 pb-4">Biletes de </h>
+                                            <h style="font-size:20px; color:#2D2D8D;" class="mx-4 pb-4">Billetes de </h>
                                             <v-select variant="outlined" background-color="#f00 !important" dense />
                                         </v-col>
                                         <v-col cols="12" md="2" class="pa-0 d-flex align-center">

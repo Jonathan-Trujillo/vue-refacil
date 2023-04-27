@@ -1,13 +1,15 @@
 <template>
   <v-app class="body-box">
-    <v-row class="ma-0 px-10 pt-5">
+  <v-container class="pa-0">
+    <v-row class="ma-0 pt-5 align-start">
       <InicioView/>
       <AperturaCaja v-if="!mostrar_cajas" @abrir_caja="mostrar_cajas = true"/>
       <SeccionPrincipal v-if="mostrar_cajas"/>
-      <v-col cols="12" class="pa-0 d-flex justify-center align-start">
+      <v-col cols="12" class="pa-0 mt-10 d-flex justify-center align-start">
         <h style="color:#2D2D8D; font-size:20px">© Todos los derechos reservados</h>
       </v-col>
     </v-row>
+  </v-container>
   </v-app>
 </template>
 

@@ -1,40 +1,43 @@
 <template>
     <v-row>
         <v-col cols="12" md="3">
-            <v-card class="mb-3 pa-6 d-flex align-center btn-seccion-principal" style="height: 80px" @click="mostrar_bancos()">
-                <v-icon class="mr-2">
-                    mdi-close-circle
-                </v-icon>
+            <v-card class="mb-3 pa-6 d-flex align-center btn-seccion-principal" style="height: 100px"
+                @click="mostrar_bancos()">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 25px" class="mr-2">
+                    <path fill="#2D2D8D" d="M326.7 403.7c-22.1 8-45.9 12.3-70.7 12.3s-48.7-4.4-70.7-12.3c-.3-.1-.5-.2-.8-.3c-30-11-56.8-28.7-78.6-51.4C70 314.6 48 263.9 48 208C48 93.1 141.1 0 256 0S464 93.1 464 208c0 55.9-22 106.6-57.9 144c-1 1-2 2.1-3 3.1c-21.4 21.4-47.4 38.1-76.3 48.6zM256 91.9c-11.1 0-20.1 9-20.1 20.1v6c-5.6 1.2-10.9 2.9-15.9 5.1c-15 6.8-27.9 19.4-31.1 37.7c-1.8 10.2-.8 20 3.4 29c4.2 8.8 10.7 15 17.3 19.5c11.6 7.9 26.9 12.5 38.6 16l2.2 .7c13.9 4.2 23.4 7.4 29.3 11.7c2.5 1.8 3.4 3.2 3.7 4c.3 .8 .9 2.6 .2 6.7c-.6 3.5-2.5 6.4-8 8.8c-6.1 2.6-16 3.9-28.8 1.9c-6-1-16.7-4.6-26.2-7.9l0 0 0 0 0 0c-2.2-.7-4.3-1.5-6.4-2.1c-10.5-3.5-21.8 2.2-25.3 12.7s2.2 21.8 12.7 25.3c1.2 .4 2.7 .9 4.4 1.5c7.9 2.7 20.3 6.9 29.8 9.1V304c0 11.1 9 20.1 20.1 20.1s20.1-9 20.1-20.1v-5.5c5.3-1 10.5-2.5 15.4-4.6c15.7-6.7 28.4-19.7 31.6-38.7c1.8-10.4 1-20.3-3-29.4c-3.9-9-10.2-15.6-16.9-20.5c-12.2-8.8-28.3-13.7-40.4-17.4l-.8-.2c-14.2-4.3-23.8-7.3-29.9-11.4c-2.6-1.8-3.4-3-3.6-3.5c-.2-.3-.7-1.6-.1-5c.3-1.9 1.9-5.2 8.2-8.1c6.4-2.9 16.4-4.5 28.6-2.6c4.3 .7 17.9 3.3 21.7 4.3c10.7 2.8 21.6-3.5 24.5-14.2s-3.5-21.6-14.2-24.5c-4.4-1.2-14.4-3.2-21-4.4V112c0-11.1-9-20.1-20.1-20.1zM48 352H64c19.5 25.9 44 47.7 72.2 64H64v32H256 448V416H375.8c28.2-16.3 52.8-38.1 72.2-64h16c26.5 0 48 21.5 48 48v64c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V400c0-26.5 21.5-48 48-48z"/></svg>
                 Bancos
             </v-card>
-            <v-card class="mb-3 pa-6 d-flex align-center btn-seccion-principal" style="height: 80px" @click="mostrar_bancos()">
-                <v-icon class="mr-2">
-                    mdi-close-circle
-                </v-icon>
+            <v-card class="mb-3 pa-6 d-flex align-center btn-seccion-principal" style="height: 100px"
+                @click="mostrar_bancos()">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 512 512" style="width: 25px" class="mr-2">
+                    <path fill="#2D2D8D"
+                        d="M64 0C46.3 0 32 14.3 32 32V96c0 17.7 14.3 32 32 32h80v32H87c-31.6 0-58.5 23.1-63.3 54.4L1.1 364.1C.4 368.8 0 373.6 0 378.4V448c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V378.4c0-4.8-.4-9.6-1.1-14.4L488.2 214.4C483.5 183.1 456.6 160 425 160H208V128h80c17.7 0 32-14.3 32-32V32c0-17.7-14.3-32-32-32H64zM96 48H256c8.8 0 16 7.2 16 16s-7.2 16-16 16H96c-8.8 0-16-7.2-16-16s7.2-16 16-16zM64 432c0-8.8 7.2-16 16-16H432c8.8 0 16 7.2 16 16s-7.2 16-16 16H80c-8.8 0-16-7.2-16-16zm48-168a24 24 0 1 1 0-48 24 24 0 1 1 0 48zm120-24a24 24 0 1 1 -48 0 24 24 0 1 1 48 0zM160 344a24 24 0 1 1 0-48 24 24 0 1 1 0 48zM328 240a24 24 0 1 1 -48 0 24 24 0 1 1 48 0zM256 344a24 24 0 1 1 0-48 24 24 0 1 1 0 48zM424 240a24 24 0 1 1 -48 0 24 24 0 1 1 48 0zM352 344a24 24 0 1 1 0-48 24 24 0 1 1 0 48z" />
+                </svg>
                 Cobranzas
             </v-card>
-            <v-card class="mb-3 pa-6 d-flex align-center btn-seccion-principal" style="height: 80px" @click="mostrar_bancos()">
-                <v-icon class="mr-2">
-                    mdi-close-circle
-                </v-icon>
+            <v-card class="mb-3 pa-6 d-flex align-center btn-seccion-principal" style="height: 100px"
+                @click="mostrar_bancos()">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" style="width: 25px" class="mr-2">
+                    <path fill="#2D2D8D" d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zM256 0V128H384L256 0zM64 80c0-8.8 7.2-16 16-16h64c8.8 0 16 7.2 16 16s-7.2 16-16 16H80c-8.8 0-16-7.2-16-16zm0 64c0-8.8 7.2-16 16-16h64c8.8 0 16 7.2 16 16s-7.2 16-16 16H80c-8.8 0-16-7.2-16-16zm128 72c8.8 0 16 7.2 16 16v17.3c8.5 1.2 16.7 3.1 24.1 5.1c8.5 2.3 13.6 11 11.3 19.6s-11 13.6-19.6 11.3c-11.1-3-22-5.2-32.1-5.3c-8.4-.1-17.4 1.8-23.6 5.5c-5.7 3.4-8.1 7.3-8.1 12.8c0 3.7 1.3 6.5 7.3 10.1c6.9 4.1 16.6 7.1 29.2 10.9l.5 .1 0 0 0 0c11.3 3.4 25.3 7.6 36.3 14.6c12.1 7.6 22.4 19.7 22.7 38.2c.3 19.3-9.6 33.3-22.9 41.6c-7.7 4.8-16.4 7.6-25.1 9.1V440c0 8.8-7.2 16-16 16s-16-7.2-16-16V422.2c-11.2-2.1-21.7-5.7-30.9-8.9l0 0c-2.1-.7-4.2-1.4-6.2-2.1c-8.4-2.8-12.9-11.9-10.1-20.2s11.9-12.9 20.2-10.1c2.5 .8 4.8 1.6 7.1 2.4l0 0 0 0 0 0c13.6 4.6 24.6 8.4 36.3 8.7c9.1 .3 17.9-1.7 23.7-5.3c5.1-3.2 7.9-7.3 7.8-14c-.1-4.6-1.8-7.8-7.7-11.6c-6.8-4.3-16.5-7.4-29-11.2l-1.6-.5 0 0c-11-3.3-24.3-7.3-34.8-13.7c-12-7.2-22.6-18.9-22.7-37.3c-.1-19.4 10.8-32.8 23.8-40.5c7.5-4.4 15.8-7.2 24.1-8.7V232c0-8.8 7.2-16 16-16z"/></svg>
                 Boleto Electrónico
             </v-card>
-            <v-card class="mb-3 pa-6 d-flex align-center btn-seccion-principal" style="height: 80px" @click="mostrar_bancos()">
-                <v-icon class="mr-2">
-                    mdi-close-circle
-                </v-icon>
+            <v-card class="mb-3 pa-6 d-flex align-center btn-seccion-principal" style="height: 100px"
+                @click="mostrar_bancos()">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 25px" class="mr-2">
+                    <path fill="#2D2D8D" d="M326.7 403.7c-22.1 8-45.9 12.3-70.7 12.3s-48.7-4.4-70.7-12.3c-.3-.1-.5-.2-.8-.3c-30-11-56.8-28.7-78.6-51.4C70 314.6 48 263.9 48 208C48 93.1 141.1 0 256 0S464 93.1 464 208c0 55.9-22 106.6-57.9 144c-1 1-2 2.1-3 3.1c-21.4 21.4-47.4 38.1-76.3 48.6zM256 91.9c-11.1 0-20.1 9-20.1 20.1v6c-5.6 1.2-10.9 2.9-15.9 5.1c-15 6.8-27.9 19.4-31.1 37.7c-1.8 10.2-.8 20 3.4 29c4.2 8.8 10.7 15 17.3 19.5c11.6 7.9 26.9 12.5 38.6 16l2.2 .7c13.9 4.2 23.4 7.4 29.3 11.7c2.5 1.8 3.4 3.2 3.7 4c.3 .8 .9 2.6 .2 6.7c-.6 3.5-2.5 6.4-8 8.8c-6.1 2.6-16 3.9-28.8 1.9c-6-1-16.7-4.6-26.2-7.9l0 0 0 0 0 0c-2.2-.7-4.3-1.5-6.4-2.1c-10.5-3.5-21.8 2.2-25.3 12.7s2.2 21.8 12.7 25.3c1.2 .4 2.7 .9 4.4 1.5c7.9 2.7 20.3 6.9 29.8 9.1V304c0 11.1 9 20.1 20.1 20.1s20.1-9 20.1-20.1v-5.5c5.3-1 10.5-2.5 15.4-4.6c15.7-6.7 28.4-19.7 31.6-38.7c1.8-10.4 1-20.3-3-29.4c-3.9-9-10.2-15.6-16.9-20.5c-12.2-8.8-28.3-13.7-40.4-17.4l-.8-.2c-14.2-4.3-23.8-7.3-29.9-11.4c-2.6-1.8-3.4-3-3.6-3.5c-.2-.3-.7-1.6-.1-5c.3-1.9 1.9-5.2 8.2-8.1c6.4-2.9 16.4-4.5 28.6-2.6c4.3 .7 17.9 3.3 21.7 4.3c10.7 2.8 21.6-3.5 24.5-14.2s-3.5-21.6-14.2-24.5c-4.4-1.2-14.4-3.2-21-4.4V112c0-11.1-9-20.1-20.1-20.1zM48 352H64c19.5 25.9 44 47.7 72.2 64H64v32H256 448V416H375.8c28.2-16.3 52.8-38.1 72.2-64h16c26.5 0 48 21.5 48 48v64c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V400c0-26.5 21.5-48 48-48z"/></svg>
                 Cooperativas
             </v-card>
-            <v-card class="mb-3 pa-6 d-flex align-center btn-seccion-principal" style="height: 80px" @click="mostrar_bancos()">
-                <v-icon class="mr-2">
-                    mdi-close-circle
-                </v-icon>
+            <v-card class="mb-3 pa-6 d-flex align-center btn-seccion-principal" style="height: 100px"
+                @click="mostrar_bancos()">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 25px" class="mr-2">
+                    <path fill="#2D2D8D" d="M184 48H328c4.4 0 8 3.6 8 8V96H176V56c0-4.4 3.6-8 8-8zm-56 8V96H64C28.7 96 0 124.7 0 160v96H192 320 512V160c0-35.3-28.7-64-64-64H384V56c0-30.9-25.1-56-56-56H184c-30.9 0-56 25.1-56 56zM512 288H320v32c0 17.7-14.3 32-32 32H224c-17.7 0-32-14.3-32-32V288H0V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V288z"/></svg>
                 Impuestos
             </v-card>
-            <v-card class="mb-3 pa-6 d-flex align-center btn-seccion-principal" style="height: 80px" @click="mostrar_bancos()">
-                <v-icon class="mr-2">
-                    mdi-close-circle
-                </v-icon>
+            <v-card class="mb-3 pa-6 d-flex align-center btn-seccion-principal" style="height: 100px"
+                @click="mostrar_bancos()">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" style="width: 25px" class="mr-2">
+                    <path fill="#2D2D8D" d="M64 64C28.7 64 0 92.7 0 128V384c0 35.3 28.7 64 64 64H512c35.3 0 64-28.7 64-64V128c0-35.3-28.7-64-64-64H64zm64 320H64V320c35.3 0 64 28.7 64 64zM64 192V128h64c0 35.3-28.7 64-64 64zM448 384c0-35.3 28.7-64 64-64v64H448zm64-192c-35.3 0-64-28.7-64-64h64v64zM176 256a112 112 0 1 1 224 0 112 112 0 1 1 -224 0zm76-48c0 9.7 6.9 17.7 16 19.6V276h-4c-11 0-20 9-20 20s9 20 20 20h24 24c11 0 20-9 20-20s-9-20-20-20h-4V208c0-11-9-20-20-20H272c-11 0-20 9-20 20z"/></svg>
                 Cambios
             </v-card>
         </v-col>
@@ -43,11 +46,11 @@
             <v-card v-if="ninguna_area_seleccionada">
                 <v-row>
                     <v-col class="pa-16 d-flex align-center justify-center">
-                        <v-img style="max-width: 68% !important;" src="../assets/images/principal.png"/>
+                        <v-img style="max-width: 68% !important;" src="../assets/images/principal.png" />
                     </v-col>
                 </v-row>
             </v-card>
-            <AreaBancos v-if="ver_bancos"/>
+            <AreaBancos v-if="ver_bancos" @finalizo_proceso="ver_bancos = false, ninguna_area_seleccionada = true" />
         </v-col>
     </v-row>
 </template>
@@ -56,15 +59,15 @@
 import AreaBancos from '../components/AreaBancos.vue';
 
 export default {
-    components:{
+    components: {
         AreaBancos,
     },
     data: () => ({
         ver_bancos: false,
         ninguna_area_seleccionada: true
     }),
-    methods:{
-        mostrar_bancos(){
+    methods: {
+        mostrar_bancos() {
             this.ninguna_area_seleccionada = false
             this.ver_bancos = true
         }
