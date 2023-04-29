@@ -21,9 +21,9 @@
                             <v-window-item>
                                 <v-row class="ma-0 pt-2">
                                     <v-col cols="12" md="4">
-                                        <div :class="bancoSeleccionado === 'banco-bbva' ? 'seleccionado' : 'logobanco'"
-                                            @click="bancoSeleccionado = 'banco-bbva'">
-                                            <v-img src='../assets/images/bancos/banco-bbva.jpg' />
+                                        <div :class="bancoSeleccionado === 'banco-familiar' ? 'seleccionado' : 'logobanco'"
+                                            @click="bancoSeleccionado = 'banco-familiar'">
+                                            <v-img src='../assets/images/bancos/banco-familiar.jpg' />
                                         </div>
                                     </v-col>
                                     <v-col cols="12" md="4">
@@ -39,9 +39,9 @@
                                         </div>
                                     </v-col>
                                     <v-col cols="12" md="4">
-                                        <div :class="bancoSeleccionado === 'banco-santander' ? 'seleccionado' : 'logobanco'"
-                                            @click="bancoSeleccionado = 'banco-santander'">
-                                            <v-img src='../assets/images/bancos/banco-santander.jpg' />
+                                        <div :class="bancoSeleccionado === 'banco-sudameris' ? 'seleccionado' : 'logobanco'"
+                                            @click="bancoSeleccionado = 'banco-sudameris'">
+                                            <v-img src='../assets/images/bancos/banco-sudameris.jpg' />
                                         </div>
                                     </v-col>
                                     <v-col cols="12" md="4">
@@ -51,9 +51,9 @@
                                         </div>
                                     </v-col>
                                     <v-col cols="12" md="4">
-                                        <div :class="bancoSeleccionado === 'banco-citybank' ? 'seleccionado' : 'logobanco'"
-                                            @click="bancoSeleccionado = 'banco-citybank'">
-                                            <v-img src='../assets/images/bancos/banco-citybank.jpg' />
+                                        <div :class="bancoSeleccionado === 'banco-bnf' ? 'seleccionado' : 'logobanco'"
+                                            @click="bancoSeleccionado = 'banco-bnf'">
+                                            <v-img src='../assets/images/bancos/banco-bnf.jpg' />
                                         </div>
                                     </v-col>
                                 </v-row>
