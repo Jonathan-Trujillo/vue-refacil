@@ -105,7 +105,7 @@
     color: #2D2D8D !important;
     text-transform: none !important;
     letter-spacing: normal;
-    padding: 18px !important;
+    padding: 15px !important;
     font-size: 18px;
     border-radius:8px !important;
     --v-btn-height: 0 !important;
@@ -144,9 +144,18 @@
     border-radius:8px !important;
     cursor:pointer;
   }
-  .btn-seccion-principal:hover{
+  .btn-seccion-principal:hover, .btn-seccion-principal:hover .color-svg{
     color:#fff !important;
+    fill:#fff;
     background: linear-gradient(90deg, #48ADFF -4.8%, #7661FE 47.6%, #9331FF 100%);
+  }
+  .btn-seccion-principal-seleccionada{
+    font-size: 18px;
+    border-radius:8px !important;
+    cursor:pointer;
+    
+    color:#fff !important;
+    background: linear-gradient(90deg, #48ADFF -4.8%, #7661FE 47.6%, #9331FF 100%) !important;
   }
 
   .seleccionado{

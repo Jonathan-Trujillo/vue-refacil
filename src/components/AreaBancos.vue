@@ -11,12 +11,12 @@
                         
                     </v-col>
                     <v-col cols="12"><hr style="opacity:0.2"></v-col>
+
+                    <v-col cols="12" class="pa-0" v-if="seleccionar_banco">
+
                     <v-col cols="12" class="pa-0" v-if="esperando_proceso">
                         <h style="color:#2D2D8D;font-size:18px">{{tab === 3 ? 'Elegí el monto que desea retirar' : 'Elegí una uno de los bancos para operar:'}}</h>
                     </v-col>
-
-                    <v-col cols="12" class="pa-0">
-
                         <v-window v-model="tab" class="my-4">
                             <v-window-item>
                                 <v-row class="ma-0 pt-2">
@@ -106,138 +106,48 @@
                                     </v-col>
                                 </v-row>
                             </v-window-item>
-
-                            <v-window-item>
-                                <v-row class="ma-0 pt-2">
-                                    <v-col cols="12" md="4">
-                                        <div class="d-flex align-center justify-center"
-                                            :class="tipoSeleccionado === 1 ? 'seleccionado' : 'logobanco'"
-                                            @click="tipoSeleccionado = 1">
-                                            Boleta de Extracción
-                                        </div>
-                                    </v-col>
-                                    <v-col cols="12" md="4">
-                                        <div class="d-flex align-center justify-center"
-                                            :class="tipoSeleccionado === 2 ? 'seleccionado' : 'logobanco'"
-                                            @click="tipoSeleccionado = 2">
-                                            QR
-                                        </div>
-                                    </v-col>
-                                    <v-col cols="12">
-                                        <v-col class="d-flex align-center">
-                                            <h style="color:#2D2D8D" class="pb-6">Moneda:</h>
-                                            <v-radio-group v-model="moneda" inline dense>
-                                                <v-radio label="Guaraníes" value="guaranies"></v-radio>
-                                                <v-radio label="Dólares" value="dolares"></v-radio>
-                                            </v-radio-group>
-                                        </v-col>
-                                    </v-col>
-                                </v-row>
-                            </v-window-item>
-
-                            <v-window-item>
-                                <v-row class="ma-0 pt-2">
-                                    <v-col cols="12" md="6" class="cantidad">
-                                        <v-text-field v-model.number="cantidad"  prefix="₲"  hint="Sólo podés ingresar múltiplos de 100"/>
-                                        <v-col cols="12" class="px-0">
-                                            <v-btn class="btn-add-divisa" variant="outlined" @click="generar_qr()">Generar QR</v-btn>
-                                        </v-col>
-                                    </v-col>
-                                    <v-col cols="12" md="6" v-if="codigo_generado">
-                                        <v-col cols="12" class="d-flex justify-end">
-                                            <v-img style="max-width: 300px !important; height:auto" src="../assets/images/qr.svg" @click="proceso_espera()"/>
-                                       </v-col>
-                                       <v-col cols="12" class="d-flex justify-end">
-                                         <v-btn style="text-transform:none;letter-spacing:0;color:#2D2D8D;font-size: 18px;" variant="text" @click="image_zoom = true">Ampliar</v-btn>
-                                        </v-col>
-                                    </v-col>
-                                </v-row>
-                            </v-window-item>
-
-                            <v-window-item>
-                                <v-row class="ma-0 pt-2">
-                    
-                                    <v-col class="pa-5 d-flex align-center justify-center">
-                                        <v-img style="max-width: 55% !important;" src="../assets/images/loading.png" @click="proceso_exitoso()"/>
-                                    </v-col>
-                                </v-row>
-                            </v-window-item>
-
-
-                            <v-window-item>
-                                <v-row class="ma-0 pt-2">
-                    
-                                    <v-col cols="5" class="pa-5 d-flex align-center justify-center">
-                                        <v-img style="max-width: 100% !important;" src="../assets/images/check2.svg" @click="proceso_exitoso()"/>
-                                    </v-col>
-
-                                    <v-col cols="7" class="pa-5 d-flex align-center justify-center">
-                                        <v-row>
-                                            <v-col cols="12">
-                                                <h style="color:#2D2D8D; font-size:22px">El retiro por <strong>{{ cantidad }}</strong> de la cuenta No. <strong>{{ no_cuenta }}</strong> ha sido realizado exitosamente en el banco <strong>{{ banco_elegido }}</strong></h>
-                                            </v-col>
-                                            <v-col cols="12">
-                                                <p style="color:#2D2D8D">¿Comó queres el comprobante?</p>
-                                                <v-col class="px-0 d-flex justify-space-between" style="gap:10px">
-                                                    <v-btn class="btn-add-divisa" variant="outlined"> <v-icon></v-icon> Impreso</v-btn>
-                                                    <v-btn class="btn-add-divisa" variant="outlined"> <v-icon></v-icon> Correo electrónico</v-btn>
-
-                                                </v-col>
-                                            </v-col>
-                                        </v-row>
-                                    </v-col>
-                                </v-row>
-                            </v-window-item>
-
                         </v-window>
-
-
-
-
-
-
-
-
-
-
-                        <v-tabs style="height: auto !important" hide-slider>
+                        <v-tabs hide-slider style="height:55px">
 
                             <v-col
-                                :class="tab === 0 || exito_proceso ? 'pb-0 d-flex justify-end align-center' : 'pb-0 d-flex justify-space-between align-center'">
+                                :class="tab === 0 || exito_proceso ? 'd-flex justify-end align-center' : 'd-flex justify-space-between align-center'">
                                 <v-tab style="text-transform:none;letter-spacing:0;color:#2D2D8D;font-size: 18px;"
-                                    @click="tab = tab - 1" v-if="tab != 0 && this.esperando_proceso">
+                                    @click="volver_proceso()" v-if="tab != 0 && this.esperando_proceso">
                                     <v-icon>
                                         mdi-chevron-left
                                     </v-icon> Volver
                                 </v-tab>
 
-                                <v-tab class="btn-add-divisa" variant="outlined" @click="exito_proceso ? finalizar_proceso() : continuar()"
-                                    v-if="tab < 3 || exito_proceso">{{ exito_proceso ? 'Finalizar' : 'Continuar' }}</v-tab>
+                                <v-tab :disabled="deshablitar_boton" class="btn-add-divisa" variant="outlined" @click="exito_proceso ? finalizar_proceso() : continuar()"
+                                    v-if="tab < 9 || exito_proceso">{{ exito_proceso ? 'Finalizar' : 'Siguiente' }}</v-tab>
 
                             </v-col>
 
                         </v-tabs>
 
                     </v-col>
+                    <v-col cols="12" class="pa-0">
+                        <extraccion_efectivo v-if="ver_extraccion" @volver="ver_extraccion = false, seleccionar_banco = true" @finalizo_proceso="$emit('finalizo_proceso',0)"/>
+                    </v-col>
                 </v-row>
             </v-col>
-            <v-dialog v-model="image_zoom" width="50%">
-                <v-col class="d-flex justify-center">
-                    <v-img style="max-width: 100% !important; height:auto" src="../assets/images/qr.svg"/>
-           
-                </v-col>
-                </v-dialog>
         </v-row>
     </v-card>
 </template>
 
 
 <script>
+import extraccion_efectivo from './opciones/ExtraccionEfectivo.vue'
 
 export default {
+    components:{
+        extraccion_efectivo
+    },
     data: () => ({
         tab: null,
-
+        
+        seleccionar_banco: true,
+        deshablitar_boton: true,
         bancoSeleccionado: null,
         opcionSeleccionada: [
                                 'Pago Préstamo',
@@ -248,8 +158,13 @@ export default {
                                 'Pago Tarjeta con Cédula'
                             ],
         tipoSeleccionado: null,
+    // ************   RADIO BUTON'S   ************
         moneda: null,
+        tipo_cuenta: null,
+
+
         eleccion: null,
+        eleccion_monto: null,
         cantidad: 0,
         no_cuenta: 7053459203,
         banco_elegido: 'BBVA',
@@ -257,6 +172,10 @@ export default {
         codigo_generado: false,
         esperando_proceso: true,
         exito_proceso: false,
+
+        ver_extraccion: false,
+
+        no_boleta: null,
     }),
     computed: {
         banco_seleccionado() {
@@ -264,17 +183,51 @@ export default {
         },
         opcion_seleccionada(){
             return this.opcionSeleccionada[this.eleccion]
-        }
+        },
     },
+    watch: {
+        bancoSeleccionado(){
+            if(this.bancoSeleccionado != null){
+                this.deshablitar_boton = false
+            }
+        },
+        eleccion(){
+            if(this.eleccion != null){
+                this.deshablitar_boton = false
+            }
+        }
+
+    }, 
     methods: {
         continuar(){
+            if(this.eleccion === null){this.deshablitar_boton = true}
             if(this.tab === 0){
                 if(this.bancoSeleccionado === null){ this.mensaje_seleccionar_banco()}else{this.tab = this.tab+1}
-            }else if(this.tab === 1){
-                if( this.eleccion === null){ this.mensaje_seleccionar_opcion()}else{this.tab = this.tab+1}
-            }else if(this.tab === 2){
-                if( this.tipoSeleccionado === null){ this.mensaje_seleccionar_tipo()}else{this.tab = this.tab+1}
             }
+            else if(this.tab === 1){
+                if( this.eleccion === null){ this.mensaje_seleccionar_opcion()}else{
+                    if(this.eleccion === 2){
+                        this.ver_extraccion = true
+                        this.seleccionar_banco = false
+                    }
+                }
+            }
+            else if(this.tab === 2){
+                if( this.tipoSeleccionado === null){ this.mensaje_seleccionar_tipo()}else{
+                    if(this.tipoSeleccionado === 1){this.tab = 3}
+                    if(this.tipoSeleccionado === 2){this.tab = this.tab+2}
+                }
+            }
+            else if(this.tab === 3){ this.tab = 4} else if(this.tab === 4){ this.tab = 6}
+            
+
+            
+        },
+        volver_proceso(){
+            if(this.tab === 1){
+                this.tab = this.tab - 1
+            }
+            else if (this.ver_extraccion){this.ver_extraccion}
         },
         mensaje_seleccionar_banco(){
             alert('Debes seleccionar un banco')
