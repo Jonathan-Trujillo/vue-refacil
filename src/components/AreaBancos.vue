@@ -15,7 +15,7 @@
                     <v-col cols="12" class="pa-0" v-if="seleccionar_banco">
 
                     <v-col cols="12" class="pa-0" v-if="esperando_proceso">
-                        <h style="color:#2D2D8D;font-size:18px">{{tab === 3 ? 'Elegí el monto que desea retirar' : 'Elegí una uno de los bancos para operar:'}}</h>
+                        <h style="color:#2D2D8D;font-size:18px">{{tab === 0 ? 'Elegí uno de los bancos para operar' : 'Elegí la opción con la que deseas continuar:'}}</h>
                     </v-col>
                         <v-window v-model="tab" class="my-4">
                             <v-window-item>
@@ -128,6 +128,7 @@
                     </v-col>
                     <v-col cols="12" class="pa-0">
                         <pago_prestamos v-if="ver_pago_prestamos" @volver="ver_pago_prestamos = false, seleccionar_banco = true" @finalizo_proceso="$emit('finalizo_proceso',0)"/>
+                        <depositos_en_efectivo v-if="ver_depositos_en_efectivo" @volver="ver_depositos_en_efectivo = false, seleccionar_banco = true" @finalizo_proceso="$emit('finalizo_proceso',0)"/>
                         <extraccion_efectivo v-if="ver_extraccion" @volver="ver_extraccion = false, seleccionar_banco = true" @finalizo_proceso="$emit('finalizo_proceso',0)"/>
                         <pago_tarjeta v-if="ver_pago_tarjeta" @volver="ver_pago_tarjeta = false, seleccionar_banco = true" @finalizo_proceso="$emit('finalizo_proceso',0)"/>
                     </v-col>
@@ -140,12 +141,14 @@
 
 <script>
 import pago_prestamos from './opciones/PagoPrestamos.vue'
+import depositos_en_efectivo from './opciones/DepositosEnEfectivo.vue'
 import extraccion_efectivo from './opciones/ExtraccionEfectivo.vue'
 import pago_tarjeta from './opciones/PagoTarjetaConCedula.vue'
 
 export default {
     components:{
         pago_prestamos,
+        depositos_en_efectivo,
         extraccion_efectivo,
         pago_tarjeta
     },
@@ -180,6 +183,7 @@ export default {
         exito_proceso: false,
 
         ver_pago_prestamos: false,
+        ver_depositos_en_efectivo: false,
         ver_extraccion: false,
         ver_pago_tarjeta: false,
 
@@ -224,7 +228,7 @@ export default {
             
             /*************   Cuando se elija "Depósito en Efectivo"   *************/
                     else if(this.eleccion === 1){
-                        this.ver_extraccion = true
+                        this.ver_depositos_en_efectivo = true
                         this.seleccionar_banco = false
                     }
                 
@@ -261,7 +265,6 @@ export default {
             if(this.tab === 1){
                 this.tab = this.tab - 1
             }
-            else if (this.ver_extraccion){this.ver_extraccion}
         },
         mensaje_seleccionar_banco(){
             alert('Debes seleccionar un banco')

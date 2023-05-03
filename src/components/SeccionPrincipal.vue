@@ -41,7 +41,7 @@
                 Cambios
             </v-card>
         </v-col>
-        <v-col cols="12" md="9" class="px-3">
+        <v-col cols="12" md="9" class="px-0 pl-3">
 
             <v-card v-if="ninguna_area_seleccionada">
                 <v-row>

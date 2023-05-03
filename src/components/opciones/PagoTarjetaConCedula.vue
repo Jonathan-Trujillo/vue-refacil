@@ -36,27 +36,35 @@
                 </v-window-item>
 
                 <v-window-item>
-                    <v-row class="ma-0 pt-2 flex-column" style="color:#2D2D8D;">
-                        <v-col cols="12" md="6" class="pa-6" style="background: #E1F2FF;border-radius: 8px ;">
+                    <v-row class="ma-0 pt-2" style="color:#2D2D8D;">
+                        <v-col cols="12" md="6" class="pa-0">
+                            <v-col cols="12" class="pa-6" style="background: #E1F2FF;border-radius: 8px ;">
                             <v-col cols="12" class="pa-0 d-flex align-center">
-                                <span class="mr-2">Nombre y Apellido: </span>
+                                <h class="mr-2">Nombre y Apellido: </h>
                                 <strong>Alejandro Rodriguez Gomez</strong>
                             </v-col>
                             
                             <v-col cols="12" class="pa-0 d-flex align-center">
-                                <span class="mr-2">Número de Documento: </span>
+                                <h class="mr-2">Número de Documento: </h>
                                 <strong>42.540.092</strong>
                             </v-col>
                             
                             <v-col cols="12" class="pa-0 d-flex align-center">
-                                <span class="mr-2">Pago Minimo: </span>
+                                <h class="mr-2">Pago Minimo: </h>
                                 <strong>₲ 1.000.000</strong>
                             </v-col>
                             
+                            </v-col>
+                            <v-col cols="12" class="mt-6 pa-0 d-flex align-center divisas">
+                                <spam class="mr-4 pb-4">Monto a Pagar: </spam>
+                                <v-text-field v-model="no_boleta" :rules="validar_formulario" variant="outlined" dense />
+                            </v-col>
                         </v-col>
-                        <v-col cols="12" md="6" class="mt-6 pa-0 d-flex align-center divisas">
-                            <spam class="mr-4 pb-4">Monto a Pagar: </spam>
-                            <v-text-field v-model="no_boleta" :rules="validar_formulario" variant="outlined" dense />
+                        <v-col cols="12" md="6">
+                            <v-col cols="12" class="pa-0 d-flex flex-column align-end">
+                                <h>Número de Tarjeta</h>
+                                <strong>20983710173632</strong>
+                            </v-col>
                         </v-col>
                     </v-row>
                 </v-window-item>
@@ -115,8 +123,8 @@
                         <v-col cols="7" class="pa-5 d-flex align-center justify-center">
                             <v-row>
                                 <v-col cols="12">
-                                    <h style="color:#2D2D8D; font-size:22px">El retiro por <strong>{{ cantidad }}</strong>
-                                        de la cuenta No. <strong>{{ no_cuenta }}</strong> ha sido realizado exitosamente en
+                                    <h style="color:#2D2D8D; font-size:22px">El pago por <strong>{{ cantidad }}</strong>
+                                        de la tarjeta No. <strong>{{ no_cuenta }}</strong> ha sido realizado exitosamente en
                                         el banco <strong>{{ banco_elegido }}</strong></h>
                                 </v-col>
                                 <v-col cols="12">
@@ -162,9 +170,6 @@
 </template>
 
 <script>
-import { h } from 'vue'
-
-
 export default {
     data: () => ({
         validar_formulario: [
@@ -247,6 +252,5 @@ export default {
             this.$emit("finalizo_proceso", 0);
         },
     },
-    components: { h }
 }
 </script>

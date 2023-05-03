@@ -1,62 +1,25 @@
 <template>
     <v-row>
         <v-col>
-            <v-col cols="12" class="pa-0" v-if="tab_extraccion != 'proceso_exitoso' && tab_extraccion != 'finalizar_proceso'">
-                <h style="color:#2D2D8D;font-size:18px">{{ tab_extraccion === 'opcion_qr' ? 'Elegí el monto que desear retirar:' : tab_extraccion === 'boleta' ? 'Ingresá la siguiente información' : 'Elegí la opción con la que deseas continuar:'}}</h>
+            <v-col cols="12" class="pa-0" v-if="tab_deposito_efectivo != 'proceso_exitoso' && tab_deposito_efectivo != 'finalizar_proceso'">
+                <h style="color:#2D2D8D;font-size:18px">{{ tab_deposito_efectivo === 0 ? 'Ingresá la siguiente información:' : 'Elegí el monto que deseas depositar'}}</h>
             </v-col>
 
-            <v-window v-model="tab_extraccion">
-                <v-window-item>
-                    <v-row class="ma-0 pt-2">
-                        <v-col cols="12" md="4">
-                            <div class="d-flex align-center justify-center"
-                                :class="tipoSeleccionado === 1 ? 'seleccionado' : 'logobanco'"
-                                @click="tipoSeleccionado = 1">
-                                Boleta de Extracción
-                            </div>
-                        </v-col>
-                        <v-col cols="12" md="4">
-                            <div class="d-flex align-center justify-center"
-                                :class="tipoSeleccionado === 2 ? 'seleccionado' : 'logobanco'"
-                                @click="tipoSeleccionado = 2">
-                                QR
-                            </div>
-                        </v-col>
-                        <v-col cols="12">
-                            <v-col class="d-flex align-center">
-                                <h style="color:#2D2D8D" class="pb-6">Moneda:</h>
-                                <v-radio-group v-model="moneda" inline dense>
-                                    <v-radio label="Guaraníes" value="guaranies"></v-radio>
-                                    <v-radio label="Dólares" value="dolares"></v-radio>
-                                </v-radio-group>
-                            </v-col>
-                        </v-col>
-                    </v-row>
-                </v-window-item>
+            <v-window v-model="tab_deposito_efectivo">
 
-                <v-window-item value="boleta">
+                <v-window-item>
                     <v-form ref="form">
                         <v-row class="ma-0 pt-2 divisas">
                             <v-col cols="12" md="8" style="color:#2D2D8D">
 
                                 <v-col cols="12" class="pa-0 d-flex align-center">
-                                    <strong class="mr-4 pb-4">Número de boleta de extracción: </strong>
+                                    <strong class="mr-4 pb-4">Número de boleta: </strong>
                                     <v-text-field v-model="no_boleta" :rules="validar_formulario" variant="outlined" dense />
                                 </v-col>
 
                                 <v-col cols="12" class="pa-0 d-flex align-center">
                                     <strong class="mr-4 pb-4">Número de cuenta bancaria: </strong>
-                                    <v-text-field v-model="no_cuenta" :rules="validar_formulario" variant="outlined" dense />
-                                </v-col>
-
-                                <v-col cols="12" class="pa-0 d-flex align-center">
-                                    <strong class="mr-4 pb-4">Nombre y apellido titular: </strong>
-                                    <v-text-field v-model="nombre_titular" :rules="validar_formulario" variant="outlined" dense />
-                                </v-col>
-
-                                <v-col cols="12" class="pa-0 d-flex align-center">
-                                    <strong class="mr-4 pb-4">Documento IDE: </strong>
-                                    <v-text-field v-model="documento_ide" :rules="validar_formulario" variant="outlined" dense />
+                                    <v-select v-model="no_cuenta" :rules="validar_formulario" variant="outlined" dense />
                                 </v-col>
 
                                 <v-col cols="12" class="pa-0">
@@ -68,6 +31,22 @@
                                         </v-radio-group>
                                     </v-col>
                                 </v-col>
+
+                                <v-col cols="12" class="pa-0 d-flex align-center">
+                                    <strong class="mr-4 pb-4">Número de cédula depositante: </strong>
+                                    <v-text-field v-model="nombre_titular" :rules="validar_formulario" variant="outlined" dense />
+                                </v-col>
+                                
+                                <v-col cols="12" class="pa-0">
+                                    <v-col class="pa-0 d-flex align-center">
+                                        <h style="color:#2D2D8D" class="pb-6">Moneda:</h>
+                                        <v-radio-group v-model="tipo_cuenta" inline dense>
+                                            <v-radio label="Guaraniés" value="guaranies"></v-radio>
+                                            <v-radio label="Dólares" value="dolares"></v-radio>
+                                        </v-radio-group>
+                                    </v-col>
+                                </v-col>
+
 
                             </v-col>
                         </v-row>
@@ -125,28 +104,6 @@
                     </v-row>
                 </v-window-item>
 
-                <v-window-item value="opcion_qr">
-                    <v-row class="ma-0 pt-2">
-                        <v-col cols="12" md="6" class="cantidad">
-                            <v-text-field v-model.number="cantidad" prefix="₲"
-                                hint="Sólo podés ingresar múltiplos de 100" />
-                            <v-col cols="12" class="px-0">
-                                <v-btn class="btn-add-divisa" variant="outlined" @click="generar_qr()">Generar QR</v-btn>
-                            </v-col>
-                        </v-col>
-                        <v-col cols="12" md="6" v-if="codigo_generado">
-                            <v-col cols="12" class="d-flex justify-end">
-                                <v-img style="max-width: 300px !important; height:auto" src="../../assets/images/qr.svg"
-                                    @click="proceso_espera()" />
-                            </v-col>
-                            <v-col cols="12" class="d-flex justify-end">
-                                <v-btn style="text-transform:none;letter-spacing:0;color:#2D2D8D;font-size: 18px;"
-                                    variant="text" @click="image_zoom = true">Ampliar</v-btn>
-                            </v-col>
-                        </v-col>
-                    </v-row>
-                </v-window-item>
-
                 <v-window-item value="proceso_exitoso">
                     <v-row class="ma-0 pt-2">
 
@@ -169,7 +126,7 @@
                         <v-col cols="7" class="pa-5 d-flex align-center justify-center">
                             <v-row>
                                 <v-col cols="12">
-                                    <h style="color:#2D2D8D; font-size:22px">El retiro por <strong>{{ cantidad }}</strong>
+                                    <h style="color:#2D2D8D; font-size:22px">El deposito por <strong>{{ cantidad }}</strong>
                                         de la cuenta No. <strong>{{ no_cuenta }}</strong> ha sido realizado exitosamente en
                                         el banco <strong>{{ banco_elegido }}</strong></h>
                                 </v-col>
@@ -188,9 +145,9 @@
                 </v-window-item>
             </v-window>
 
-            <v-tabs hide-slider style="height:55px" v-if="tab_extraccion != 'proceso_exitoso'">
+            <v-tabs hide-slider style="height:55px" v-if="tab_deposito_efectivo != 'proceso_exitoso'">
 
-                <v-col :class="tab_extraccion != 'finalizar_proceso' ? 'd-flex justify-space-between align-center' : 'd-flex justify-end align-center' ">
+                <v-col :class="tab_deposito_efectivo != 'finalizar_proceso' ? 'd-flex justify-space-between align-center' : 'd-flex justify-end align-center' ">
                     <v-tab style="text-transform:none;letter-spacing:0;color:#2D2D8D;font-size: 18px;"
                         @click="volver_proceso()" v-if="!exito_proceso">
                         <v-icon>
@@ -198,7 +155,7 @@
                         </v-icon> Volver
                     </v-tab>
 
-                    <v-tab :disabled="deshabilitar_boton" class="btn-add-divisa" variant="outlined" v-if="tab_extraccion != 'opcion_qr'"
+                    <v-tab :disabled="tab_deposito_efectivo === 'elegir_monto' ? deshabilitar_boton : false" class="btn-add-divisa" variant="outlined" v-if="tab_deposito_efectivo != 'opcion_qr'"
                         @click="exito_proceso ? finalizar_proceso() : continuar()">{{
                             exito_proceso ? 'Finalizar' : 'Siguiente' }}</v-tab>
 
@@ -224,19 +181,9 @@ export default {
         validar_formulario: [
                       v => !!v || ""
                     ],
-        tab_extraccion: null,
-
-        bancoSeleccionado: null,
+        tab_deposito_efectivo: null,
         deshabilitar_boton: true,
-        opcionSeleccionada: [
-            'Pago Préstamo',
-            'Depósito en Efectivo',
-            'Extracciones en Efectivo',
-            'Opercaión con Cheques',
-            'Operación CDA',
-            'Pago Tarjeta con Cédula'
-        ],
-        tipoSeleccionado: null,
+        bancoSeleccionado: null,
         // ************   RADIO BUTON'S   ************
         moneda: null,
         tipo_cuenta: null,
@@ -265,54 +212,37 @@ export default {
         }
     },
     watch: {
-        tipoSeleccionado(){
-            if(this.tipoSeleccionado != null)
+        eleccion_monto(){
+            if(this.eleccion_monto != null)
             this.deshabilitar_boton = false
         },
     },
     methods: {
         continuar() {
-            // if(this.eleccion_monto === null){this.deshabilitar_boton = true}
-            if (this.tab_extraccion === 0) {
-                if (this.tipoSeleccionado === null) { this.mensaje_seleccionar_tipo() } else {
-                    if (this.tipoSeleccionado === 1) { this.tab_extraccion = 3 }
-                    if (this.tipoSeleccionado === 2) { this.tab_extraccion = this.tab_extraccion + 2 }
-                }
-                if (this.tipoSeleccionado === 1) {
-                    this.tab_extraccion = 'boleta'
-                }
-                else if (this.tipoSeleccionado === 2) {
-                    this.tab_extraccion = 'opcion_qr'
-                }
+            if (this.tab_deposito_efectivo === 0) {
+                this.tab_deposito_efectivo = 'elegir_monto'
             }
-            else if (this.tab_extraccion === 'boleta') {
-                this.tab_extraccion = 'elegir_monto'
-            } else if (this.tab_extraccion === 'elegir_monto') {
+            else if (this.tab_deposito_efectivo === 'elegir_monto') {
                 if(this.eleccion_monto === 5){
-                this.tab_extraccion = 'otro_monto'
-            }else{
-                this.tab_extraccion = 'proceso_exitoso'
-
+                    this.tab_deposito_efectivo = 'otro_monto'
+                }else{
+                    this.tab_deposito_efectivo = 'proceso_exitoso'
                 }
-            }
-            else if (this.tab_extraccion === 'otro_monto'){
-                this.tab_extraccion = 'proceso_exitoso'
-
+                
             }
 
+                else if(this.tab_deposito_efectivo === 'otro_monto'){
+                    this.tab_deposito_efectivo = 'finalizar_proceso'
+                    this.exito_proceso = true
+                }
 
         },
         volver_proceso() {
-            if (this.tab_extraccion === 0) {
+            if (this.tab_deposito_efectivo === 0) {
                 this.$emit('volver', 0)
-            } else if (this.tab_extraccion === 'boleta') {
-                this.tab_extraccion = 0
-            } else if (this.tab_extraccion === 'elegir_monto') {
-                this.tab_extraccion = 'boleta'
             }
-
-            else if (this.tab_extraccion === 'opcion_qr') {
-                this.tab_extraccion = 0
+            else if (this.tab_deposito_efectivo === 'elegir_monto') {
+                this.tab_deposito_efectivo = 0
             }
         },
         mensaje_seleccionar_banco() {
@@ -328,11 +258,11 @@ export default {
             this.codigo_generado = true
         },
         proceso_espera() {
-            this.tab_extraccion = 'proceso_exitoso'
+            this.tab_deposito_efectivo = 'proceso_exitoso'
             this.esperando_proceso = false
         },
         proceso_exitoso() {
-            this.tab_extraccion = 'finalizar_proceso'
+            this.tab_deposito_efectivo = 'finalizar_proceso'
             this.exito_proceso = true
         },
         finalizar_proceso() {

@@ -95,9 +95,9 @@
                         <v-col cols="7" class="pa-5 d-flex align-center justify-center">
                             <v-row>
                                 <v-col cols="12">
-                                    <h style="color:#2D2D8D; font-size:22px">El retiro por <strong>{{ cantidad }}</strong>
-                                        de la cuenta No. <strong>{{ no_cuenta }}</strong> ha sido realizado exitosamente en
-                                        el banco <strong>{{ banco_elegido }}</strong></h>
+                                    <spa style="color:#2D2D8D; font-size:22px">El pago por <strong>{{ cantidad }}</strong>
+                                        del préstamo No. <strong>{{ no_cuenta }}</strong> ha sido realizado exitosamente en
+                                        el banco <strong>{{ banco_elegido }}</strong></spa>
                                 </v-col>
                                 <v-col cols="12">
                                     <p style="color:#2D2D8D">¿Comó queres el comprobante?</p>
@@ -136,9 +136,6 @@
 </template>
 
 <script>
-import { h } from 'vue'
-
-
 export default {
     data: () => ({
         validar_formulario: [
@@ -150,8 +147,9 @@ export default {
         tipo_cuenta: null,
 
         cantidad: 0,
+        banco_elegido: 'BBVA',
         exito_proceso: false,
-        no_cuenta: "",
+        no_cuenta: 7053459203,
         no_boleta: "",
         nombre_titular: "",
         documento_ide: "",
@@ -179,6 +177,5 @@ export default {
             this.$emit("finalizo_proceso", 0);
         },
     },
-    components: { h }
 }
 </script>

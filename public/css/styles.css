@@ -102,7 +102,7 @@
     border-radius:5px;
     border:rgba(0,0,0,0) 0px !important;
     min-height: 40px !important;
-    padding: 0 !important;
+    padding: 0 15px !important;
   }
 
   .btn-add-divisa{
