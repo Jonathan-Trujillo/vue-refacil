@@ -2,6 +2,8 @@
 .navegation-bar{
     height:90px;
     background: linear-gradient(90deg, #48ADFF -4.8%, #7661FE 47.6%, #9331FF 100%);
+    z-index: 9999;
+    position: fixed;
 }
 .link-nav{
   color:#fff !important;
@@ -95,10 +97,12 @@
     color: #2D2D8D!important;
   }
 
-  .divisas .v-text-field input, .divisas .v-select .v-field.v-field{
+  .divisas .v-field__input, .divisas .v-select .v-field.v-field{
     background:#f1f1f1;
     border-radius:5px;
     border:rgba(0,0,0,0) 0px !important;
+    min-height: 40px !important;
+    padding: 0 !important;
   }
 
   .btn-add-divisa{

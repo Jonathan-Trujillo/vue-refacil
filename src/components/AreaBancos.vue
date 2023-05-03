@@ -127,7 +127,9 @@
 
                     </v-col>
                     <v-col cols="12" class="pa-0">
+                        <pago_prestamos v-if="ver_pago_prestamos" @volver="ver_pago_prestamos = false, seleccionar_banco = true" @finalizo_proceso="$emit('finalizo_proceso',0)"/>
                         <extraccion_efectivo v-if="ver_extraccion" @volver="ver_extraccion = false, seleccionar_banco = true" @finalizo_proceso="$emit('finalizo_proceso',0)"/>
+                        <pago_tarjeta v-if="ver_pago_tarjeta" @volver="ver_pago_tarjeta = false, seleccionar_banco = true" @finalizo_proceso="$emit('finalizo_proceso',0)"/>
                     </v-col>
                 </v-row>
             </v-col>
@@ -137,11 +139,15 @@
 
 
 <script>
+import pago_prestamos from './opciones/PagoPrestamos.vue'
 import extraccion_efectivo from './opciones/ExtraccionEfectivo.vue'
+import pago_tarjeta from './opciones/PagoTarjetaConCedula.vue'
 
 export default {
     components:{
-        extraccion_efectivo
+        pago_prestamos,
+        extraccion_efectivo,
+        pago_tarjeta
     },
     data: () => ({
         tab: null,
@@ -173,7 +179,9 @@ export default {
         esperando_proceso: true,
         exito_proceso: false,
 
+        ver_pago_prestamos: false,
         ver_extraccion: false,
+        ver_pago_tarjeta: false,
 
         no_boleta: null,
     }),
@@ -204,14 +212,40 @@ export default {
             if(this.tab === 0){
                 if(this.bancoSeleccionado === null){ this.mensaje_seleccionar_banco()}else{this.tab = this.tab+1}
             }
+
             else if(this.tab === 1){
-                if( this.eleccion === null){ this.mensaje_seleccionar_opcion()}else{
-                    if(this.eleccion === 2){
+                if( this.eleccion === null){ this.mensaje_seleccionar_opcion()}
+                
+            /*************   Cuando se elija "Pago Préstamo"   *************/
+                 if(this.eleccion === 0){
+                        this.ver_pago_prestamos = true
+                        this.seleccionar_banco = false
+                    }
+            
+            /*************   Cuando se elija "Depósito en Efectivo"   *************/
+                    else if(this.eleccion === 1){
                         this.ver_extraccion = true
                         this.seleccionar_banco = false
                     }
-                }
+                
+            
+            /*************   Cuando se elija "Extracción de Efectivo"   *************/
+                else if(this.eleccion === 2){
+                        this.ver_extraccion = true
+                        this.seleccionar_banco = false
+                    }
+            
+            /*************   Cuando se elija "Pago Tarjeta con Cédula"   *************/
+                    else if(this.eleccion === 5){
+                        this.ver_pago_tarjeta = true
+                        this.seleccionar_banco = false
+                    }
+                
             }
+        
+
+
+            
             else if(this.tab === 2){
                 if( this.tipoSeleccionado === null){ this.mensaje_seleccionar_tipo()}else{
                     if(this.tipoSeleccionado === 1){this.tab = 3}

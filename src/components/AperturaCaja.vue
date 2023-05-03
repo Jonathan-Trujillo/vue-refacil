@@ -1,6 +1,6 @@
 <template>
-    <v-row>
-        <v-col cols="12">
+    <v-row class="ma-0 pt-5" dense>
+        <v-col cols="12" class="pa-0">
             <v-card class="d-flex align-center">
                 <v-row class="ma-0 pa-0" dense>
                     <v-col cols="12" md="8" class="pa-0">

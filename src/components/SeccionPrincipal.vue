@@ -1,5 +1,5 @@
 <template>
-    <v-row>
+    <v-row class="ma-0 pt-4" dense>
         <v-col cols="12" md="3">
             <v-card :class="ver_bancos === true ? 'btn-seccion-principal-seleccionada' : 'btn-seccion-principal'" class="mb-3 pa-6 d-flex align-center btn-seccion-principal" style="height: 100px"
                 @click="mostrar_bancos()">
@@ -41,7 +41,7 @@
                 Cambios
             </v-card>
         </v-col>
-        <v-col cols="12" md="9">
+        <v-col cols="12" md="9" class="px-3">
 
             <v-card v-if="ninguna_area_seleccionada">
                 <v-row>

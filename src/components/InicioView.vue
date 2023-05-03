@@ -10,9 +10,9 @@
             </div>
         </v-col>
 
-        <v-col cols="12" md="7">
+        <v-col cols="12" md="7" class="pa-0">
             <v-card >
-            <v-row class="ma-0">
+            <v-row class="ma-0" dense>
                 <v-col cols="12" class="px-8 py-0 header-tabla d-flex justify-space-between align-center">
                 Saldos
                 <h>{{ fechaHoraFormateada }}</h>
