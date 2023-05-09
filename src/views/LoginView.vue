@@ -22,7 +22,8 @@
               </template>
             </v-text-field>
 
-            <v-text-field variant="solo" label="Contraseña">
+            <v-text-field v-model="password" variant="solo" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'" :rules="[rules.required, rules.min]"
+              :type="show1 ? 'text' : 'password'" name="input-10-1" label="Contraseña" @click:append="show1 = !show1">
               <template #prepend-inner>
                 <v-icon class="custom-icon">mdi-lock-open-outline</v-icon>
               </template>
@@ -70,6 +71,13 @@
 <script>
 export default {
   data: () => ({
+    show1: false,
+    password: '',
+    rules: {
+      required: value => !!value || 'Required.',
+      // emailMatch: () => (`The email and password you entered don't match`),
+    },
+    
     login: true,
     restablecer: false,
     btn_volver: false,

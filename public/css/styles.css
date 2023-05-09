@@ -97,12 +97,20 @@
     color: #2D2D8D!important;
   }
 
-  .divisas .v-field__input, .divisas .v-select .v-field.v-field{
+  .divisas .v-field__input, .divisas .v-field.v-field{
     background:#f1f1f1;
     border-radius:5px;
     border:rgba(0,0,0,0) 0px !important;
     min-height: 40px !important;
-    padding: 0 15px !important;
+    padding: 0 10px !important;
+    align-items: center !important;
+    justify-items: flex-start;
+    display: flex !important;
+  }
+  .divisas .v-field__prepend-inner, .divisas .v-field__append-inner, .divisas .v-field__clearable {
+    align-items: flex-start;
+    display: flex;
+    padding: 8px 0;
   }
 
   .btn-add-divisa{

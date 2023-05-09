@@ -1,6 +1,6 @@
 <template>
 
-    <v-row cols="12" class="ma-0 d-flex align-center">
+    <v-row class="ma-0 d-flex align-center">
         <v-col class="d-flex align-center" cols="12" md="5">
             <v-img src='../assets/images/perfil.png' class="perfil mr-4" />
             <div class='info'>
@@ -15,7 +15,7 @@
             <v-row class="ma-0" dense>
                 <v-col cols="12" class="px-8 py-0 header-tabla d-flex justify-space-between align-center">
                 Saldos
-                <h>{{ fechaHoraFormateada }}</h>
+                <h>{{ timeString  }}</h>
                 </v-col>
                 <v-col class="py-0">
                 <v-row class="listado-tabla" dense>
@@ -37,7 +37,7 @@
                     <v-col cols="12" md="2" class="pa-0 my-3 d-flex align-center justify-center flex-column"
                     style="border-right:1px solid #2D2D8D; height:100% !important;">
                     <h>Efectivo:</h>
-                    <span>-</span>
+                    <span>{{ suma_total }}</span>
                     </v-col>
                     <v-col cols="12" md="2" class="pa-0 my-3 d-flex align-center justify-center flex-column"
                     style="border-right:1px solid #2D2D8D; height:100% !important;">
@@ -63,7 +63,7 @@
 
 export default {
   data: () => ({
-    fechaHoraFormateada: null,
+    fecha_actual: new Date(),
     tab: null,
     divisa: null,
     suma_total: 0,
@@ -77,26 +77,24 @@ export default {
     maximoFilas: 5,
   }),
   created() {
-    this.ver_fecha();
   },
   watch:{
     tab(){
       this.divisa = this.tab
     }
   },
+  computed: {
+    timeString() {
+      const dia = this.fecha_actual.getDate().toString().padStart(2, '0');
+      const mes = (this.fecha_actual.getMonth() + 1).toString().padStart(2, '0');
+      const anio = this.fecha_actual.getFullYear();
+      const hora = this.fecha_actual.getHours().toString().padStart(2, '0');
+      const minutos = this.fecha_actual.getMinutes().toString().padStart(2, '0');
+      const segundos = this.fecha_actual.getSeconds().toString().padStart(2, '0');
+      return `${dia}/${mes}/${anio} ${hora}:${minutos}:${segundos}`;
+    }
+  },
   methods: {
-    ver_fecha() {
-      const fecha_actual = new Date();
-      const dia = fecha_actual.getDate().toString().padStart(2, '0');
-      const mes = (fecha_actual.getMonth() + 1).toString().padStart(2, '0');
-      const anio = fecha_actual.getFullYear();
-      const hora = fecha_actual.getHours().toString().padStart(2, '0');
-      const minutos = fecha_actual.getMinutes().toString().padStart(2, '0');
-      const segundos = fecha_actual.getSeconds().toString().padStart(2, '0');
-      this.fechaHoraFormateada = `${dia}/${mes}/${anio} ${hora}:${minutos}:${segundos}`;
-      console.log(this.fechaHoraFormateada);
-
-    },
     agregar_divisa(){
       if (this.filas.length < this.maximoFilas) {
         this.filas.push({ campo1: null, campo2: null });
@@ -105,6 +103,12 @@ export default {
     eliminarFila(index) {
       this.filas.splice(index, 1);
     },
+  },
+  mounted() {
+    // Actualiza el reloj cada segundo
+    setInterval(() => {
+      this.fecha_actual = new Date();
+    }, 1000);
   }
 
 }

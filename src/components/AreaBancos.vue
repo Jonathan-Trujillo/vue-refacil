@@ -1,12 +1,12 @@
 <template>
     <v-card>
         <v-row>
-            <v-col class="pa-16 d-flex align-center justify-center">
+            <v-col cols="12" class="pa-16 d-flex align-center justify-center">
                 <v-row style="min-height: 460px !important">
                     <v-col cols="12" class="d-flex align-center">
                         <v-img class="img-top" :src="require(`../assets/images/bancos/${bancoSeleccionado}.jpg`)"
                             v-if="bancoSeleccionado != null" />
-                        <v-card-title style="color:#2D2D8D">{{opcion_seleccionada}}</v-card-title>
+                        <v-card-title style="color:#2D2D8D">{{opcion_seleccionada}} {{ opcion_cheques }}</v-card-title>
                         <!-- {{ tab }}{{ moneda }} -->
                         
                     </v-col>
@@ -87,7 +87,7 @@
                                             :class="eleccion === 3 ? 'seleccionado' : 'logobanco'"
                                             @click="eleccion = 3">
                                             Operación con Cheques
-                                            <span style="font-size:12px;">(Propios - Otro Banco - Cobro Cheques)</span>
+                                            <span style="font-size:9px;">( Propios - Otro Banco - Cobro Cheques )</span>
                                         </div>
                                     </v-col>
                                     <v-col cols="12" md="4">
@@ -107,6 +107,7 @@
                                 </v-row>
                             </v-window-item>
                         </v-window>
+                        
                         <v-tabs hide-slider style="height:55px">
 
                             <v-col
@@ -129,6 +130,7 @@
                     <v-col cols="12" class="pa-0">
                         <pago_prestamos v-if="ver_pago_prestamos" @volver="ver_pago_prestamos = false, seleccionar_banco = true" @finalizo_proceso="$emit('finalizo_proceso',0)"/>
                         <depositos_en_efectivo v-if="ver_depositos_en_efectivo" @volver="ver_depositos_en_efectivo = false, seleccionar_banco = true" @finalizo_proceso="$emit('finalizo_proceso',0)"/>
+                        <operacion_con_cheques v-if="ver_cheques" @volver="ver_cheques = false, seleccionar_banco = true" @tipoSeleccionado="actualizar_datos_cheques" @finalizo_proceso="$emit('finalizo_proceso',0)"/>
                         <extraccion_efectivo v-if="ver_extraccion" @volver="ver_extraccion = false, seleccionar_banco = true" @finalizo_proceso="$emit('finalizo_proceso',0)"/>
                         <pago_tarjeta v-if="ver_pago_tarjeta" @volver="ver_pago_tarjeta = false, seleccionar_banco = true" @finalizo_proceso="$emit('finalizo_proceso',0)"/>
                     </v-col>
@@ -142,6 +144,7 @@
 <script>
 import pago_prestamos from './opciones/PagoPrestamos.vue'
 import depositos_en_efectivo from './opciones/DepositosEnEfectivo.vue'
+import operacion_con_cheques from './opciones/OperacionConCheques.vue'
 import extraccion_efectivo from './opciones/ExtraccionEfectivo.vue'
 import pago_tarjeta from './opciones/PagoTarjetaConCedula.vue'
 
@@ -149,6 +152,7 @@ export default {
     components:{
         pago_prestamos,
         depositos_en_efectivo,
+        operacion_con_cheques,
         extraccion_efectivo,
         pago_tarjeta
     },
@@ -162,7 +166,7 @@ export default {
                                 'Pago Préstamo',
                                 'Depósito en Efectivo',
                                 'Extracciones en Efectivo',
-                                'Opercaión con Cheques',
+                                'Operación con Cheques',
                                 'Operación CDA',
                                 'Pago Tarjeta con Cédula'
                             ],
@@ -184,10 +188,13 @@ export default {
 
         ver_pago_prestamos: false,
         ver_depositos_en_efectivo: false,
+        ver_cheques: false,
         ver_extraccion: false,
         ver_pago_tarjeta: false,
 
         no_boleta: null,
+
+        opcion_cheques: '',
     }),
     computed: {
         banco_seleccionado() {
@@ -236,6 +243,13 @@ export default {
             /*************   Cuando se elija "Extracción de Efectivo"   *************/
                 else if(this.eleccion === 2){
                         this.ver_extraccion = true
+                        this.seleccionar_banco = false
+                    }
+
+                    
+            /*************   Cuando se elija "Operación con Cheques"   *************/
+                else if(this.eleccion === 3){
+                        this.ver_cheques = true
                         this.seleccionar_banco = false
                     }
             
@@ -289,6 +303,9 @@ export default {
         finalizar_proceso(){
             this.$emit('finalizo_proceso', 0)
         },
+        actualizar_datos_cheques(valor){
+            this.opcion_cheques = valor
+        }
     },
 }
 </script>

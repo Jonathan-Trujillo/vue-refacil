@@ -18,7 +18,7 @@
                                     <v-tabs v-model="tab">
                                         <v-tab slider-color="#2D2D8D" class="btn-tabs" value="Guaraníes">Guaraníes</v-tab>
                                         <v-tab slider-color="#2D2D8D" class="btn-tabs" value="Dolares">Dolares</v-tab>
-                                        <v-tab slider-color="#2D2D8D" class="btn-tabs" value="Euros">Euros</v-tab>
+                                        <!-- <v-tab slider-color="#2D2D8D" class="btn-tabs" value="Euros">Euros</v-tab> -->
                                     </v-tabs>
 
                                     <v-card-text class="divisas px-0 pt-10">
@@ -27,7 +27,7 @@
 
                                             <v-col cols="12" md="3" v-model="fila.campo1" class="pa-0 d-flex align-center">
                                                 <h style="font-size:20px; color:#2D2D8D;" class="mr-4 pb-4">Tengo </h>
-                                                <v-text-field v-model="tengo_billetes" variant="outlined" dense />
+                                                <v-text-field v-model="tengo_billetes" variant="outlined" dense/>
                                             </v-col>
                                             <v-col cols="12" md="4" v-model="fila.campo2" class="pa-0 d-flex align-center">
                                                 <h style="font-size:20px; color:#2D2D8D;" class="mx-4 pb-4">Billetes de </h>
@@ -71,11 +71,11 @@
                     <v-row cols="12" md="4" class="ma-0 pa-4 justify-center" dense>
                         <v-card style="background:#E1F2FF !important;position:relative" elevation="0" class="pa-6" width="100%">
                             <v-col cols="12" style="border-bottom: 1px solid rgba(0,0,0,0.2)">
-                                <v-card-title class="px-0" style="color:#2D2D8D;font-size:22px;">Total</v-card-title>
+                                <v-card-title class="px-0" style="color:#2D2D8D;font-size:22px;">Totales</v-card-title>
                             </v-col>
                             <v-col cols="12" style="border-bottom: 1px solid rgba(0,0,0,0.2)" class="d-flex flex-column">
                                 <v-card-title class="px-0" style="color:#2D2D8D;font-size:22px;">{{ divisa }}</v-card-title>
-                                <h style="font-size:20px; color:#2D2D8D;" class="pb-4">Total Billetes = {{ suma_total }}</h>
+                                <h style="font-size:20px; color:#2D2D8D;" class="pb-4">Total Billetes = {{ tengo_billetes }}</h>
                                 <h style="font-size:20px; color:#2D2D8D;" class="pb-4">Total = {{ suma_total }}</h>
                             </v-col>
                             <v-col style="position: absolute; bottom:30px" class="d-flex justify-center">
@@ -94,6 +94,27 @@
 
 export default {
     data: () => ({
+        
+        amount: null,
+        config: {
+          masked: false,
+          prefix: '',
+          suffix: '',
+          thousands: ',',
+          decimal: '.',
+          precision: 0,
+          disableNegative: false,
+          disabled: false,
+          min: null,
+          max: null,
+          allowBlank: false,
+          minimumNumberOfCharacters: 0,
+          shouldRound: true,
+          focusOnRight: false,
+        },
+
+
+
         fechaHoraFormateada: null,
         tab: null,
         divisa: null,
@@ -124,9 +145,10 @@ export default {
                this.tipo_billete = [100000,50000,20000,10000,5000,2000,1000,500,100,50]
             }else if(this.tab === 'Dolares'){
                this.tipo_billete = [100,50,20,10,5,2,1]
-            }else if(this.tab === 'Euros'){
-               this.tipo_billete = [500,200,100,50,20,10,5]
             }
+            // else if(this.tab === 'Euros'){
+            //    this.tipo_billete = [500,200,100,50,20,10,5]
+            // }
         },
 
     },
