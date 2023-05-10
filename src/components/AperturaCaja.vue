@@ -38,8 +38,7 @@
                                                 <h style="font-size:20px; color:#2D2D8D;" class="mx-4 pb-4">{{ divisa }}</h>
                                             </v-col>
                                             <v-col cols="12" md="3" class="pa-0 d-flex align-center justify-end">
-                                                <h style="font-size:20px; color:#2D2D8D;" class="pb-4">Total = {{ suma_total
-                                                }}
+                                                <h style="font-size:20px; color:#2D2D8D;" class="pb-4">Total = {{ suma_total }}
                                                 </h>
                                             </v-col>
 
@@ -148,7 +147,7 @@ export default {
     },
     computed: {
         suma_total(){
-            return this.tengo_billetes * this.seleccionar_billete
+            return currency(this.tengo_billetes * this.seleccionar_billete, { symbol: '$' }).format()
         },
     },
     watch: {
