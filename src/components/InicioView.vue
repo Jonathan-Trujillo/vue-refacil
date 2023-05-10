@@ -22,7 +22,7 @@
                     <v-col cols="12" md="2" class="pa-0 my-3 d-flex align-center justify-center flex-column"
                     style="border-right:1px solid #2D2D8D; height:100% !important;">
                     <h>Saldo Ap:</h>
-                    <span>$1,200</span>
+                    <span>-</span>
                     </v-col>
                     <v-col cols="12" md="2" class="pa-0 my-3 d-flex align-center justify-center flex-column"
                     style="border-right:1px solid #2D2D8D; height:100% !important;">
@@ -60,13 +60,14 @@
 
 
 <script>
+import currency from 'currency.js';
 
 export default {
   data: () => ({
     fecha_actual: new Date(),
     tab: null,
     divisa: null,
-    suma_total: 0,
+    
 
     filas: [
               {
@@ -76,6 +77,9 @@ export default {
             ],
     maximoFilas: 5,
   }),
+  props:{
+    valor_efectivo: null
+  },
   created() {
   },
   watch:{
@@ -84,6 +88,9 @@ export default {
     }
   },
   computed: {
+    suma_total(){
+      return currency(this.valor_efectivo, { symbol: '$' }).format();
+    },
     timeString() {
       const dia = this.fecha_actual.getDate().toString().padStart(2, '0');
       const mes = (this.fecha_actual.getMonth() + 1).toString().padStart(2, '0');

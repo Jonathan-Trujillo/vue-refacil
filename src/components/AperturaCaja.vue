@@ -27,7 +27,8 @@
 
                                             <v-col cols="12" md="3" v-model="fila.campo1" class="pa-0 d-flex align-center">
                                                 <h style="font-size:20px; color:#2D2D8D;" class="mr-4 pb-4">Tengo </h>
-                                                <v-text-field v-model="tengo_billetes" variant="outlined" dense/>
+                                                
+                                        <money3 v-model="tengo_billetes" v-bind="config" class="mt-n6 v-field__input v-field"></money3>
                                             </v-col>
                                             <v-col cols="12" md="4" v-model="fila.campo2" class="pa-0 d-flex align-center">
                                                 <h style="font-size:20px; color:#2D2D8D;" class="mx-4 pb-4">Billetes de </h>
@@ -79,7 +80,7 @@
                                 <h style="font-size:20px; color:#2D2D8D;" class="pb-4">Total = {{ suma_total }}</h>
                             </v-col>
                             <v-col style="position: absolute; bottom:30px" class="d-flex justify-center">
-                                <v-btn text class="btn-color" @click="$emit('abrir_caja', 0)">Abrir Caja</v-btn>
+                                <v-btn text class="btn-color" @click="$emit('abrir_caja', this.suma_total)">Abrir Caja</v-btn>
                             </v-col>
                         </v-card>
                     </v-row>
@@ -91,11 +92,23 @@
 
 
 <script>
+import { Money3Component } from 'v-money3'
+import currency from 'currency.js';
 
 export default {
+    components: { money3: Money3Component },
+    
+    currency: {
+      update(el, binding) {
+        el.value = currency(binding.value, { symbol: binding.arg }).format();
+      },
+      unbind(el) {
+        el.value = '';
+      }
+    },
     data: () => ({
         
-        amount: null,
+        tengo_billetes: null,
         config: {
           masked: false,
           prefix: '',
@@ -113,6 +126,7 @@ export default {
           focusOnRight: false,
         },
 
+      currency: 'USD',
 
 
         fechaHoraFormateada: null,
@@ -121,7 +135,6 @@ export default {
         tipo_billete: [],
         seleccionar_billete: null,
 
-        tengo_billetes: null,
         filas: [
             {
                 campo1: null,
@@ -136,7 +149,7 @@ export default {
     computed: {
         suma_total(){
             return this.tengo_billetes * this.seleccionar_billete
-        }
+        },
     },
     watch: {
         tab() {

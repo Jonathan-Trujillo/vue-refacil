@@ -212,3 +212,20 @@
   border-radius: 8px;
   overflow: hidden;
 }
+
+
+
+
+/* ************************   STILOS INPUTS   ************************ */
+
+.border-color{
+  border-color: red !important;
+}
+
+.v-input--is-label-active .v-label {
+  color: red;
+}
+
+.v-input--is-label-active .v-input__control::before {
+  border-color: red;
+}
