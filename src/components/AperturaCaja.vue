@@ -14,7 +14,6 @@
                                     <h style="color:#2D2D8D;font-size:18px">Carga las divisas que tienes en efectivo para
                                         continuar:</h>
                                 </v-col>
-                                <v-card elevation="0">
                                     <v-tabs v-model="tab">
                                         <v-tab slider-color="#2D2D8D" class="btn-tabs" value="Guaraníes">Guaraníes</v-tab>
                                         <v-tab slider-color="#2D2D8D" class="btn-tabs" value="Dolares">Dolares</v-tab>
@@ -32,7 +31,7 @@
                                             </v-col>
                                             <v-col cols="12" md="4" v-model="fila.campo2" class="pa-0 d-flex align-center">
                                                 <h style="font-size:20px; color:#2D2D8D;" class="mx-4 pb-4">Billetes de </h>
-                                                <v-select variant="outlined" v-model="seleccionar_billete" :items="tipo_billete" dense />
+                                                <v-select variant="outlined" v-model="seleccionar_billete" :items="tipo_billete" item-title="text" item-value="value" dense :prefix="tab === 'Guaraníes' ? '₲' : '$'"/>
                                             </v-col>
                                             <v-col cols="12" md="2" class="pa-0 d-flex align-center">
                                                 <h style="font-size:20px; color:#2D2D8D;" class="mx-4 pb-4">{{ divisa }}</h>
@@ -45,10 +44,17 @@
                                         </v-row>
                                         <v-col cols="12">
                                             <v-btn class="btn-add-divisa" :disabled="filas.length >= maximoFilas"
-                                                variant="outlined" @click="agregar_divisa()">
+                                                variant="outlined" @click="agregar_a_divisa()">
                                                 <v-icon>
                                                     mdi-plus-circle
-                                                </v-icon> Agregar Otro
+                                                </v-icon> Añadir al total
+                                            </v-btn>
+
+                                            <v-btn class="cursor-pointer" :disabled="filas.length >= maximoFilas"
+                                                variant="text" @click="agregar_divisa()">
+                                                <v-icon>
+                                                    mdi-plus-circle
+                                                </v-icon> Agregar otra fila
                                             </v-btn>
 
 
@@ -63,7 +69,6 @@
 
                                         </v-col>
                                     </v-card-text>
-                                </v-card>
                             </v-col>
                         </v-row>
                     </v-col>
@@ -75,11 +80,11 @@
                             </v-col>
                             <v-col cols="12" style="border-bottom: 1px solid rgba(0,0,0,0.2)" class="d-flex flex-column">
                                 <v-card-title class="px-0" style="color:#2D2D8D;font-size:22px;">{{ divisa }}</v-card-title>
-                                <h style="font-size:20px; color:#2D2D8D;" class="pb-4">Total Billetes = {{ tengo_billetes }}</h>
-                                <h style="font-size:20px; color:#2D2D8D;" class="pb-4">Total = {{ suma_total }}</h>
+                                <h style="font-size:20px; color:#2D2D8D;" class="pb-4">Total Billetes = {{ total_billetes }}</h>
+                                <h style="font-size:20px; color:#2D2D8D;" class="pb-4">Total = {{ suma_total_efectivo }}</h>
                             </v-col>
                             <v-col style="position: absolute; bottom:30px" class="d-flex justify-center">
-                                <v-btn text class="btn-color" @click="$emit('abrir_caja', this.suma_total)">Abrir Caja</v-btn>
+                                <v-btn text class="btn-color" @click="$emit('abrir_caja', 0)">Abrir Caja</v-btn>
                             </v-col>
                         </v-card>
                     </v-row>
@@ -108,6 +113,11 @@ export default {
     data: () => ({
         
         tengo_billetes: null,
+        seleccionar_billete: null,
+
+        total_billetes: 0,
+        suma_total_efectivo: 0,
+
         config: {
           masked: false,
           prefix: '',
@@ -125,14 +135,15 @@ export default {
           focusOnRight: false,
         },
 
-      currency: 'USD',
+        currency: 'USD',
 
+        
+        tipo_billete_guaranies: ['100.000', '50.000', '20.000', '10.000', '5.000', '2.000', '1.000', '500', '100', '50'],
+        tipo_billete_dolares: ['500','200','100','50','20','10','5'],
 
         fechaHoraFormateada: null,
         tab: null,
         divisa: null,
-        tipo_billete: [],
-        seleccionar_billete: null,
 
         filas: [
             {
@@ -147,24 +158,37 @@ export default {
     },
     computed: {
         suma_total(){
-            return currency(this.tengo_billetes * this.seleccionar_billete, { symbol: '$' }).format()
+            return currency(this.tengo_billetes * this.seleccionar_billete, { symbol: this.tab === 'Guaraníes' ? '₲' : '$'}).format()
         },
+        tipo_billete(){
+            return this.tab === 'Guaraníes' ? this.tipo_billete_guaranies.map((billete) => {
+                return {
+                text: billete,
+                value: parseInt(billete.replace('.', ''))
+                };
+            }) : this.tipo_billete_dolares.map((billete) => {
+                return {
+                text: billete,
+                value: parseInt(billete.replace('.', ''))
+                };
+            });
+        }
+        // seleccionar_billete(){
+        //     return currency(this.seleccionar_billete, { symbol: '$' }).format()
+        // }
     },
     watch: {
         tab() {
-            this.divisa = this.tab
-            if(this.tab === 'Guaraníes'){
-               this.tipo_billete = [100000,50000,20000,10000,5000,2000,1000,500,100,50]
-            }else if(this.tab === 'Dolares'){
-               this.tipo_billete = [100,50,20,10,5,2,1]
-            }
-            // else if(this.tab === 'Euros'){
-            //    this.tipo_billete = [500,200,100,50,20,10,5]
-            // }
+            this.seleccionar_billete = null
         },
 
     },
     methods: {
+        agregar_a_divisa(){
+            this.total_billetes = this.tengo_billetes
+            this.suma_total_efectivo = this.suma_total
+            this.$emit('efectivo', this.suma_total, this.tab)
+        },
         ver_fecha() {
             const fecha_actual = new Date();
             const dia = fecha_actual.getDate().toString().padStart(2, '0');
