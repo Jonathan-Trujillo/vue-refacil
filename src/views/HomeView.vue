@@ -1,9 +1,9 @@
 <template>
   <v-app class="body-box">
-    <v-container class="pa-0" style="margin-top: 90px;">
+    <v-container class="py-0 px-8" style="margin-top: 90px;max-width: 100% !important;">
       <v-row class="ma-0 pt-5 align-start">
-        <InicioView :valor_efectivo="dato_valor_efectivo" />
-        <AperturaCaja v-if="!mostrar_cajas" @abrir_caja="iniciar_abrir_caja" />
+        <InicioView :valor_efectivo="dato_valor_efectivo" :tab_valor="valor_tab"/>
+        <AperturaCaja v-if="!mostrar_cajas" @abrir_caja="iniciar_abrir_caja" @efectivo="mostrar_efectivo"/>
         <v-col cols="12" class="pa-0">
           <SeccionPrincipal v-if="mostrar_cajas" />
         </v-col>
@@ -31,13 +31,20 @@ export default {
   data: () => ({
     mostrar_cajas: false,
     dato_valor_efectivo: null,
+    valor_tab: null,
   }),
   methods:{
-    iniciar_abrir_caja(valor){
+    iniciar_abrir_caja(){
       this.mostrar_cajas = true
+    },
+    mostrar_efectivo(valor, dato_tab){
       this.dato_valor_efectivo = valor
+      this.valor_tab = dato_tab
     }
   }
 
 }
 </script>
+
+<style>
+</style>

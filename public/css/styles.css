@@ -102,15 +102,16 @@
     border-radius:5px;
     border:rgba(0,0,0,0) 0px !important;
     min-height: 40px !important;
-    padding: 0 10px !important;
+    padding: 0px !important;
+    padding-left: 10px !important;
     align-items: center !important;
     justify-items: flex-start;
     display: flex !important;
   }
-  .divisas .v-field__prepend-inner, .divisas .v-field__append-inner, .divisas .v-field__clearable {
-    align-items: flex-start;
-    display: flex;
-    padding: 8px 0;
+  .divisas .v-field__prepend-inner, .divisas .v-field__append-inner, .divisas .v-field__clearable, .v-text-field__prefix, .v-field__input {
+    align-items: flex-start !important;
+    display: flex !important;
+    padding: 8px 0 !important;
   }
 
   .btn-add-divisa{
@@ -151,9 +152,11 @@
     background: linear-gradient(90deg, #48ADFF -4.8%, #7661FE 47.6%, #9331FF 100%);
   }
   .btn-seccion-principal{
+    box-shadow: 0px 3.59116px 3.59116px rgba(50, 100, 200, 0.2) !important;
+    height:100px;
     font-size: 18px;
     color: #2D2D8D !important;
-    border-radius:8px !important;
+    border-radius:10px !important;
     cursor:pointer;
   }
   .btn-seccion-principal:hover, .btn-seccion-principal:hover .color-svg{
@@ -204,15 +207,18 @@
 }
 .img-top{
   border:2px solid rgba(0,0,0,0.2);
-  max-width: 100px !important;
-  max-height: 100px !important;
-  min-width: 100px !important;
-  min-height: 100px !important;
+  max-width: 85px !important;
+  max-height: 85px !important;
+  min-width: 85px !important;
+  min-height: 85px !important;
   padding: 10px;
   border-radius: 8px;
   overflow: hidden;
 }
 
+.v-card{
+  box-shadow: 3.59116px 3.59116px 10px rgba(50, 100, 200, 0.15) !important
+}
 
 
 

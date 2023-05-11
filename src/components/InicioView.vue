@@ -14,8 +14,12 @@
             <v-card >
             <v-row class="ma-0" dense>
                 <v-col cols="12" class="px-8 py-0 header-tabla d-flex justify-space-between align-center">
-                Saldos
+                  <v-col cols="12" md="6" class="d-flex align-center justify-start divisas_select">
+                    <h class="mr-4">Saldos</h>
+                    <v-select variant="solo" v-model="seleccionar_tipo_billete" :items="tipo_billete" dense/>
+                  </v-col>
                 <h>{{ timeString  }}</h>
+                
                 </v-col>
                 <v-col class="py-0">
                 <v-row class="listado-tabla" dense>
@@ -69,6 +73,8 @@ export default {
     divisa: null,
     
 
+    tipo_billete: ['Guaraníes', 'Dólares'],
+
     filas: [
               {
                 campo1: null,
@@ -78,7 +84,8 @@ export default {
     maximoFilas: 5,
   }),
   props:{
-    valor_efectivo: null
+    valor_efectivo: null,
+    tab_valor: null
   },
   created() {
   },
@@ -88,8 +95,11 @@ export default {
     }
   },
   computed: {
+    seleccionar_tipo_billete(){
+      return this.tab_valor
+    },
     suma_total(){
-      return currency(this.valor_efectivo, { symbol: '$' }).format();
+      return currency(this.valor_efectivo, { symbol: this.seleccionar_tipo_billete === 'Guaraníes' ? '₲' : '$' }).format();
     },
     timeString() {
       const dia = this.fecha_actual.getDate().toString().padStart(2, '0');
@@ -120,3 +130,26 @@ export default {
 
 }
 </script>
+
+
+<style>
+.divisas_select .v-field__input, .divisas_select .v-field.v-field{
+    background:#f1f1f1;
+    border-radius:5px;
+    border:rgba(0,0,0,0) 0px !important;
+    min-height: 20px !important;
+    padding: 0px !important;
+    top: 10px;
+    padding-left: 10px !important;
+    align-items: center !important;
+    justify-items: flex-start;
+    display: flex !important;
+  }
+
+  
+  .divisas_select .v-field__prepend-inner, .divisas_select .v-field__append-inner, .divisas_select .v-field__clearable, .divisas_select .v-text-field__prefix, .divisas_select .v-field__input {
+    align-items: flex-start !important;
+    display: flex !important;
+    padding: 2px 0 !important;
+  }
+  </style>

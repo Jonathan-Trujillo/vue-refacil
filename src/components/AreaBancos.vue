@@ -1,9 +1,9 @@
 <template>
     <v-card>
         <v-row>
-            <v-col cols="12" class="pa-16 d-flex align-center justify-center">
-                <v-row style="min-height: 460px !important">
-                    <v-col cols="12" class="d-flex align-center">
+            <v-col cols="12" class="pa-10 d-flex align-center justify-center">
+                <v-row  style="min-height: 627px !important;max-height: 627px !important;" class="d-flex align-start">
+                    <v-col cols="12" class="pa-0 d-flex align-center" style="min-height: 85px;max-height: 85px;">
                         <v-img class="img-top" :src="require(`../assets/images/bancos/${bancoSeleccionado}.jpg`)"
                             v-if="bancoSeleccionado != null" />
                         <v-card-title style="color:#2D2D8D">{{opcion_seleccionada}} {{ opcion_cheques }}</v-card-title>
