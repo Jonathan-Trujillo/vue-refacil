@@ -16,7 +16,7 @@
                 <v-col cols="12" class="px-8 py-0 header-tabla d-flex justify-space-between align-center">
                   <v-col cols="12" md="6" class="d-flex align-center justify-start divisas_select">
                     <h class="mr-4">Saldos</h>
-                    <v-select variant="solo" v-model="seleccionar_tipo_billete" :items="tipo_billete" dense/>
+                    <v-select variant="solo" v-model="seleccionar_tipo_billete" :items="tipo_billete" item-title="text" item-value="id" dense/>
                   </v-col>
                 <h>{{ timeString  }}</h>
                 
@@ -71,6 +71,7 @@ export default {
     fecha_actual: new Date(),
     tab: null,
     divisa: null,
+    seleccionar_tipo_billete: null,
     
 
     tipo_billete: ['Guaraníes', 'Dólares'],
@@ -88,6 +89,7 @@ export default {
     tab_valor: null
   },
   created() {
+    this.seleccionar_tipo_billete = this.tab_valor
   },
   watch:{
     tab(){
@@ -95,11 +97,8 @@ export default {
     }
   },
   computed: {
-    seleccionar_tipo_billete(){
-      return this.tab_valor
-    },
     suma_total(){
-      return currency(this.valor_efectivo, { symbol: this.seleccionar_tipo_billete === 'Guaraníes' ? '₲' : '$' }).format();
+      return currency( 0, {separator: '.', decimal: ',' , symbol: this.seleccionar_tipo_billete === 'Guaraníes' ? '₲' : '$'}).format()
     },
     timeString() {
       const dia = this.fecha_actual.getDate().toString().padStart(2, '0');

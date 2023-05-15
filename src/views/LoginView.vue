@@ -8,7 +8,7 @@
       </v-col>
       <v-col cols="12" md="6" class="d-flex align-center justify-center">
 
-        <v-col cols="12" md="6" class="text-center">
+        <v-col cols="12" md="8" class="text-center">
           <v-col cols="12" class="d-flex justify-center">
             <v-img src="../assets/images/logo.png" style="max-width: 70% !important" />
           </v-col>

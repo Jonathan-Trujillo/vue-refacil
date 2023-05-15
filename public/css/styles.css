@@ -100,7 +100,6 @@
   .divisas .v-field__input, .divisas .v-field.v-field{
     background:#f1f1f1;
     border-radius:5px;
-    border:rgba(0,0,0,0) 0px !important;
     min-height: 40px !important;
     padding: 0px !important;
     padding-left: 10px !important;
@@ -112,6 +111,9 @@
     align-items: flex-start !important;
     display: flex !important;
     padding: 8px 0 !important;
+  }
+  .divisas .border-line{
+    border: 1px rgba(0,0,0,0.5) !important;
   }
 
   .btn-add-divisa{

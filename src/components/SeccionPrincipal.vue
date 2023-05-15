@@ -68,8 +68,15 @@ export default {
     }),
     methods: {
         mostrar_bancos() {
-            this.ninguna_area_seleccionada = false
-            this.ver_bancos = true
+            if(this.ver_bancos === false){
+                this.ninguna_area_seleccionada = false
+                this.ver_bancos = true
+            }
+            else if(this.ver_bancos === true){
+                this.ninguna_area_seleccionada = true
+                this.ver_bancos = false
+
+            }
         }
     }
 }
