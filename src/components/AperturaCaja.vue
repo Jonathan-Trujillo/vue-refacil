@@ -16,7 +16,7 @@
                                 </v-col>
                                     <v-tabs v-model="tab">
                                         <v-tab slider-color="#2D2D8D" class="btn-tabs" value="Guaraníes">Guaraníes</v-tab>
-                                        <v-tab slider-color="#2D2D8D" class="btn-tabs" value="Dolares">Dolares</v-tab>
+                                        <v-tab slider-color="#2D2D8D" class="btn-tabs" value="Dólares">Dólares</v-tab>
                                         <!-- <v-tab slider-color="#2D2D8D" class="btn-tabs" value="Euros">Euros</v-tab> -->
                                     </v-tabs>
 
@@ -37,7 +37,7 @@
                                                 <h style="font-size:20px; color:#2D2D8D;" class="mx-4 pb-4">{{ divisa }}</h>
                                             </v-col>
                                             <v-col cols="12" md="3" class="pa-0 d-flex align-center justify-end">
-                                                <h style="font-size:20px; color:#2D2D8D;" class="pb-4">Total = {{ filas[key].campo3 != null ? filas[key].campo3 : valor_inicial }}
+                                                <h style="font-size:20px; color:#2D2D8D;" class="pb-4">Total = {{ ver_datos }} {{filas[key].campo3}}
                                                 </h>
                                             </v-col>
 
@@ -81,7 +81,7 @@
                             <v-col cols="12" style="border-bottom: 1px solid rgba(0,0,0,0.2)" class="d-flex flex-column">
                                 <v-card-title class="px-0" style="color:#2D2D8D;font-size:22px;">{{ divisa }}</v-card-title>
                                 <h style="font-size:20px; color:#2D2D8D;" class="pb-4">Total Billetes = {{ total_billetes }}</h>
-                                <h style="font-size:20px; color:#2D2D8D;" class="pb-4">Total = {{ suma_total }}</h>
+                                <h style="font-size:20px; color:#2D2D8D;" class="pb-4">Total = {{ ver_datos_totales != null ? ver_datos_totales : valor_inicial }}</h>
                             </v-col>
                             <v-col style="position: absolute; bottom:30px" class="d-flex justify-center">
                                 <v-btn text class="btn-color" @click="abrir_caja()">Abrir Caja</v-btn>
@@ -105,7 +105,7 @@ export default {
     data: () => ({
         total_billetes: 0,
         suma_total_efectivo: 0,
-        suma_total: 0,
+        
 
         config: {
           masked: false,
@@ -131,7 +131,7 @@ export default {
         tipo_billete_dolares: ['$100','$50','$20','$10','$5'],
 
         fechaHoraFormateada: null,
-        tab: 0,
+        tab: null,
         divisa: null,
 
        
@@ -139,12 +139,31 @@ export default {
       index: 'Guaraníes',
     }),
     created() {
+        console.log(this.filas.campo3)
         this.ver_fecha();
+        this.suma_total = currency(0, {separator: '.', decimal: ',' , symbol: this.tab === 'Guaraníes' ? '₲' : '$'}).format()
         this.$emit('efectivo', this.suma_total, this.tab)
-        this.suma_total = currency(this.suma_total, {separator: '.', decimal: ',' , symbol: this.tab === 0 ? '₲' : '$'}).format()
         console.log(this.tab);
     },
     computed: {
+        dato_total(){ 
+            return currency(0, {separator: '.', decimal: ',' , symbol: this.tab === 'Guaraníes' ? '₲' : '$'}).format()
+        },
+        ver_datos(){
+            Object.keys(this.filas).forEach((key) => {
+                
+                let billetes = this.filas[key].campo1
+                let efectivo_seleccionado = this.filas[key].campo2
+                
+                console.log(this.filas[key].campo3);
+                return this.filas[key].campo3 =  currency( billetes * efectivo_seleccionado, {separator: '.', decimal: ',' , symbol: this.tab === 'Guaraníes' ? '₲' : '$'}).format()
+            })
+            
+            return console.log('Estas Filas: ', this.filas);
+        },
+        valor_inicial(){
+            return currency(0, {separator: '.', decimal: ',' , symbol: this.tab === 'Guaraníes' ? '₲' : '$'}).format()
+        },
         tengo_billetes(){
             return currency(0, {separator: '.', decimal: ',' , symbol: this.tab === 'Guaraníes' ? '₲' : '$'}).format()
         },
@@ -200,15 +219,15 @@ export default {
                 suma_efectivo += this.suma_total_efectivo;
             });
 
-            this.suma_total = currency( suma_efectivo, {separator: '.', decimal: ',' , symbol: this.tab === 'Guaraníes' ? '₲' : '$'}).format()
-            console.log( this.suma_total);
+            this.ver_datos_totales = currency( suma_efectivo, {separator: '.', decimal: ',' , symbol: this.tab === 'Guaraníes' ? '₲' : '$'}).format()
+            console.log(this.ver_datos_totales);
 
             this.total_billetes = suma;
 
         },
         abrir_caja(){
             this.$emit('abrir_caja', 0)
-            this.$emit('efectivo', this.suma_total, this.tab)
+            this.$emit('efectivo', this.ver_datos_totales, this.tab)
         },
         ver_fecha() {
             const fecha_actual = new Date();
