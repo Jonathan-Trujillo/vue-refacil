@@ -19,69 +19,137 @@
                                         <v-tab slider-color="#2D2D8D" class="btn-tabs" value="Dólares">Dólares</v-tab>
                                         <!-- <v-tab slider-color="#2D2D8D" class="btn-tabs" value="Euros">Euros</v-tab> -->
                                     </v-tabs>
+                                    <v-window v-model="tab">
+                                        <v-window-item value="Guaraníes">
+                                            <v-card-text class="divisas px-0 pt-10">
 
-                                    <v-card-text class="divisas px-0 pt-10">
+                                                <v-row class="ma-0" v-for="(value, key) in filas" :key="key">
 
-                                        <v-row class="ma-0" v-for="(value, key) in filas" :key="key">
+                                                    <v-col cols="12" md="3" class="pa-0 d-flex align-center">
+                                                        <h style="font-size:20px; color:#2D2D8D;" class="mr-4 pb-4">Tengo </h>
+                                                        
+                                                <money3 v-model="filas[key].guraranies_billetes"  v-bind="config" class="mt-n4 v-field__input v-field border-line"></money3>
+                                                    </v-col>
+                                                    <v-col cols="12" md="4" class="pa-0 d-flex align-center">
+                                                        <h style="font-size:20px; color:#2D2D8D;" class="mx-4 pb-4">Billetes de </h>
+                                                        <v-select variant="outlined" v-model="filas[key].guraranies_valor" :items="tipo_billete" item-title="text" item-value="value" dense class="mb-n1" />
+                                                    </v-col>
+                                                    <v-col cols="12" md="2" class="pa-0 d-flex align-center">
+                                                        <h style="font-size:20px; color:#2D2D8D;" class="mx-4 pb-4">{{ divisa }}</h>
+                                                    </v-col>
+                                                    <v-col cols="12" md="3" class="pa-0 d-flex align-center justify-end">
+                                                        <h style="font-size:20px; color:#2D2D8D;" class="pb-4">Total = {{ ver_datos_guaranies }} {{filas[key].guraranies_total}}
+                                                        </h>
+                                                    </v-col>
 
-                                            <v-col cols="12" md="3" class="pa-0 d-flex align-center">
-                                                <h style="font-size:20px; color:#2D2D8D;" class="mr-4 pb-4">Tengo </h>
-                                                
-                                        <money3 v-model="filas[key].campo1"  v-bind="config" class="mt-n4 v-field__input v-field border-line"></money3>
-                                            </v-col>
-                                            <v-col cols="12" md="4" class="pa-0 d-flex align-center">
-                                                <h style="font-size:20px; color:#2D2D8D;" class="mx-4 pb-4">Billetes de </h>
-                                                <v-select variant="outlined" v-model="filas[key].campo2" :items="tipo_billete" item-title="text" item-value="value" dense class="mb-n1" />
-                                            </v-col>
-                                            <v-col cols="12" md="2" class="pa-0 d-flex align-center">
-                                                <h style="font-size:20px; color:#2D2D8D;" class="mx-4 pb-4">{{ divisa }}</h>
-                                            </v-col>
-                                            <v-col cols="12" md="3" class="pa-0 d-flex align-center justify-end">
-                                                <h style="font-size:20px; color:#2D2D8D;" class="pb-4">Total = {{ ver_datos }} {{filas[key].campo3}}
-                                                </h>
-                                            </v-col>
+                                                </v-row>
+                                                <v-col cols="12">
+                                                    <v-btn class="btn-add-divisa"
+                                                        variant="outlined" @click="agregar_a_divisa()">
+                                                        <v-icon>
+                                                            mdi-plus-circle
+                                                        </v-icon> Añadir al total
+                                                    </v-btn>
 
-                                        </v-row>
-                                        <v-col cols="12">
-                                            <v-btn class="btn-add-divisa"
-                                                variant="outlined" @click="agregar_a_divisa()">
-                                                <v-icon>
-                                                    mdi-plus-circle
-                                                </v-icon> Añadir al total
-                                            </v-btn>
-
-                                            <v-btn class="cursor-pointer" :disabled="filas.length >= maximoFilas"
-                                                variant="text" @click="agregar_divisa()">
-                                                <v-icon>
-                                                    mdi-plus-circle
-                                                </v-icon> Agregar otra fila
-                                            </v-btn>
-
-
-                                            <v-btn text class="ml-4 btn-delete-divisa" color="error"
-                                                v-if="filas.length >= 2" @click="eliminarFila(index)">
-                                                <v-icon>
-                                                    mdi-close-circle
-                                                </v-icon>
-                                            </v-btn>
+                                                    <v-btn class="cursor-pointer" :disabled="filas.length >= maximoFilas"
+                                                        variant="text" @click="agregar_divisa()">
+                                                        <v-icon>
+                                                            mdi-plus-circle
+                                                        </v-icon> Agregar otra fila
+                                                    </v-btn>
 
 
+                                                    <v-btn text class="ml-4 btn-delete-divisa" color="error"
+                                                        v-if="filas.length >= 2" @click="eliminarFila(index)">
+                                                        <v-icon>
+                                                            mdi-close-circle
+                                                        </v-icon>
+                                                    </v-btn>
 
-                                        </v-col>
-                                    </v-card-text>
+
+
+                                                </v-col>
+                                            </v-card-text>
+                                        </v-window-item>
+
+                                        <v-window-item value="Dólares">
+                                            <v-card-text class="divisas px-0 pt-10">
+
+                                                <v-row class="ma-0" v-for="(value, key) in filas" :key="key">
+
+                                                    <v-col cols="12" md="3" class="pa-0 d-flex align-center">
+                                                        <h style="font-size:20px; color:#2D2D8D;" class="mr-4 pb-4">Tengo </h>
+                                                        
+                                                <money3 v-model="filas[key].dolares_billetes"  v-bind="config" class="mt-n4 v-field__input v-field border-line"></money3>
+                                                    </v-col>
+                                                    <v-col cols="12" md="4" class="pa-0 d-flex align-center">
+                                                        <h style="font-size:20px; color:#2D2D8D;" class="mx-4 pb-4">Billetes de </h>
+                                                        <v-select variant="outlined" v-model="filas[key].dolares_valor" :items="tipo_billete" item-title="text" item-value="value" dense class="mb-n1" />
+                                                    </v-col>
+                                                    <v-col cols="12" md="2" class="pa-0 d-flex align-center">
+                                                        <h style="font-size:20px; color:#2D2D8D;" class="mx-4 pb-4">{{ divisa }}</h>
+                                                    </v-col>
+                                                    <v-col cols="12" md="3" class="pa-0 d-flex align-center justify-end">
+                                                        <h style="font-size:20px; color:#2D2D8D;" class="pb-4">Total = {{ ver_datos_dolares }} {{filas[key].dolares_total}}
+                                                        </h>
+                                                    </v-col>
+
+                                                </v-row>
+                                                <v-col cols="12">
+                                                    <v-btn class="btn-add-divisa"
+                                                        variant="outlined" @click="agregar_a_divisa()">
+                                                        <v-icon>
+                                                            mdi-plus-circle
+                                                        </v-icon> Añadir al total
+                                                    </v-btn>
+
+                                                    <v-btn class="cursor-pointer" :disabled="filas.length >= maximoFilas"
+                                                        variant="text" @click="agregar_divisa()">
+                                                        <v-icon>
+                                                            mdi-plus-circle
+                                                        </v-icon> Agregar otra fila
+                                                    </v-btn>
+
+
+                                                    <v-btn text class="ml-4 btn-delete-divisa" color="error"
+                                                        v-if="filas.length >= 2" @click="eliminarFila(index)">
+                                                        <v-icon>
+                                                            mdi-close-circle
+                                                        </v-icon>
+                                                    </v-btn>
+
+
+
+                                                </v-col>
+                                            </v-card-text>
+                                        </v-window-item>
+                                    </v-window>
+
                             </v-col>
                         </v-row>
                     </v-col>
 
                     <v-row cols="12" md="4" class="ma-0 pa-4 justify-center" dense>
-                        <v-card style="background:#E1F2FF !important;position:relative" elevation="0" class="pa-6" width="100%">
+                        <v-card style="background:#E1F2FF !important;position:relative; padding-bottom: 150px !important" elevation="0" class="pa-6" width="100%">
                             <v-col cols="12" style="border-bottom: 1px solid rgba(0,0,0,0.2)">
                                 <v-card-title class="px-0" style="color:#2D2D8D;font-size:22px;">Totales</v-card-title>
                             </v-col>
                             <v-col cols="12" style="border-bottom: 1px solid rgba(0,0,0,0.2)" class="d-flex flex-column">
-                                <v-card-title class="px-0" style="color:#2D2D8D;font-size:22px;">{{ divisa }}</v-card-title>
-                                <h style="font-size:20px; color:#2D2D8D;" class="pb-4">Total Billetes = {{ total_billetes }}</h>
-                                <h style="font-size:20px; color:#2D2D8D;" class="pb-4">Total = {{ ver_datos_totales != null ? ver_datos_totales : valor_inicial }}</h>
+                                <!-- <v-card-title class="px-0" style="color:#2D2D8D;font-size:22px;">{{ divisa }}</v-card-title> -->
+                                
+                                <v-card-title class="px-0" style="color:#2D2D8D;font-size:22px;">Guaraníes</v-card-title>
+
+                                <h style="font-size:20px; color:#2D2D8D;" class="pb-4">Total Billetes = {{ total_billetes_guaranies }}</h>
+                                <h style="font-size:20px; color:#2D2D8D;" class="pb-4">Total = {{ ver_datos_totales_guaranies != null ? ver_datos_totales_guaranies : valor_inicial_guaranies }}</h>
+                                
+                            </v-col>
+                            <v-col cols="12" style="border-bottom: 1px solid rgba(0,0,0,0.2)" class="d-flex flex-column">
+                                
+                                <v-card-title class="px-0" style="color:#2D2D8D;font-size:22px;">Dólares</v-card-title>
+
+                                <h style="font-size:20px; color:#2D2D8D;" class="pb-4">Total Billetes = {{ total_billetes_dolares }}</h>
+                                <h style="font-size:20px; color:#2D2D8D;" class="pb-4">Total = {{ ver_datos_totales_dolares != null ? ver_datos_totales_dolares : valor_inicial_dolares }}</h>
+                                
                             </v-col>
                             <v-col style="position: absolute; bottom:30px" class="d-flex justify-center">
                                 <v-btn text class="btn-color" @click="abrir_caja()">Abrir Caja</v-btn>
@@ -103,7 +171,8 @@ export default {
     components: { money3: Money3Component },
     
     data: () => ({
-        total_billetes: 0,
+        total_billetes_guaranies: 0,
+        total_billetes_dolares: 0,
         suma_total_efectivo: 0,
         
 
@@ -139,7 +208,7 @@ export default {
       index: 'Guaraníes',
     }),
     created() {
-        console.log(this.filas.campo3)
+        console.log(this.filas.guraranies_total)
         this.ver_fecha();
         this.suma_total = currency(0, {separator: '.', decimal: ',' , symbol: this.tab === 'Guaraníes' ? '₲' : '$'}).format()
         this.$emit('efectivo', this.suma_total, this.tab)
@@ -149,26 +218,42 @@ export default {
         dato_total(){ 
             return currency(0, {separator: '.', decimal: ',' , symbol: this.tab === 'Guaraníes' ? '₲' : '$'}).format()
         },
-        ver_datos(){
+        ver_datos_guaranies(){
             Object.keys(this.filas).forEach((key) => {
                 
-                let billetes = this.filas[key].campo1
-                let efectivo_seleccionado = this.filas[key].campo2
+                let billetes_guaranies = this.filas[key].guraranies_billetes
+                let efectivo_seleccionado_guaranies = this.filas[key].guraranies_valor
                 
-                console.log(this.filas[key].campo3);
-                return this.filas[key].campo3 =  currency( billetes * efectivo_seleccionado, {separator: '.', decimal: ',' , symbol: this.tab === 'Guaraníes' ? '₲' : '$'}).format()
+                console.log(this.filas[key].guraranies_total);
+                return this.filas[key].guraranies_total =  currency( billetes_guaranies * efectivo_seleccionado_guaranies, {separator: '.', decimal: ',' , symbol:'₲'}).format()
             })
             
             return console.log('Estas Filas: ', this.filas);
         },
-        valor_inicial(){
-            return currency(0, {separator: '.', decimal: ',' , symbol: this.tab === 'Guaraníes' ? '₲' : '$'}).format()
+        
+        ver_datos_dolares(){
+            Object.keys(this.filas).forEach((key) => {
+                
+                let billetes_dolares = this.filas[key].dolares_billetes
+                let efectivo_seleccionado_dolares = this.filas[key].dolares_valor
+                
+                console.log(this.filas[key].dolares_total);
+                return this.filas[key].guraranies_total =  currency( billetes_dolares * efectivo_seleccionado_dolares, {separator: '.', decimal: ',' , symbol: '$'}).format()
+            })
+            
+            return console.log('Estas Filas: ', this.filas);
+        },
+        valor_inicial_guaranies(){
+            return currency(0, {separator: '.', decimal: ',' , symbol: '₲'}).format()
+        },
+        valor_inicial_dolares(){
+            return currency(0, {separator: '.', decimal: ',' , symbol: '$'}).format()
         },
         tengo_billetes(){
             return currency(0, {separator: '.', decimal: ',' , symbol: this.tab === 'Guaraníes' ? '₲' : '$'}).format()
         },
         seleccionar_billete(){
-            return currency(this.filas.campo2, {separator: '.', decimal: ',' , symbol: this.tab === 'Guaraníes' ? '₲' : '$'}).format()
+            return currency(this.filas.guraranies_valor, {separator: '.', decimal: ',' , symbol: this.tab === 'Guaraníes' ? '₲' : '$'}).format()
             
         },
         tipo_billete(){
@@ -194,40 +279,42 @@ export default {
     watch: {
         tab() {
             this.seleccionar_billete = null
-            this.filas = [ { campo1: null, campo2: null } ]
+            this.filas = [ { guraranies_billetes: null, guraranies_valor: null } ]
             this.$emit('efectivo', this.suma_total, this.tab)
         },
 
     },
     methods: {
         agregar_a_divisa() {
-            let suma = 0;
-            let suma_efectivo = 0;
+            let suma_guaranies = 0;
+            let suma_dolares = 0;
+            let suma_efectivo_guaranies = 0;
+            let suma_efectivo_dolares = 0;
 
             Object.keys(this.filas).forEach((key) => {
-                let billetes = parseInt(this.filas[key].campo1);
-                let efectivo_seleccionado = parseInt(this.filas[key].campo2);
-                this.filas[key].campo3 =  currency( billetes * efectivo_seleccionado, {separator: '.', decimal: ',' , symbol: this.tab === 'Guaraníes' ? '₲' : '$'}).format()
+                let billetes_guaranies = parseInt(this.filas[key].guraranies_billetes);
+                let efectivo_seleccionado_guaranies = parseInt(this.filas[key].guraranies_valor);
+                this.filas[key].guraranies_total =  currency( billetes_guaranies * efectivo_seleccionado_guaranies, {separator: '.', decimal: ',' , symbol: this.tab === 'Guaraníes' ? '₲' : '$'}).format()
 
-                this.billetes_resultado = billetes;
-                this.efectivo_resultado = efectivo_seleccionado;
-                console.log(this.efectivo_resultado);
+                suma_guaranies += billetes_guaranies;
+                this.suma_total_efectivo_guaranies = billetes_guaranies * efectivo_seleccionado_guaranies;
 
-                suma += billetes;
-                this.suma_total_efectivo = billetes * efectivo_seleccionado;
-
-                suma_efectivo += this.suma_total_efectivo;
+                suma_efectivo_guaranies += this.suma_total_efectivo_guaranies;
+                suma_efectivo_dolares += this.suma_total_efectivo_dolares
             });
 
-            this.ver_datos_totales = currency( suma_efectivo, {separator: '.', decimal: ',' , symbol: this.tab === 'Guaraníes' ? '₲' : '$'}).format()
-            console.log(this.ver_datos_totales);
+            this.ver_datos_totales_guaranies = currency( suma_efectivo_guaranies, {separator: '.', decimal: ',' , symbol: '₲'}).format()
+            console.log(this.ver_datos_totales_guaranies);
 
-            this.total_billetes = suma;
+            this.ver_datos_totales_dolares = currency( suma_efectivo_dolares, {separator: '.', decimal: ',' , symbol: '$'}).format()
+
+            this.total_billetes_guaranies = suma_guaranies;
+            this.total_billetes_dolares = suma_dolares
 
         },
         abrir_caja(){
             this.$emit('abrir_caja', 0)
-            this.$emit('efectivo', this.ver_datos_totales, this.tab)
+            this.$emit('efectivo', this.ver_datos_totales_guaranies, this.tab)
         },
         ver_fecha() {
             const fecha_actual = new Date();
@@ -243,7 +330,7 @@ export default {
         },
         agregar_divisa() {
             if (this.filas.length < this.maximoFilas) {
-                this.filas.push({ campo1: '', campo2: '' });
+                this.filas.push({ guraranies_billetes: '', guraranies_valor: '' });
             }
         },
         eliminarFila(index) {
