@@ -4,9 +4,9 @@
         <v-col class="navegation-bar d-flex align-center justify-start">
             <v-img src="../assets/images/logo.png" style="height: 46px;"/>
             <v-col cols="9" class="d-flex justify-end link-nav">
-                <router-link class="link-nav" to="/ultimo_ticket">Ultimo Ticket</router-link>
-                <router-link class="link-nav" to="/operaciones">Operaciones</router-link>
-                <router-link class="link-nav" to="/operaciones">Cierre de Caja</router-link>
+                <a class="link-nav" to="/ultimo_ticket">Ultimo Ticket</a>
+                <a class="link-nav" to="/operaciones">Operaciones</a>
+                <a class="link-nav" @click="cerrar_caja()" >Cierre de Caja</a>
                 <v-icon @click="logout()">mdi-logout-variant</v-icon>
             </v-col>
         </v-col>
@@ -19,7 +19,12 @@ export default {
     methods:{
         logout(){
             this.$router.replace('/');
-        }
+        },
+        
+        cerrar_caja(){
+            this.$emit('abrir_caja', 0)
+            // this.$emit('efectivo', this.ver_datos_totales_guaranies, this.ver_datos_totales_dolares, this.tab)
+        },
     }
 }
 </script>

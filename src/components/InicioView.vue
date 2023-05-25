@@ -72,7 +72,7 @@ export default {
     tab: null,
     divisa: null,
     
-
+    seleccionar_tipo_billete: 'Guaraníes',
     tipo_billete: ['Guaraníes', 'Dólares'],
 
     filas: [
@@ -84,7 +84,8 @@ export default {
     maximoFilas: 5,
   }),
   props:{
-    valor_efectivo: null,
+    valor_guaranies: null,
+    valor_dolares: null,
     tab_valor: null
   },
   created() {
@@ -95,11 +96,8 @@ export default {
     }
   },
   computed: {
-    seleccionar_tipo_billete(){
-      return this.tab_valor
-    },
     suma_total(){
-      return currency( this.valor_efectivo, {separator: '.', decimal: ',' , symbol: this.seleccionar_tipo_billete === 'Guaraníes' ? '₲' : '$'}).format()
+      return currency( this.seleccionar_tipo_billete === 'Guaraníes' ? this.valor_guaranies : this.valor_dolares, {separator: '.', decimal: ',' , symbol: this.seleccionar_tipo_billete === 'Guaraníes' ? '₲' : '$'}).format()
     },
     timeString() {
       const dia = this.fecha_actual.getDate().toString().padStart(2, '0');
