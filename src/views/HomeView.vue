@@ -1,10 +1,10 @@
 <template>
   <v-app class="body-box">
     <v-container class="py-0 px-8" style="margin-top: 90px;max-width: 100% !important;">
-      <v-row class="ma-0 pt-5 align-start">
+      <v-row class="ma-0 pt-5 align-start">{{ $valor_cerrar_caja }}
         <InicioView :valor_guaranies="dato_valor_guaranies" :valor_dolares="dato_valor_dolares" :cerrar_caja_valor_guaranies="cerrar_caja_dato_valor_guaranies" :cerrar_caja_valor_dolares="cerrar_caja_dato_valor_dolares"/>
         <AperturaCaja v-if="!mostrar_cajas" @abrir_caja="iniciar_abrir_caja" @efectivo="mostrar_efectivo"/>
-        <!-- <CierreCaja v-if="mostrar_cerrar_caja" @cerrar_caja="iniciar_abrir_caja" @efectivo_cierre_caja="mostrar_efectivo_cierre"/> -->
+        <CierreCaja v-if="mostrar_cerrar_caja" @cerrar_caja="iniciar_abrir_caja" @efectivo_cierre_caja="mostrar_efectivo_cierre"/>
         <v-col cols="12" class="pa-0">
           <SeccionPrincipal v-if="mostrar_cajas" />
         </v-col>
@@ -20,7 +20,7 @@
 // import navegationBar from '../components/NavegationBar.vue';
 import InicioView from '../components/InicioView.vue';
 import AperturaCaja from '../components/AperturaCaja.vue';
-// import CierreCaja from '../components/CierreCaja.vue';
+import CierreCaja from '../components/CierreCaja.vue';
 import SeccionPrincipal from '../components/SeccionPrincipal.vue';
 
 export default {
@@ -28,7 +28,7 @@ export default {
     // navegationBar,
     InicioView,
     AperturaCaja,
-    // CierreCaja,
+    CierreCaja,
     SeccionPrincipal,
   },
   data: () => ({
