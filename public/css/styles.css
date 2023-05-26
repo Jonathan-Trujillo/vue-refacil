@@ -6,12 +6,14 @@
     position: fixed;
 }
 .link-nav{
+  cursor: pointer;
+}
+.nav{
   color:#fff !important;
   text-decoration: none;
   font-size:18px;
   font-weight:600;
   gap: 30px;
-
 }
 .body-box{
   background-color: #ECF6FE!important;
@@ -36,6 +38,8 @@
   .cursor-pointer{
     cursor: pointer;
     color: #2D2D8D !important;
+    text-transform: none;
+    letter-spacing: normal;
   }
   .cursor-pointer:hover{
     text-decoration: underline;
@@ -117,6 +121,7 @@
   }
 
   .btn-add-divisa{
+    text-transform: none;
     color: #2D2D8D !important;
     text-transform: none !important;
     letter-spacing: normal;

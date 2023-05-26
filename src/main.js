@@ -11,6 +11,23 @@ import '../public/css/fonts.css'
 
 loadFonts()
 
-createApp(App).use(router)
-  .use(vuetify, Money3Component,currency)
+const app = createApp(App);
+
+// Agregar una variable global
+app.config.globalProperties.$myGlobalVariable = 'Hola, soy una variable global';
+
+// app.config.globalProperties.$cerrar_caja = () => {
+//   // alert('Si llego aqui')
+//   app.config.globalProperties.$valor_cerrar_caja = true
+// }
+
+app.config.globalProperties.$valor_cerrar_caja = {
+  state: false,
+  toggle() {
+    this.state = !this.state;
+  }
+};
+
+app.use(router)
+  .use(vuetify, Money3Component, currency)
   .mount('#app')

@@ -26,7 +26,7 @@
                     <v-col cols="12" md="2" class="pa-0 my-3 d-flex align-center justify-center flex-column"
                     style="border-right:1px solid #2D2D8D; height:100% !important;">
                     <h>Saldo Ap:</h>
-                    <span>-</span>
+                    <span>{{ suma_total }}</span>
                     </v-col>
                     <v-col cols="12" md="2" class="pa-0 my-3 d-flex align-center justify-center flex-column"
                     style="border-right:1px solid #2D2D8D; height:100% !important;">
@@ -86,7 +86,9 @@ export default {
   props:{
     valor_guaranies: null,
     valor_dolares: null,
-    tab_valor: null
+    
+    cerrar_caja_valor_guaranies: null,
+    cerrar_caja_valor_dolares: null,
   },
   created() {
   },
@@ -97,7 +99,11 @@ export default {
   },
   computed: {
     suma_total(){
-      return currency( this.seleccionar_tipo_billete === 'Guaraníes' ? this.valor_guaranies : this.valor_dolares, {separator: '.', decimal: ',' , symbol: this.seleccionar_tipo_billete === 'Guaraníes' ? '₲' : '$'}).format()
+      return currency( this.seleccionar_tipo_billete === 'Guaraníes' ? this.valor_guaranies : this.valor_dolares, {separator: '.', decimal: ',', precision: 0 , symbol: this.seleccionar_tipo_billete === 'Guaraníes' ? '₲' : '$'}).format()
+    },
+    
+    suma_total_cerrar_caja(){
+      return currency( this.seleccionar_tipo_billete === 'Guaraníes' ? this.cerrar_caja_valor_guaranies : this.cerrar_caja_valor_dolares, {separator: '.', decimal: ',', precision: 0 , symbol: this.seleccionar_tipo_billete === 'Guaraníes' ? '₲' : '$'}).format()
     },
     timeString() {
       const dia = this.fecha_actual.getDate().toString().padStart(2, '0');

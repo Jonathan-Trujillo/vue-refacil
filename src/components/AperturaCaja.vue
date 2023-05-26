@@ -212,13 +212,13 @@ export default {
     created() {
         console.log(this.filas_guaranies.guraranies_total)
         this.ver_fecha();
-        this.suma_total = currency(0, {separator: '.', decimal: ',' , symbol: this.tab === 'Guaraníes' ? '₲' : '$'}).format()
+        this.suma_total = currency(0, {separator: '.', decimal: ',', precision: 0 , symbol: this.tab === 'Guaraníes' ? '₲' : '$'}).format()
         this.$emit('efectivo', this.suma_total, this.tab)
         console.log(this.tab);
     },
     computed: {
         dato_total(){ 
-            return currency(0, {separator: '.', decimal: ',' , symbol: this.tab === 'Guaraníes' ? '₲' : '$'}).format()
+            return currency(0, {separator: '.', decimal: ',', precision: 0 , symbol: this.tab === 'Guaraníes' ? '₲' : '$'}).format()
         },
         ver_datos_guaranies(){
             Object.keys(this.filas_guaranies).forEach((key_guaranies) => {
@@ -227,7 +227,7 @@ export default {
                 let efectivo_seleccionado_guaranies = this.filas_guaranies[key_guaranies].guraranies_valor
                 
                 console.log(this.filas_guaranies[key_guaranies].guraranies_total);
-                return this.filas_guaranies[key_guaranies].guraranies_total =  currency( billetes_guaranies * efectivo_seleccionado_guaranies, {separator: '.', decimal: ',' , symbol:'₲'}).format()
+                return this.filas_guaranies[key_guaranies].guraranies_total =  currency( billetes_guaranies * efectivo_seleccionado_guaranies, {separator: '.', decimal: ',', precision: 0 , symbol:'₲'}).format()
             })
             
             return console.log('Estas Filas: ', this.filas_guaranies);
@@ -240,22 +240,22 @@ export default {
                 let efectivo_seleccionado_dolares = this.filas_dolares[key_dolares].dolares_valor
                 
                 console.log(this.filas_dolares[key_dolares].dolares_total);
-                return this.filas_dolares[key_dolares].dolares_total =  currency( billetes_dolares * efectivo_seleccionado_dolares, {separator: '.', decimal: ',' , symbol: '$'}).format()
+                return this.filas_dolares[key_dolares].dolares_total =  currency( billetes_dolares * efectivo_seleccionado_dolares, {separator: '.', decimal: ',', precision: 0 , symbol: '$'}).format()
             })
             
             return console.log('Estas Filas: ', this.filas_dolares);
         },
         valor_inicial_guaranies(){
-            return currency(0, {separator: '.', decimal: ',' , symbol: '₲'}).format()
+            return currency(0, {separator: '.', decimal: ',', precision: 0 , symbol: '₲'}).format()
         },
         valor_inicial_dolares(){
-            return currency(0, {separator: '.', decimal: ',' , symbol: '$'}).format()
+            return currency(0, {separator: '.', decimal: ',', precision: 0 , symbol: '$'}).format()
         },
         tengo_billetes(){
-            return currency(0, {separator: '.', decimal: ',' , symbol: this.tab === 'Guaraníes' ? '₲' : '$'}).format()
+            return currency(0, {separator: '.', decimal: ',', precision: 0 , symbol: this.tab === 'Guaraníes' ? '₲' : '$'}).format()
         },
         // seleccionar_billete(){
-        //     return currency(this.filas_guaranies.guraranies_valor, {separator: '.', decimal: ',' , symbol: this.tab === 'Guaraníes' ? '₲' : '$'}).format()
+        //     return currency(this.filas_guaranies.guraranies_valor, {separator: '.', decimal: ',', precision: 0 , symbol: this.tab === 'Guaraníes' ? '₲' : '$'}).format()
             
         // },
         tipo_billete(){
@@ -296,7 +296,7 @@ export default {
             Object.keys(this.filas_guaranies).forEach((key_guaranies) => {
                 let billetes_guaranies = parseInt(this.filas_guaranies[key_guaranies].guraranies_billetes);
                 let efectivo_seleccionado_guaranies = parseInt(this.filas_guaranies[key_guaranies].guraranies_valor);
-                this.filas_guaranies[key_guaranies].guraranies_total =  currency( billetes_guaranies * efectivo_seleccionado_guaranies, {separator: '.', decimal: ',' , symbol: '₲'}).format()
+                this.filas_guaranies[key_guaranies].guraranies_total =  currency( billetes_guaranies * efectivo_seleccionado_guaranies, {separator: '.', decimal: ',', precision: 0 , symbol: '₲'}).format()
 
                 suma_guaranies += billetes_guaranies;
                 this.suma_total_efectivo_guaranies = billetes_guaranies * efectivo_seleccionado_guaranies;
@@ -304,7 +304,7 @@ export default {
                 suma_efectivo_guaranies += this.suma_total_efectivo_guaranies;
             });
 
-            this.ver_datos_totales_guaranies = currency( suma_efectivo_guaranies, {separator: '.', decimal: ',' , symbol: '₲'}).format()
+            this.ver_datos_totales_guaranies = currency( suma_efectivo_guaranies, {separator: '.', decimal: ',', precision: 0 , symbol: '₲'}).format()
 
 
             this.total_billetes_guaranies = suma_guaranies;
@@ -318,7 +318,7 @@ export default {
             Object.keys(this.filas_dolares).forEach((key_dolares) => {
                 let billetes_dolares = parseInt(this.filas_dolares[key_dolares].dolares_billetes);
                 let efectivo_seleccionado_dolares = parseInt(this.filas_dolares[key_dolares].dolares_valor);
-                this.filas_dolares[key_dolares].dolares_total =  currency( billetes_dolares * efectivo_seleccionado_dolares, {separator: '.', decimal: ',' , symbol: '$'}).format()
+                this.filas_dolares[key_dolares].dolares_total =  currency( billetes_dolares * efectivo_seleccionado_dolares, {separator: '.', decimal: ',', precision: 0 , symbol: '$'}).format()
 
                 suma_dolares += billetes_dolares;
                 this.suma_total_efectivo_dolares = billetes_dolares * efectivo_seleccionado_dolares;
@@ -326,7 +326,7 @@ export default {
                 suma_efectivo_dolares += this.suma_total_efectivo_dolares;
             });
 
-            this.ver_datos_totales_dolares = currency( suma_efectivo_dolares, {separator: '.', decimal: ',' , symbol: '$'}).format()
+            this.ver_datos_totales_dolares = currency( suma_efectivo_dolares, {separator: '.', decimal: ',', precision: 0 , symbol: '$'}).format()
 
 
             this.total_billetes_dolares = suma_dolares;
