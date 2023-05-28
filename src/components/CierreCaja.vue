@@ -334,8 +334,8 @@ export default {
       },
 
       cerrar_caja(){
-        //   this.$emit('cerrar_caja', 0)
-          this.$emit('efectivo_cierre_caja', this.cierre_caja_ver_datos_totales_guaranies, this.cierre_caja_ver_datos_totales_dolares)
+        this.$emit('cerrar_caja', 0)
+        this.$emit('efectivo_cierre_caja', this.cierre_caja_ver_datos_totales_guaranies, this.cierre_caja_ver_datos_totales_dolares)
       },
       ver_fecha() {
           const fecha_actual = new Date();

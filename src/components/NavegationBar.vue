@@ -15,15 +15,22 @@
 </template>
 
 <script>
+// import { miFuncionGlobal } from '@/globalFunctions.js';
+import {funcionGlobal} from '../views/HomeView.vue'
+
+
 export default {
     methods:{
-        cerrar_caja() {
-      this.$valor_cerrar_caja.toggle(); // Llamar a la función para cambiar el estado de la variable global
-    },
         logout(){
             this.$router.replace('/');
         },
         
+        cerrar_caja(){
+            funcionGlobal();
+            // this.$emit('ejecutar-funcion');
+            // this.$myGlobalfunction
+            // this.$emit('efectivo', this.ver_datos_totales_guaranies, this.ver_datos_totales_dolares, this.tab)
+        },
     }
 }
 </script>

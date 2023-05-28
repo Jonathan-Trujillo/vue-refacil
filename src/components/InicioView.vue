@@ -90,8 +90,6 @@ export default {
     cerrar_caja_valor_guaranies: null,
     cerrar_caja_valor_dolares: null,
   },
-  created() {
-  },
   watch:{
     tab(){
       this.divisa = this.tab
