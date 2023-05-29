@@ -192,10 +192,7 @@ export default {
           shouldRound: true,
           focusOnRight: false,
         },
-
-        currency: 'USD',
-
-        
+       
         tipo_billete_guaranies: ['₲100.000', '₲50.000', '₲20.000', '₲10.000', '₲5.000', '₲2.000', '₲1.000', '₲500', '₲100', '₲50'],
         tipo_billete_dolares: ['$100','$50','$20','$10','$5'],
 
@@ -210,11 +207,7 @@ export default {
         index_dolares: 'Dólares',
     }),
     created() {
-        console.log(this.filas_guaranies.guraranies_total)
         this.ver_fecha();
-        this.suma_total = currency(0, {separator: '.', decimal: ',', precision: 0 , symbol: this.tab === 'Guaraníes' ? '₲' : '$'}).format()
-        this.$emit('efectivo', this.suma_total, this.tab)
-        console.log(this.tab);
     },
     computed: {
         dato_total(){ 
@@ -254,10 +247,6 @@ export default {
         tengo_billetes(){
             return currency(0, {separator: '.', decimal: ',', precision: 0 , symbol: this.tab === 'Guaraníes' ? '₲' : '$'}).format()
         },
-        // seleccionar_billete(){
-        //     return currency(this.filas_guaranies.guraranies_valor, {separator: '.', decimal: ',', precision: 0 , symbol: this.tab === 'Guaraníes' ? '₲' : '$'}).format()
-            
-        // },
         tipo_billete(){
             return this.tab === 'Guaraníes' ? this.tipo_billete_guaranies.map((billete) => {
                 return {
@@ -277,16 +266,6 @@ export default {
         maximo_filas_dolares(){
             return this.tipo_billete_dolares.length
         }
-        // seleccionar_billete(){
-        //     return currency(this.seleccionar_billete, { symbol: '$' }).format()
-        // }
-    },
-    watch: {
-        tab() {
-            // this.seleccionar_billete = null
-            this.$emit('efectivo', this.suma_total, this.tab)
-        },
-
     },
     methods: {
         agregar_guaranies_a_divisa() {

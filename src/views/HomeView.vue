@@ -28,14 +28,9 @@ const state = reactive({
 });
 
 export const funcionGlobal = () => {
-  // alert('¡Nueva función global!');
-    // alert('Hizo Click')
   state.cerrar_componente_caja = true,
   state.abrir_componente_caja = true,
   state.mostrar_seccion_principal = false
- 
-   // Llamada a la función cerrar_caja en el componente
-  // Haz algo más aquí...
 };
 
 const app = createApp({});
@@ -50,7 +45,6 @@ export default {
     SeccionPrincipal,
   },
   data: () => ({
-    // mostrar_cajas: false,
     dato_valor_guaranies: null,
     dato_valor_dolares: null,
     cerrar_caja_dato_valor_guaranies: null,
