@@ -4,123 +4,131 @@
             <v-card class="d-flex align-center">
                 <v-row class="ma-0 pa-0" dense>
                     <v-col cols="12" md="8" class="pa-0">
-                        <v-row class="ma-0 pa-4 px-5" dense>
+                        <v-row class="pa-4 pr-0" dense>
                             <v-col cols="12" style="border-bottom: 1px solid rgba(0,0,0,0.2)">
-                                <v-card-title class="px-0" style="color:#2D2D8D;font-size:22px;">Apertura de Caja</v-card-title>
+                                <v-card-title class="px-4" style="color:#2D2D8D;font-size:22px;">Apertura de Caja</v-card-title>
                             </v-col>
 
                             <v-col cols="12" class="pa-0">
-                                <v-col cols="12" class="px-0 py-8">
+                                <v-col cols="12" class="px-4">
                                     <h style="color:#2D2D8D;font-size:18px">Carga las divisas que tienes en efectivo para
                                         continuar:</h>
                                 </v-col>
+                                <v-col cols="12" class="px-4 d-flex">
                                     <v-tabs v-model="tab">
                                         <v-tab slider-color="#2D2D8D" class="btn-tabs" value="Guaraníes">Guaraníes</v-tab>
                                         <v-tab slider-color="#2D2D8D" class="btn-tabs" value="Dólares">Dólares</v-tab>
                                         <!-- <v-tab slider-color="#2D2D8D" class="btn-tabs" value="Euros">Euros</v-tab> -->
                                     </v-tabs>
+                                    <v-col class="pa-0 d-flex justify-end">
+                                        <v-btn variant="text" class="cursor-pointer" style="color:red !important" v-if="tab === 'Guaraníes' ? filas_guaranies.length >= 2 :  filas_dolares.length >= 2"
+                                                @click="tab === 'Guaraníes' ? limpiar_divisas_guaranies() : limpiar_divisas_dolares()">Limpiar</v-btn>
+                                    </v-col>
+                                </v-col>
                                     <v-window v-model="tab">
                                         <v-window-item value="Guaraníes">
-                                            <v-card-text class="divisas px-0 pt-10">
+                                            <v-card-text class="divisas px-0" style="position: relative;">
+                                                <v-row class="contenedor_divisas pl-4 pr-8 py-1" dense>
+                                                     <v-col cols="12" class="d-flex" v-for="(value, key_guaranies) in filas_guaranies" :key="key_guaranies">
 
-                                                <v-row class="ma-0" v-for="(value, key_guaranies) in filas_guaranies" :key="key_guaranies">
+                                                        <v-col cols="12" md="3" class="pa-0 d-flex align-center">
+                                                            <h style="font-size:20px; color:#2D2D8D;" class="mr-4">Tengo </h>
+                                                            
+                                                        <money3 v-model="filas_guaranies[key_guaranies].guraranies_billetes"  v-bind="config" class="mt-n4 v-field__input v-field border-line"></money3>
+                                                        </v-col>
+                                                        <v-col cols="12" md="4" class="pa-0 d-flex align-center">
+                                                            <h style="font-size:20px; color:#2D2D8D;" class="mx-4 pb-4">Billetes de </h>
+                                                            <v-select variant="outlined" v-model="filas_guaranies[key_guaranies].guraranies_valor" :items="tipo_billete" item-title="text" item-value="value" dense class="mb-n1" />
+                                                        </v-col>
+                                                        <v-col cols="12" md="2" class="pa-0 d-flex align-center">
+                                                            <h style="font-size:20px; color:#2D2D8D;" class="mx-4 pb-4">{{ divisa }}</h>
+                                                        </v-col>
+                                                        <v-col cols="12" md="3" class="d-flex align-center justify-end" style="position:relative">
+                                                                <h style="font-size:20px; color:#2D2D8D;" class="pb-4">Total = {{ ver_datos_guaranies }} {{filas_guaranies[key_guaranies].guraranies_total}}</h>
+                                                            <v-badge v-if="filas_guaranies.length >= 2" :content="'X'" color="error" floating @click="eliminar_fila_guaranies( key_guaranies)"
+                                                                overlap class="pb-8 cursor-pointer" style="position:absolute;right: 0px;"/>
+                                                        </v-col>
 
-                                                    <v-col cols="12" md="3" class="pa-0 d-flex align-center">
-                                                        <h style="font-size:20px; color:#2D2D8D;" class="mr-4 pb-4">Tengo </h>
-                                                        
-                                                <money3 v-model="filas_guaranies[key_guaranies].guraranies_billetes"  v-bind="config" class="mt-n4 v-field__input v-field border-line"></money3>
                                                     </v-col>
-                                                    <v-col cols="12" md="4" class="pa-0 d-flex align-center">
-                                                        <h style="font-size:20px; color:#2D2D8D;" class="mx-4 pb-4">Billetes de </h>
-                                                        <v-select variant="outlined" v-model="filas_guaranies[key_guaranies].guraranies_valor" :items="tipo_billete" item-title="text" item-value="value" dense class="mb-n1" />
-                                                    </v-col>
-                                                    <v-col cols="12" md="2" class="pa-0 d-flex align-center">
-                                                        <h style="font-size:20px; color:#2D2D8D;" class="mx-4 pb-4">{{ divisa }}</h>
-                                                    </v-col>
-                                                    <v-col cols="12" md="3" class="pa-0 d-flex align-center justify-end">
-                                                        <h style="font-size:20px; color:#2D2D8D;" class="pb-4">Total = {{ ver_datos_guaranies }} {{filas_guaranies[key_guaranies].guraranies_total}}
-                                                        </h>
-                                                    </v-col>
-
                                                 </v-row>
-                                                <v-col cols="12">
-                                                    <v-btn class="btn-add-divisa"
-                                                        variant="outlined" @click="agregar_guaranies_a_divisa()">
-                                                        <v-icon>
-                                                            mdi-plus-circle
-                                                        </v-icon> Añadir al total
-                                                    </v-btn>
-
-                                                    <v-btn class="cursor-pointer" :disabled="filas_guaranies.length >= maximo_filas_guaranies"
-                                                        variant="text" @click="agregar_divisa_guaranies()">
-                                                        <v-icon>
-                                                            mdi-plus-circle
-                                                        </v-icon> Agregar otra fila
-                                                    </v-btn>
-
-
-                                                    <v-btn text class="ml-4 btn-delete-divisa" color="error"
-                                                        v-if="filas_guaranies.length >= 2" @click="eliminar_fila_guaranies(index_guaranies)">
-                                                        <v-icon>
-                                                            mdi-close-circle
-                                                        </v-icon>
-                                                    </v-btn>
-
-
-
-                                                </v-col>
+                                                <v-row class="pa-4 align-center" style="position:absolute;bottom:0; width: 100%;  box-shadow:  -5px -10px 10px rgba(50, 100, 200, 0.075);" dense>
+                                                    <v-col cols="12" md="6">
+                                                        <v-btn class="btn-add-divisa"
+                                                            variant="outlined" @click="agregar_guaranies_a_divisa()">
+                                                            <v-icon class="pr-2" style="padding-top: 2px;">
+                                                                mdi-plus-circle
+                                                            </v-icon> Añadir al total
+                                                        </v-btn>
+                                                    </v-col>
+                                                    <v-col cols="12" md="6" class="pa-0 d-flex justify-end">
+                                                        <v-btn class="btn-add-divisa" :disabled="filas_guaranies.length >= maximo_filas_guaranies"
+                                                            variant="text" @click="agregar_divisa_guaranies()">
+                                                            <v-icon class="pr-2" style="padding-top: 2px;">
+                                                                mdi-plus-circle
+                                                            </v-icon> Nueva fila
+                                                        </v-btn>
+                                                        <!-- <v-btn text class="ml-4 btn-delete-divisa" color="error"
+                                                            v-if="filas_guaranies.length >= 2" @click="eliminar_fila_guaranies(index_guaranies)">
+                                                            <v-icon>
+                                                                mdi-close-circle
+                                                            </v-icon>
+                                                        </v-btn> -->
+                                                    </v-col>
+                                                </v-row>
                                             </v-card-text>
                                         </v-window-item>
 
                                         <v-window-item value="Dólares">
-                                            <v-card-text class="divisas px-0 pt-10">
+                                            <v-card-text class="divisas px-0">
 
-                                                <v-row class="ma-0" v-for="(value, key_dolares) in filas_dolares" :key="key_dolares">
+                                                
+                                                <v-row class="contenedor_divisas pl-4 pr-8 py-1" dense>
+                                                     <v-col cols="12" class="d-flex" v-for="(value, key_dolares) in filas_dolares" :key="key_dolares">
 
-                                                    <v-col cols="12" md="3" class="pa-0 d-flex align-center">
-                                                        <h style="font-size:20px; color:#2D2D8D;" class="mr-4 pb-4">Tengo </h>
-                                                        
-                                                <money3 v-model="filas_dolares[key_dolares].dolares_billetes"  v-bind="config" class="mt-n4 v-field__input v-field border-line"></money3>
-                                                    </v-col>
-                                                    <v-col cols="12" md="4" class="pa-0 d-flex align-center">
-                                                        <h style="font-size:20px; color:#2D2D8D;" class="mx-4 pb-4">Billetes de </h>
-                                                        <v-select variant="outlined" v-model="filas_dolares[key_dolares].dolares_valor" :items="tipo_billete" item-title="text" item-value="value" dense class="mb-n1" />
-                                                    </v-col>
-                                                    <v-col cols="12" md="2" class="pa-0 d-flex align-center">
-                                                        <h style="font-size:20px; color:#2D2D8D;" class="mx-4 pb-4">{{ divisa }}</h>
-                                                    </v-col>
-                                                    <v-col cols="12" md="3" class="pa-0 d-flex align-center justify-end">
-                                                        <h style="font-size:20px; color:#2D2D8D;" class="pb-4">Total = {{ ver_datos_dolares }} {{filas_dolares[key_dolares].dolares_total}}
-                                                        </h>
-                                                    </v-col>
+                                                        <v-col cols="12" md="3" class="pa-0 d-flex align-center">
+                                                            <h style="font-size:20px; color:#2D2D8D;" class="mr-4">Tengo </h>
+                                                            
+                                                        <money3 v-model="filas_dolares[key_dolares].dolares_billetes" v-bind="config" class="mt-n4 v-field__input v-field border-line"></money3>
+                                                        </v-col>
+                                                        <v-col cols="12" md="4" class="pa-0 d-flex align-center">
+                                                            <h style="font-size:20px; color:#2D2D8D;" class="mx-4 pb-4">Billetes de </h>
+                                                            <v-select variant="outlined" v-model="filas_dolares[key_dolares].dolares_valor" :items="tipo_billete" item-title="text" item-value="value" dense class="mb-n1" />
+                                                        </v-col>
+                                                        <v-col cols="12" md="2" class="pa-0 d-flex align-center">
+                                                            <h style="font-size:20px; color:#2D2D8D;" class="mx-4 pb-4">{{ divisa }}</h>
+                                                        </v-col>
+                                                        <v-col cols="12" md="3" class="d-flex align-center justify-end" style="position:relative">
+                                                                <h style="font-size:20px; color:#2D2D8D;" class="pb-4">Total = {{ ver_datos_dolares }} {{filas_dolares[key_dolares].dolares_total}}</h>
+                                                            <v-badge v-if="filas_dolares.length >= 2" :content="'X'" color="error" floating @click="eliminar_fila_dolares( key_dolares)"
+                                                                overlap class="pb-8 cursor-pointer" style="position:absolute;right: 0px;"/>
+                                                        </v-col>
 
+                                                    </v-col>
                                                 </v-row>
-                                                <v-col cols="12">
-                                                    <v-btn class="btn-add-divisa"
-                                                        variant="outlined" @click="agregar_dolares_a_divisa()">
-                                                        <v-icon>
-                                                            mdi-plus-circle
-                                                        </v-icon> Añadir al total
-                                                    </v-btn>
-
-                                                    <v-btn class="cursor-pointer" :disabled="filas_dolares.length >= maximo_filas_dolares"
-                                                        variant="text" @click="agregar_divisa_dolares()">
-                                                        <v-icon>
-                                                            mdi-plus-circle
-                                                        </v-icon> Agregar otra fila
-                                                    </v-btn>
-
-
-                                                    <v-btn text class="ml-4 btn-delete-divisa" color="error"
-                                                        v-if="filas_guaranies.length >= 2" @click="eliminar_fila_dolares(index_dolares)">
-                                                        <v-icon>
-                                                            mdi-close-circle
-                                                        </v-icon>
-                                                    </v-btn>
-
-
-
-                                                </v-col>
+                                                <v-row class="pa-4 align-center" style="position:absolute;bottom:0; width: 100%;box-shadow:  -5px -10px 10px rgba(50, 100, 200, 0.075);" dense>
+                                                    <v-col cols="12" md="6">
+                                                        <v-btn class="btn-add-divisa"
+                                                            variant="outlined" @click="agregar_dolares_a_divisa()">
+                                                            <v-icon class="pr-2" style="padding-top: 2px;">
+                                                                mdi-plus-circle
+                                                            </v-icon> Añadir al total
+                                                        </v-btn>
+                                                    </v-col>
+                                                    <v-col cols="12" md="6" class="pa-0 d-flex justify-end">
+                                                        <v-btn class="btn-add-divisa" :disabled="filas_dolares.length >= maximo_filas_dolares"
+                                                            variant="text" @click="agregar_divisa_dolares()">
+                                                            <v-icon class="pr-2" style="padding-top: 2px;">
+                                                                mdi-plus-circle
+                                                            </v-icon> Nueva fila
+                                                        </v-btn>
+                                                        <!-- <v-btn text class="ml-4 btn-delete-divisa" color="error"
+                                                            v-if="filas_dolares.length >= 2" @click="eliminar_fila_guaranies(index_guaranies)">
+                                                            <v-icon>
+                                                                mdi-close-circle
+                                                            </v-icon>
+                                                        </v-btn> -->
+                                                    </v-col>
+                                                </v-row>
                                             </v-card-text>
                                         </v-window-item>
                                     </v-window>
@@ -171,6 +179,7 @@ export default {
     components: { money3: Money3Component },
     
     data: () => ({
+
         total_billetes_guaranies: 0,
         total_billetes_dolares: 0,
         suma_total_efectivo: 0,
@@ -203,7 +212,7 @@ export default {
        
         filas_guaranies: [ { guraranies_billetes: null, guraranies_valor: null } ],
         filas_dolares: [ { dolares_billetes: null, dolares_valor: null } ],
-        index_guaranies: 'Guaraníes',
+        // index_guaranies: 'Guaraníes',
         index_dolares: 'Dólares',
     }),
     created() {
@@ -213,17 +222,30 @@ export default {
         dato_total(){ 
             return currency(0, {separator: '.', decimal: ',', precision: 0 , symbol: this.tab === 'Guaraníes' ? '₲' : '$'}).format()
         },
-        ver_datos_guaranies(){
-            Object.keys(this.filas_guaranies).forEach((key_guaranies) => {
+        // ver_datos_guaranies(){
+        //     Object.keys(this.filas_guaranies).forEach((key_guaranies) => {
                 
-                let billetes_guaranies = this.filas_guaranies[key_guaranies].guraranies_billetes
-                let efectivo_seleccionado_guaranies = this.filas_guaranies[key_guaranies].guraranies_valor
+        //         let billetes_guaranies = this.filas_guaranies[key_guaranies].guraranies_billetes
+        //         let efectivo_seleccionado_guaranies = this.filas_guaranies[key_guaranies].guraranies_valor
                 
-                console.log(this.filas_guaranies[key_guaranies].guraranies_total);
-                return this.filas_guaranies[key_guaranies].guraranies_total =  currency( billetes_guaranies * efectivo_seleccionado_guaranies, {separator: '.', decimal: ',', precision: 0 , symbol:'₲'}).format()
-            })
+        //         console.log(this.filas_guaranies[key_guaranies].guraranies_total);
+        //         return this.filas_guaranies[key_guaranies].guraranies_total =  currency( billetes_guaranies * efectivo_seleccionado_guaranies, {separator: '.', decimal: ',', precision: 0 , symbol:'₲'}).format()
+        //     })
             
-            return console.log('Estas Filas: ', this.filas_guaranies);
+        //     return console.log('Estas Filas: ', this.filas_guaranies);
+        // },
+        ver_datos_guaranies() {
+            Object.keys(this.filas_guaranies).forEach((key_guaranies) => {
+                let billetes_guaranies = this.filas_guaranies[key_guaranies].guraranies_billetes;
+                let efectivo_seleccionado_guaranies = this.filas_guaranies[key_guaranies].guraranies_valor;
+
+                this.filas_guaranies[key_guaranies].guraranies_total = currency(
+                    billetes_guaranies * efectivo_seleccionado_guaranies,
+                    { separator: ".", decimal: ",", precision: 0, symbol: "₲" }
+                ).format();
+            });
+
+            return console.log("Estas Filas: ", this.filas_guaranies);
         },
         
         ver_datos_dolares(){
@@ -330,11 +352,15 @@ export default {
         },
         agregar_divisa_guaranies() {
             if (this.filas_guaranies.length < this.maximo_filas_guaranies) {
-                this.filas_guaranies.push({ guraranies_billetes: '', guraranies_valor: '' });
+                this.filas_guaranies.push({ guraranies_billetes: null, guraranies_valor: null });
             }
         },
-        eliminar_fila_guaranies(index_guaranies) {
-            this.filas_guaranies.splice(index_guaranies, 1);
+        eliminar_fila_guaranies(key_guaranies) {
+            console.log(key_guaranies)
+            this.filas_guaranies.splice(key_guaranies, 1);
+        },
+        limpiar_divisas_guaranies(){
+            this.filas_guaranies = [ { guraranies_billetes: null, guraranies_valor: null } ]
         },
         agregar_divisa_dolares() {
             if (this.filas_dolares.length < this.maximo_filas_dolares) {
@@ -343,6 +369,9 @@ export default {
         },
         eliminar_fila_dolares(index_dolares) {
             this.filas_dolares.splice(index_dolares, 1);
+        },
+        limpiar_divisas_dolares(){
+            this.filas_dolares = [ { dolares_billetes: null, dolares_valor: null } ]
         },
     }
 

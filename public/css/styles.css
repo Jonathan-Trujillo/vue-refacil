@@ -101,6 +101,14 @@
     color: #2D2D8D!important;
   }
 
+  .divisas{
+    min-height: 450px;
+    max-height: 450px;
+  }
+  .contenedor_divisas{
+    overflow-x: auto;
+    max-height: 350px;
+  }
   .divisas .v-field__input, .divisas .v-field.v-field{
     background:#f1f1f1;
     border-radius:5px;
@@ -245,3 +253,5 @@
 .v-input--is-label-active .v-input__control::before {
   border-color: red;
 }
+
+/* ************************   ANIMACIONES   ************************ */
