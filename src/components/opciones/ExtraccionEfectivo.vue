@@ -1,11 +1,11 @@
 <template>
-    <v-row>
+    <v-row class="ma-0">
         <v-col>
-            <v-col cols="12" class="pa-0" v-if="tab_extraccion != 'proceso_exitoso' && tab_extraccion != 'finalizar_proceso'">
+            <v-col cols="12" class="py-0" v-if="tab_extraccion != 'proceso_exitoso' && tab_extraccion != 'finalizar_proceso'">
                 <h style="color:#2D2D8D;font-size:18px">{{ tab_extraccion === 'opcion_qr' ? 'Elegí el monto que desear retirar:' : tab_extraccion === 'boleta' ? 'Ingresá la siguiente información' : 'Elegí la opción con la que deseas continuar:'}}</h>
             </v-col>
 
-            <v-window v-model="tab_extraccion">
+            <v-window v-model="tab_extraccion" class="divisas">
                 <v-window-item>
                     <v-row class="ma-0 pt-2">
                         <v-col cols="12" md="4">
@@ -36,26 +36,26 @@
 
                 <v-window-item value="boleta">
                     <v-form ref="form">
-                        <v-row class="ma-0 pt-2 divisas">
+                        <v-row class="ma-0 pt-2">
                             <v-col cols="12" md="8" style="color:#2D2D8D">
 
                                 <v-col cols="12" class="pa-0 d-flex align-center">
-                                    <strong class="mr-4 pb-4">Número de boleta de extracción: </strong>
-                                    <v-text-field v-model="no_boleta" :rules="validar_formulario" variant="outlined" dense />
+                                    <strong class="mr-4 pb-6">Número de boleta de extracción: </strong>
+                                    <v-text-field class="pa-0" v-model="no_boleta" :rules="validar_formulario" variant="outlined" dense />
                                 </v-col>
 
                                 <v-col cols="12" class="pa-0 d-flex align-center">
-                                    <strong class="mr-4 pb-4">Número de cuenta bancaria: </strong>
+                                    <strong class="mr-4 pb-6">Número de cuenta bancaria: </strong>
                                     <v-text-field v-model="no_cuenta" :rules="validar_formulario" variant="outlined" dense />
                                 </v-col>
 
                                 <v-col cols="12" class="pa-0 d-flex align-center">
-                                    <strong class="mr-4 pb-4">Nombre y apellido titular: </strong>
+                                    <strong class="mr-4 pb-6">Nombre y apellido titular: </strong>
                                     <v-text-field v-model="nombre_titular" :rules="validar_formulario" variant="outlined" dense />
                                 </v-col>
 
                                 <v-col cols="12" class="pa-0 d-flex align-center">
-                                    <strong class="mr-4 pb-4">Documento IDE: </strong>
+                                    <strong class="mr-4 pb-6">Documento IDE: </strong>
                                     <v-text-field v-model="documento_ide" :rules="validar_formulario" variant="outlined" dense />
                                 </v-col>
 
@@ -147,7 +147,7 @@
                     </v-row>
                 </v-window-item>
 
-                <v-window-item value="proceso_exitoso">
+                <v-window-item value="proceso_exitoso" style="min-height: 480px">
                     <v-row class="ma-0 pt-2">
 
                         <v-col class="pa-5 d-flex align-center justify-center">
@@ -159,32 +159,7 @@
 
 
                 <v-window-item value="finalizar_proceso">
-                    <v-row class="ma-0 pt-2">
-
-                        <v-col cols="5" class="pa-5 d-flex align-center justify-center">
-                            <v-img style="max-width: 100% !important;" src="../../assets/images/check2.svg"
-                                @click="proceso_exitoso()" />
-                        </v-col>
-
-                        <v-col cols="7" class="pa-5 d-flex align-center justify-center">
-                            <v-row>
-                                <v-col cols="12">
-                                    <h style="color:#2D2D8D; font-size:22px">El retiro por <strong>{{ cantidad }}</strong>
-                                        de la cuenta No. <strong>{{ no_cuenta }}</strong> ha sido realizado exitosamente en
-                                        el banco <strong>{{ banco_elegido }}</strong></h>
-                                </v-col>
-                                <v-col cols="12">
-                                    <p style="color:#2D2D8D">¿Comó queres el comprobante?</p>
-                                    <v-col class="px-0 d-flex justify-space-between" style="gap:10px">
-                                        <v-btn class="btn-add-divisa" variant="outlined"> <v-icon></v-icon> Impreso</v-btn>
-                                        <v-btn class="btn-add-divisa" variant="outlined"> <v-icon></v-icon> Correo
-                                            electrónico</v-btn>
-
-                                    </v-col>
-                                </v-col>
-                            </v-row>
-                        </v-col>
-                    </v-row>
+                    <fin_proceso/>
                 </v-window-item>
             </v-window>
 
@@ -216,8 +191,11 @@
 </template>
 
 <script>
-
+import fin_proceso from '../FinProceso.vue'
 export default {
+    components:{
+        fin_proceso
+    },
     data: () => ({
 
 

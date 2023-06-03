@@ -1,11 +1,11 @@
 <template>
     <v-row>
         <v-col>
-            <v-col cols="12" class="pa-0" v-if="tab_cheques != 'proceso_exitoso' && tab_cheques != 'finalizar_proceso'">
+            <v-col cols="12" class="py-0" v-if="tab_cheques != 'proceso_exitoso' && tab_cheques != 'finalizar_proceso'">
                 <h style="color:#2D2D8D;font-size:18px">{{ tab_cheques === 'opcion_qr' ? 'Elegí el monto que desear retirar:' : tab_cheques === 'datos' ? 'Ingresá la siguiente información' : 'Elegí la opción con la que deseas continuar:'}}</h>
             </v-col>
 
-            <v-window v-model="tab_cheques">
+            <v-window v-model="tab_cheques" class="divisas">
                 <v-window-item>
                     <v-row class="ma-0 pt-2">
                         <v-col cols="12" md="4">
@@ -34,7 +34,7 @@
 
                 <v-window-item value="datos">
                     <v-form ref="form">
-                        <v-row class="ma-0 pt-2 divisas">
+                        <v-row class="ma-0 pt-2">
                             <v-col cols="12" md="8" style="color:#2D2D8D">
 
                                 <v-col cols="12" class="pa-0 d-flex align-center">
@@ -78,22 +78,24 @@
                 </v-window-item>
 
                 <v-window-item value="montos">
-                    <v-row class="ma-0 pt-2" style="color:#2D2D8D">
+                    <v-row class="ma-0 pt-2 depositos" style="color:#2D2D8D">
                         <v-col cols="12" md="6" class="cantidad">
                             <h>Ingrese el monto del cheque</h>
-                            <v-text-field class="mt-4" v-model.number="cantidad" prefix="₲"
-                                hint="Sólo podés ingresar múltiplos de 100" />
+                            
+                            <money3 v-model="cantidad" v-bind="config" class="mt-4 v-field__input v-field border-line" hint="Sólo podés ingresar múltiplos de 100" prefix="₲"/>
+                             
                         </v-col>
                         <v-col cols="12" md="6">
-                            <h>Cantidad de cheque</h>
+                            <h>Cantidad de cheques</h>
                             <v-col cols="12" md="6" class="cantidad pa-0">
-                                <v-text-field class="mt-4" v-model.number="cantidad_cheques"/>
+                                <money3 v-model="cantidad_cheques" v-bind="config" class="mt-4 v-field__input v-field border-line" hint="Sólo podés ingresar múltiplos de 100"/>
+                            
                             </v-col>
                         </v-col>
                     </v-row>
                 </v-window-item>
 
-                <v-window-item value="proceso_exitoso">
+                <v-window-item value="proceso_exitoso" style="min-height: 480px">
                     <v-row class="ma-0 pt-2">
 
                         <v-col class="pa-5 d-flex align-center justify-center">
@@ -105,32 +107,7 @@
 
 
                 <v-window-item value="finalizar_proceso">
-                    <v-row class="ma-0 pt-2">
-
-                        <v-col cols="5" class="pa-5 d-flex align-center justify-center">
-                            <v-img style="max-width: 100% !important;" src="../../assets/images/check2.svg"
-                                @click="proceso_exitoso()" />
-                        </v-col>
-
-                        <v-col cols="7" class="pa-5 d-flex align-center justify-center">
-                            <v-row>
-                                <v-col cols="12">
-                                    <h style="color:#2D2D8D; font-size:22px">El deposito con cheque por: <strong>{{ cantidad }}</strong>
-                                        ha(n) sido realizado exitosamente en
-                                        el banco <strong>{{ banco_elegido }}</strong> No. de cuenta <strong>{{ no_cuenta }}</strong> </h>
-                                </v-col>
-                                <v-col cols="12">
-                                    <p style="color:#2D2D8D">¿Comó queres el comprobante?</p>
-                                    <v-col class="px-0 d-flex justify-space-between" style="gap:10px">
-                                        <v-btn class="btn-add-divisa" variant="outlined"> <v-icon></v-icon> Impreso</v-btn>
-                                        <v-btn class="btn-add-divisa" variant="outlined"> <v-icon></v-icon> Correo
-                                            electrónico</v-btn>
-
-                                    </v-col>
-                                </v-col>
-                            </v-row>
-                        </v-col>
-                    </v-row>
+                    <fin_proceso/>
                 </v-window-item>
             </v-window>
 
@@ -163,8 +140,32 @@
 
 <script>
 
+import { Money3Component } from 'v-money3'
+import fin_proceso from '../FinProceso.vue'
 export default {
+    components: {
+        fin_proceso,
+        money3: Money3Component
+    },
     data: () => ({
+        
+
+        config: {
+          masked: false,
+          prefix: '',
+          suffix: '',
+          thousands: ',',
+          decimal: '.',
+          precision: 0,
+          disableNegative: false,
+          disabled: false,
+          min: null,
+          max: null,
+          allowBlank: false,
+          minimumNumberOfCharacters: 0,
+          shouldRound: true,
+          focusOnRight: false,
+        },
 
 
         validar_formulario: [
@@ -287,3 +288,10 @@ export default {
     },
 }
 </script>
+
+<style>
+.depositos .v-text-field__prefix{
+    line-height: 0;
+    font-size: 25px !important;
+}
+</style>

@@ -100,8 +100,10 @@
     font-weight: 400;
     color: #2D2D8D!important;
   }
-
-  .divisas{
+  .divisas .v-window-item{
+    min-height: 384px;
+  }
+  .divisas-apertura_caja{
     min-height: 450px;
     max-height: 450px;
   }
@@ -109,6 +111,21 @@
     overflow-x: auto;
     max-height: 350px;
   }
+
+  
+
+  .v-field--variant-filled .v-field__overlay {
+    background-color: transparent;
+  }
+  .v-field__field {
+    align-items: center;
+  }
+
+  
+
+
+
+
   .divisas .v-field__input, .divisas .v-field.v-field{
     background:#f1f1f1;
     border-radius:5px;
@@ -194,17 +211,32 @@
   .seleccionado{
     cursor:pointer;
   
-    color: #2D2D8D !important;
+    color: #fff !important;
     font-weight: 600;
     padding: 25px;
     
     height:150px;
     border-radius: 10px;
-    border: 4px solid transparent;
+    border: 5px solid transparent;
+    background: linear-gradient(90deg, #48ADFF -4.8%, #7661FE 47.6%, #9331FF 100%) border-box;
+
+  }
+
+  .seleccionado_img{
+    cursor:pointer;
+  
+    color: #fff !important;
+    font-weight: 600;
+    padding: 25px;
+    
+    height:150px;
+    border-radius: 10px;
+    border: 5px solid transparent;
     background: linear-gradient(white, white) padding-box,
                 linear-gradient(90deg, #48ADFF -4.8%, #7661FE 47.6%, #9331FF 100%) border-box;
 
   }
+
 .logobanco{
 	cursor:pointer;
 
@@ -213,7 +245,7 @@
 	padding: 25px;
   height:150px;
   border-radius: 10px;
-  border: 1px solid transparent;
+  border: 2px solid transparent;
   background: linear-gradient(white, white) padding-box,
               linear-gradient(90deg, #48ADFF -4.8%, #7661FE 47.6%, #9331FF 100%) border-box;
 }

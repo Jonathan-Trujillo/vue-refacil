@@ -27,7 +27,7 @@
                                 </v-col>
                                     <v-window v-model="tab">
                                         <v-window-item value="Guaraníes">
-                                            <v-card-text class="divisas px-0" style="position: relative;">
+                                            <v-card-text class="divisas px-0 divisas-apertura_caja" style="position: relative;">
                                                 <v-row class="contenedor_divisas pl-4 pr-8 py-1" dense>
                                                      <v-col cols="12" class="d-flex" v-for="(value, key_guaranies) in filas_guaranies" :key="key_guaranies">
 
@@ -79,7 +79,7 @@
                                         </v-window-item>
 
                                         <v-window-item value="Dólares">
-                                            <v-card-text class="divisas px-0">
+                                            <v-card-text class="divisas px-0 divisas-apertura_caja">
 
                                                 
                                                 <v-row class="contenedor_divisas pl-4 pr-8 py-1" dense>

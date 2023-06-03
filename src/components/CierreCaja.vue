@@ -29,7 +29,7 @@
                                 </v-col>
                                 <v-window v-model="tab">
                                     <v-window-item value="Guaraníes">
-                                        <v-card-text class="divisas px-0">                                         
+                                        <v-card-text class="divisas px-0 divisas-apertura_caja">                                         
                                             <v-row class="contenedor_divisas pl-4 pr-8 py-1" dense>
                                                      <v-col cols="12" class="d-flex" v-for="(value, cierre_caja_key_guaranies) in cierre_caja_filas_guaranies" :key="cierre_caja_key_guaranies">
 
@@ -81,7 +81,7 @@
                                     </v-window-item>
 
                                     <v-window-item value="Dólares">
-                                        <v-card-text class="divisas px-0"> 
+                                        <v-card-text class="divisas px-0 divisas-apertura_caja"> 
                                             <v-row class="contenedor_divisas pl-4 pr-8 py-1" dense>
                                                      <v-col cols="12" class="d-flex" v-for="(value, cierre_caja_key_dolares) in cierre_caja_filas_dolares" :key="cierre_caja_key_dolares">
 

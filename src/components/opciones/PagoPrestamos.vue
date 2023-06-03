@@ -1,16 +1,16 @@
 <template>
-    <v-row>
+    <v-row class="ma-0">
         <v-col>
-            <v-col cols="12" class="pa-0" v-if="tab_pago_prestamos != 'finalizar_proceso'">
+            <v-col cols="12" class="py-0" v-if="tab_pago_prestamos != 'finalizar_proceso'">
                 <span style="color:#2D2D8D;font-size:18px">Ingresá la siguiente información:</span>
             </v-col>
 
-            <v-window v-model="tab_pago_prestamos">
+            <v-window v-model="tab_pago_prestamos" class="divisas">
 
                 <v-window-item>
                     <v-form ref="form">
                         <v-row class="ma-0 pt-2">
-                            <v-col cols="12" md="8" class="divisas" style="color:#2D2D8D">
+                            <v-col cols="12" md="8" style="color:#2D2D8D;">
 
                                 <v-col cols="12" class="pa-0 d-flex align-center">
                                     <strong class="mr-4 pb-4">Número de documento: </strong>
@@ -76,7 +76,7 @@
                             </v-col>
                         </v-col>
 
-                            <v-col cols="12" md="10" class="d-flex align-center divisas">
+                            <v-col cols="12" md="10" class="d-flex align-center">
                                 <spam class="mr-4 pb-4">Pagar Cuota: </spam>
                                 <v-text-field v-model="no_boleta" :rules="validar_formulario" variant="outlined" dense />
                             </v-col>
@@ -85,32 +85,7 @@
                 </v-window-item>
 
                 <v-window-item value="finalizar_proceso">
-                    <v-row class="ma-0 pt-2">
-
-                        <v-col cols="5" class="pa-5 d-flex align-center justify-center">
-                            <v-img style="max-width: 100% !important;" src="../../assets/images/check2.svg"
-                                @click="proceso_exitoso()" />
-                        </v-col>
-
-                        <v-col cols="7" class="pa-5 d-flex align-center justify-center">
-                            <v-row>
-                                <v-col cols="12">
-                                    <spa style="color:#2D2D8D; font-size:22px">El pago por <strong>{{ cantidad }}</strong>
-                                        del préstamo No. <strong>{{ no_cuenta }}</strong> ha sido realizado exitosamente en
-                                        el banco <strong>{{ banco_elegido }}</strong></spa>
-                                </v-col>
-                                <v-col cols="12">
-                                    <p style="color:#2D2D8D">¿Comó queres el comprobante?</p>
-                                    <v-col class="px-0 d-flex justify-space-between" style="gap:10px">
-                                        <v-btn class="btn-add-divisa" variant="outlined"> <v-icon></v-icon> Impreso</v-btn>
-                                        <v-btn class="btn-add-divisa" variant="outlined"> <v-icon></v-icon> Correo
-                                            electrónico</v-btn>
-
-                                    </v-col>
-                                </v-col>
-                            </v-row>
-                        </v-col>
-                    </v-row>
+                    <fin_proceso/>
                 </v-window-item>
             </v-window>
 
@@ -136,7 +111,11 @@
 </template>
 
 <script>
+import fin_proceso from '../FinProceso.vue'
 export default {
+    components:{
+        fin_proceso
+    },
     data: () => ({
         validar_formulario: [
             v => !!v || ""

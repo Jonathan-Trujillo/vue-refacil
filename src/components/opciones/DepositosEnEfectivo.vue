@@ -1,15 +1,15 @@
 <template>
-    <v-row>
+    <v-row class="ma-0">
         <v-col>
-            <v-col cols="12" class="pa-0" v-if="tab_deposito_efectivo != 'proceso_exitoso' && tab_deposito_efectivo != 'finalizar_proceso'">
-                <h style="color:#2D2D8D;font-size:18px">{{ tab_deposito_efectivo === 0 ? 'Ingresá la siguiente información:' : 'Elegí el monto que deseas depositar'}}</h>
+            <v-col cols="12" class="py-0" v-if="tab_deposito_efectivo != 'proceso_exitoso' && tab_deposito_efectivo != 'finalizar_proceso'">
+                <span style="color:#2D2D8D;font-size:18px">{{ tab_deposito_efectivo === 0 ? 'Ingresá la siguiente información:' : 'Elegí el monto que deseas depositar'}}</span>
             </v-col>
 
-            <v-window v-model="tab_deposito_efectivo">
+            <v-window v-model="tab_deposito_efectivo" class="divisas">
 
                 <v-window-item>
                     <v-form ref="form">
-                        <v-row class="ma-0 pt-2 divisas">
+                        <v-row class="ma-0 pt-2">
                             <v-col cols="12" md="8" style="color:#2D2D8D">
 
                                 <v-col cols="12" class="pa-0 d-flex align-center">
@@ -107,7 +107,7 @@
                 <v-window-item value="proceso_exitoso">
                     <v-row class="ma-0 pt-2">
 
-                        <v-col class="pa-5 d-flex align-center justify-center">
+                        <v-col class="d-flex align-center justify-center" style="min-height: 480px">
                             <v-img style="max-width: 55% !important;" src="../../assets/images/loading.png"
                                 @click="proceso_exitoso()" />
                         </v-col>
@@ -116,32 +116,7 @@
 
 
                 <v-window-item value="finalizar_proceso">
-                    <v-row class="ma-0 pt-2">
-
-                        <v-col cols="5" class="pa-5 d-flex align-center justify-center">
-                            <v-img style="max-width: 100% !important;" src="../../assets/images/check2.svg"
-                                @click="proceso_exitoso()" />
-                        </v-col>
-
-                        <v-col cols="7" class="pa-5 d-flex align-center justify-center">
-                            <v-row>
-                                <v-col cols="12">
-                                    <h style="color:#2D2D8D; font-size:22px">El deposito por <strong>{{ cantidad }}</strong>
-                                        de la cuenta No. <strong>{{ no_cuenta }}</strong> ha sido realizado exitosamente en
-                                        el banco <strong>{{ banco_elegido }}</strong></h>
-                                </v-col>
-                                <v-col cols="12">
-                                    <p style="color:#2D2D8D">¿Comó queres el comprobante?</p>
-                                    <v-col class="px-0 d-flex justify-space-between" style="gap:10px">
-                                        <v-btn class="btn-add-divisa" variant="outlined"> <v-icon></v-icon> Impreso</v-btn>
-                                        <v-btn class="btn-add-divisa" variant="outlined"> <v-icon></v-icon> Correo
-                                            electrónico</v-btn>
-
-                                    </v-col>
-                                </v-col>
-                            </v-row>
-                        </v-col>
-                    </v-row>
+                    <fin_proceso/>
                 </v-window-item>
             </v-window>
 
@@ -173,8 +148,11 @@
 </template>
 
 <script>
-
+import fin_proceso from '../FinProceso.vue'
 export default {
+    components:{
+        fin_proceso
+    },
     data: () => ({
 
 
