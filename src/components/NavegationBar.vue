@@ -15,8 +15,7 @@
 </template>
 
 <script>
-// import { miFuncionGlobal } from '@/globalFunctions.js';
-import {funcionGlobal} from '../views/HomeView.vue'
+import {funcion_cerrar_caja} from '../views/HomeView.vue'
 
 
 export default {
@@ -26,10 +25,7 @@ export default {
         },
         
         cerrar_caja(){
-            funcionGlobal();
-            // this.$emit('ejecutar-funcion');
-            // this.$myGlobalfunction
-            // this.$emit('efectivo', this.ver_datos_totales_guaranies, this.ver_datos_totales_dolares, this.tab)
+            funcion_cerrar_caja()
         },
     }
 }

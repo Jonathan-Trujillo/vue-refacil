@@ -101,7 +101,7 @@
     color: #2D2D8D!important;
   }
   .divisas .v-window-item{
-    min-height: 384px;
+    min-height: 384px !important;
   }
   .divisas-apertura_caja{
     min-height: 450px;
@@ -215,7 +215,7 @@
     font-weight: 600;
     padding: 25px;
     
-    height:150px;
+    height:150px !important;
     border-radius: 10px;
     border: 5px solid transparent;
     background: linear-gradient(90deg, #48ADFF -4.8%, #7661FE 47.6%, #9331FF 100%) border-box;
@@ -243,7 +243,7 @@
   color: #2D2D8D !important;
   font-weight: 600;
 	padding: 25px;
-  height:150px;
+  height:150px !important;
   border-radius: 10px;
   border: 2px solid transparent;
   background: linear-gradient(white, white) padding-box,

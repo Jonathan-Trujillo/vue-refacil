@@ -43,14 +43,14 @@
         </v-col>
         <v-col cols="12" md="9" class="px-0 pl-3">
 
-            <v-card v-if="ninguna_area_seleccionada" style="min-height: 659px !important;" class="d-flex align-center">
+            <!-- <v-card v-if="ninguna_area_seleccionada" style="min-height: 659px !important;" class="d-flex align-center">
                 <v-row class="pa-0">
                     <v-col class="pa-8 d-flex align-center justify-center">
                         <v-img style="max-width: 80% !important;" src="../assets/images/principal.png" />
                     </v-col>
                 </v-row>
-            </v-card>
-            <AreaBancos v-if="ver_bancos" @finalizo_proceso="ver_bancos = false, ninguna_area_seleccionada = true" />
+            </v-card> -->
+            <AreaBancos v-if="ver_bancos" @finalizo_proceso="ver_bancos = false"/>
         </v-col>
     </v-row>
 </template>
@@ -63,20 +63,11 @@ export default {
         AreaBancos,
     },
     data: () => ({
-        ver_bancos: false,
-        ninguna_area_seleccionada: true
+        ver_bancos: true,
     }),
     methods: {
         mostrar_bancos() {
-            if(this.ver_bancos === false){
-                this.ninguna_area_seleccionada = false
-                this.ver_bancos = true
-            }
-            else if(this.ver_bancos === true){
-                this.ninguna_area_seleccionada = true
-                this.ver_bancos = false
-
-            }
+            this.ver_bancos = !this.ver_bancos
         }
     }
 }
