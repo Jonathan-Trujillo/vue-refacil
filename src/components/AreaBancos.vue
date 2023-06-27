@@ -64,54 +64,60 @@
 
                             <v-window-item>
                                 <v-row class="ma-0 pt-2">
+                                    <!-- *******   OPCION DEPOSITAR   ******* -->
                                     <v-col cols="12" md="4" v-if="mostrar_opciones_depositar">
                                         <div class="d-flex align-center justify-center"
-                                            :class="eleccion === 0 ? 'seleccionado' : 'logobanco'" @click="eleccion = 0">
+                                            :class="eleccion === 0 ? 'seleccionado' : 'logobanco'" @click="eleccion = 0, continuar()">
                                             Efectivo
                                         </div>
                                     </v-col>
                                     <v-col cols="12" md="4" v-if="mostrar_opciones_depositar">
                                         <div class="d-flex align-center justify-center"
-                                            :class="eleccion === 1 ? 'seleccionado' : 'logobanco'" @click="eleccion = 1">
+                                            :class="eleccion === 1 ? 'seleccionado' : 'logobanco'" @click="eleccion = 1, continuar()">
                                             Cheques
                                         </div>
                                     </v-col>
+
+                                    <!-- *******   OPCION PAGAR   ******* -->
                                     <v-col cols="12" md="4" v-if="mostrar_opciones_pagar">
                                         <div class="d-flex align-center justify-center"
-                                            :class="eleccion === 2 ? 'seleccionado' : 'logobanco'" @click="eleccion = 2">
+                                            :class="eleccion === 2 ? 'seleccionado' : 'logobanco'" @click="eleccion = 2, continuar()">
                                             Prestamo
                                         </div>
                                     </v-col>
                                     <v-col cols="12" md="4" v-if="mostrar_opciones_pagar">
                                         <div class="d-flex align-center justify-center flex-column"
-                                            :class="eleccion === 3 ? 'seleccionado' : 'logobanco'" @click="eleccion = 3">
+                                            :class="eleccion === 3 ? 'seleccionado' : 'logobanco'" @click="eleccion = 3, continuar()">
                                             Tareta de Crédito
                                         </div>
                                     </v-col>
+
+                                    <!-- *******   OPCION COBRAR   ******* -->
                                     <v-col cols="12" md="4" v-if="mostrar_opciones_cobrar">
                                         <div class="d-flex align-center justify-center"
-                                            :class="eleccion === 4 ? 'seleccionado' : 'logobanco'" @click="eleccion = 4">
+                                            :class="eleccion === 4 ? 'seleccionado' : 'logobanco'" @click="eleccion = 4, continuar()">
                                             Desde mi Cuenta
                                         </div>
                                     </v-col>
                                     <v-col cols="12" md="4" v-if="mostrar_opciones_cobrar">
                                         <div class="d-flex align-center justify-center"
-                                            :class="eleccion === 5 ? 'seleccionado' : 'logobanco'" @click="eleccion = 5">
+                                            :class="eleccion === 5 ? 'seleccionado' : 'logobanco'" @click="eleccion = 5, continuar()">
                                             Desde mi Cuenta con QR
                                         </div>
                                     </v-col>
                                     <v-col cols="12" md="4" v-if="mostrar_opciones_cobrar">
                                         <div class="d-flex align-center justify-center"
-                                            :class="eleccion === 5 ? 'seleccionado' : 'logobanco'" @click="eleccion = 5">
+                                            :class="eleccion === 6 ? 'seleccionado' : 'logobanco'" @click="eleccion = 6, continuar()">
                                             Mi Prestamo
                                         </div>
                                     </v-col>
                                     <v-col cols="12" md="4" v-if="mostrar_opciones_cobrar">
                                         <div class="d-flex align-center justify-center"
-                                            :class="eleccion === 5 ? 'seleccionado' : 'logobanco'" @click="eleccion = 5">
+                                            :class="eleccion === 7 ? 'seleccionado' : 'logobanco'" @click="eleccion = 7, continuar()">
                                             Un Cheque
                                         </div>
                                     </v-col>
+
                                 </v-row>
                             </v-window-item>
                         </v-window>
@@ -130,7 +136,7 @@
 
                                 <v-tab :disabled="deshablitar_boton" class="btn-add-divisa" variant="outlined"
                                     @click="exito_proceso ? finalizar_proceso() : continuar()"
-                                    v-if="tab < 9 && tab > 0 || exito_proceso">{{ exito_proceso ? 'Finalizar' : 'Siguiente' }}</v-tab>
+                                    v-if="tab < 9 && tab > 1 || exito_proceso">{{ exito_proceso ? 'Finalizar' : 'Siguiente' }}</v-tab>
 
                             </v-col>
 
@@ -138,9 +144,18 @@
 
                     </v-col>
                     <v-col cols="12" class="pa-0">
-                        <quiero_depositar v-if="ver_depositos_en_efectivo"
-                            @volver="ver_depositos_en_efectivo = false, seleccionar_banco = true"
+                        <quiero_depositar v-if="ver_depositar" :eleccion="eleccion"
+                            @volver="ver_depositar = false, seleccionar_banco = true"
                             @finalizo_proceso="$emit('finalizo_proceso', 0)"/>
+                            
+                        <quiero_pagar v-if="ver_pagar" :eleccion="eleccion"
+                            @volver="ver_pagar = false, seleccionar_banco = true"
+                            @finalizo_proceso="$emit('finalizo_proceso', 0)" />
+
+                        <quiero_cobrar v-if="ver_cobrar" :eleccion="eleccion"
+                            @volver="ver_cobrar = false, seleccionar_banco = true"
+                            @finalizo_proceso="$emit('finalizo_proceso', 0)" />
+                            
                         <!-- <pago_prestamos v-if="ver_pago_prestamos"
                             @volver="ver_pago_prestamos = false, seleccionar_banco = true"
                             @finalizo_proceso="$emit('finalizo_proceso', 0)" />
@@ -170,12 +185,16 @@
 // import pago_tarjeta from './opciones/PagoTarjetaConCedula.vue'
 
 import quiero_depositar from '../components/operaciones/QuieroDepositar'
+import quiero_pagar from '../components/operaciones/QuieroPagar'
+import quiero_cobrar from '../components/operaciones/QuieroCobrar'
 
 import { state } from '../views/HomeView.vue'
 
 export default {
     components: {
-        quiero_depositar
+        quiero_depositar,
+        quiero_pagar,
+        quiero_cobrar
         // pago_prestamos,
         // depositos_en_efectivo,
         // operacion_con_cheques,
@@ -189,12 +208,16 @@ export default {
         deshablitar_boton: true,
         bancoSeleccionado: null,
         opcionSeleccionada: [
-            'Pago Préstamo',
-            'Depósito en Efectivo',
-            'Extracciones en Efectivo',
-            'Operación con Cheques',
-            'Operación CDA',
-            'Pago Tarjeta con Cédula'
+            'Deposito en Efectivo',
+            'Deposito en Cheque',
+
+            'Pagar Prestamo',
+            'Pagar Tarjeta de Crédito',
+
+            'Cobrar Desde mi Cuenta',
+            'Cobrar Desde mi Cuenta con QR',
+            'Cobrar Prestamo',
+            'Cobrar Cheque'
         ],
         bancos: {
             id_banco_familiar: 'banco-familiar',
@@ -233,8 +256,11 @@ export default {
         esperando_proceso: true,
         exito_proceso: false,
 
+        ver_depositar: false,
+        ver_pagar: false,
+        ver_cobrar: false,
+
         ver_pago_prestamos: false,
-        ver_depositos_en_efectivo: false,
         ver_cheques: false,
         ver_extraccion: false,
         ver_pago_tarjeta: false,
@@ -245,7 +271,7 @@ export default {
     }),
     computed: {
         banco_elegido(){
-            return this.bancoSeleccionado === this.bancos.id_banco_familiar ? `${this.bancos.banco_familiar}/` : this.bancoSeleccionado === this.bancos.id_banco_atlas ? `${this.bancos.banco_atlas}/` :  this.bancoSeleccionado === this.bancos.id_banco_basa ? `${this.bancos.banco_basa}/` : this.bancoSeleccionado === this.bancos.id_banco_sudameris ? `${this.bancos.banco_sudameris}/` :  this.bancoSeleccionado === this.bancos.id_banco_itau ? `${this.bancos.banco_itau}/` : this.bancoSeleccionado === this.bancos.id_banco_bnf ? `${this.bancos.banco_bnf}/` : null
+            return this.bancoSeleccionado === this.bancos.id_banco_familiar ? `${this.bancos.banco_familiar} /` : this.bancoSeleccionado === this.bancos.id_banco_atlas ? `${this.bancos.banco_atlas} /` :  this.bancoSeleccionado === this.bancos.id_banco_basa ? `${this.bancos.banco_basa} /` : this.bancoSeleccionado === this.bancos.id_banco_sudameris ? `${this.bancos.banco_sudameris} /` :  this.bancoSeleccionado === this.bancos.id_banco_itau ? `${this.bancos.banco_itau} /` : this.bancoSeleccionado === this.bancos.id_banco_bnf ? `${this.bancos.banco_bnf} /` : null
         },
         tipo_transaccion(){
             return state.mostrar_depositar ? 'Depositar' : state.mostrar_pagar ? 'Pagar' : 'Cobrar'
@@ -267,11 +293,11 @@ export default {
         }
     },
     watch: {
-        bancoSeleccionado() {
-            if (this.bancoSeleccionado != null) {
-                this.deshablitar_boton = false
-            }
-        },
+        // bancoSeleccionado() {
+        //     if (this.bancoSeleccionado != null) {
+        //         this.deshablitar_boton = false
+        //     }
+        // },
         eleccion() {
             if (this.eleccion != null) {
                 this.deshablitar_boton = false
@@ -290,35 +316,22 @@ export default {
             else if (this.tab === 1) {
                 if (this.eleccion === null) { this.mensaje_seleccionar_opcion() }
 
-                /*************   Cuando se elija "Pago Préstamo"   *************/
-                if (this.eleccion === 0) {
-                    this.ver_pago_prestamos = true
+                /*************   Cuando se elija "Quiero Depositar"   *************/
+                if (this.eleccion === 0 || this.eleccion === 1) {
+                    this.ver_depositar = true
                     this.seleccionar_banco = false
                 }
 
-                /*************   Cuando se elija "Depósito en Efectivo"   *************/
-                else if (this.eleccion === 1) {
-                    this.ver_depositos_en_efectivo = true
-                    this.seleccionar_banco = false
-                }
-
-
-                /*************   Cuando se elija "Extracción de Efectivo"   *************/
-                else if (this.eleccion === 2) {
-                    this.ver_extraccion = true
+                /*************   Cuando se elija "Quiero Pagar"   *************/
+                else if (this.eleccion === 2 || this.eleccion === 3) {
+                    this.ver_pagar = true
                     this.seleccionar_banco = false
                 }
 
 
-                /*************   Cuando se elija "Operación con Cheques"   *************/
-                else if (this.eleccion === 3) {
-                    this.ver_cheques = true
-                    this.seleccionar_banco = false
-                }
-
-                /*************   Cuando se elija "Pago Tarjeta con Cédula"   *************/
-                else if (this.eleccion === 5) {
-                    this.ver_pago_tarjeta = true
+                /*************   Cuando se elija "Quiero Cobrar"   *************/
+                else if (this.eleccion === 4 || this.eleccion === 5 || this.eleccion === 6 || this.eleccion === 7) {
+                    this.ver_cobrar = true
                     this.seleccionar_banco = false
                 }
 
@@ -327,13 +340,13 @@ export default {
 
 
 
-            else if (this.tab === 2) {
-                if (this.tipoSeleccionado === null) { this.mensaje_seleccionar_tipo() } else {
-                    if (this.tipoSeleccionado === 1) { this.tab = 3 }
-                    if (this.tipoSeleccionado === 2) { this.tab = this.tab + 2 }
-                }
-            }
-            else if (this.tab === 3) { this.tab = 4 } else if (this.tab === 4) { this.tab = 6 }
+            // else if (this.tab === 2) {
+            //     if (this.tipoSeleccionado === null) { this.mensaje_seleccionar_tipo() } else {
+            //         if (this.tipoSeleccionado === 1) { this.tab = 3 }
+            //         if (this.tipoSeleccionado === 2) { this.tab = this.tab + 2 }
+            //     }
+            // }
+            // else if (this.tab === 3) { this.tab = 4 } else if (this.tab === 4) { this.tab = 6 }
 
 
 

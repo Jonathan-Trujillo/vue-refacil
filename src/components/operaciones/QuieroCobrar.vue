@@ -1,64 +1,49 @@
 <template>
     <v-row class="ma-0">
         <v-col>
-            <v-col cols="12" class="py-0"
-                v-if="tab_deposito_efectivo != 'proceso_exitoso' && tab_deposito_efectivo != 'finalizar_proceso'">
-                <span style="color:#2D2D8D;font-size:18px">{{ tab_deposito_efectivo === 0 ? 'Ingresá la siguiente información: ' : 'Elegí el monto que deseas depositar'}}</span>
+            <v-col cols="12" class="py-0" v-if="tab_extraccion != 'proceso_exitoso' && tab_extraccion != 'finalizar_proceso'">
+                <h style="color:#2D2D8D;font-size:18px">{{ tab_extraccion === 'opcion_qr' ? 'Elegí el monto que desear retirar:' : tab_extraccion === 'desde_cuenta' ? 'Ingresá la siguiente información' : 'Elegí la opción con la que deseas continuar:'}}</h>
             </v-col>
 
-            <v-window v-model="tab_deposito_efectivo" class="divisas">
-
-                <v-window-item>
+            <v-window v-model="tab_extraccion" class="divisas">
+                
+                <v-window-item value="desde_cuenta" v-if="eleccion === 4">
                     <v-form ref="form">
                         <v-row class="ma-0 pt-2">
                             <v-col cols="12" style="color:#2D2D8D">
 
                                 <v-col cols="12" md="6" class="pa-0 d-flex align-center">
-                                    <strong class="mr-4">Número de cédula depositante: </strong>
-                                    <money3 v-model="nombre_titular" :precision="0" maxlength="20" v-bind="config" class="v-field__input v-field border-line"/>
+                                    <strong class="mr-4">Número de Cédula: </strong>
+                                    <money3 v-model="numero_cedula" maxlength="20" :precision="0" :thousands="''" :rules="validar_formulario" class="v-field__input v-field border-line"/>
+                                </v-col>
+
+                                <v-col cols="12" md="6" class="mt-6 pa-0 d-flex align-center">
+                                    <strong class="mr-4 pb-5">Nombre de Cliente: </strong>
+                                    <v-text-field readonly variant="outlined">{{ nombre_cliente }}</v-text-field>
+                                </v-col>
+
+                                <v-col cols="12" md="6" class="mt-6 pa-0 d-flex align-center">
+                                    <strong class="mr-4">Número de Cuenta: </strong>
+                                    <money3 maxlength="20" :precision="0" :thousands="''" class="v-field__input v-field border-line"/>
                                 </v-col>
                                 
-                                <v-col cols="12" md="6" class="mt-6 pa-0 d-flex align-center" v-if="eleccion === 1">
-                                    <strong class="mr-4">Número de cédula del titular: </strong>
-                                    <money3 v-model="nombre_titular" :precision="0" maxlength="20" v-bind="config" class="v-field__input v-field border-line"/>
-                                </v-col>
+                                <!-- ***********   DATOS GENERALES   *********** -->
 
-                                <v-col cols="12" md="5" class="mt-6 pa-0 d-flex align-center">
-                                    <strong class="mr-4">Número de boleta: </strong>
-                                    <money3 v-model="no_boleta" :precision="0" maxlength="20" v-bind="config" class="v-field__input v-field border-line"/>
-                                </v-col>
-
-                                <v-col cols="12" class="mt-6 pa-0 d-flex align-center">
-                                    <strong class="mr-4">Número de y tipo de cuenta bancaria: </strong>
-                                    <v-select v-model="no_cuenta" :rules="validar_formulario" variant="outlined" dense />
-                                    <v-radio-group v-model="tipo_cuenta" inline class="ml-4" dense>
-                                        <v-radio label="CTA CTE" value="cta_cte"></v-radio>
-                                        <v-radio label="CTA AH" value="cta_ah"></v-radio>
+                                <v-col cols="12" class="mt-4 pa-0 d-flex align-center">
+                                    <strong style="color:#2D2D8D">Moneda:</strong>
+                                    <v-radio-group v-model="tipo_moneda" inline dense>
+                                        <v-radio label="Guaraníes" value="guaranies"></v-radio>
+                                        <v-radio label="Dólares" value="dolares"></v-radio>
                                     </v-radio-group>
                                 </v-col>
-
-                                <v-col cols="12" class="mt-6 pa-0">
-                                    <v-col class="pa-0 d-flex align-center">
-                                        <strong style="color:#2D2D8D">Moneda:</strong>
-                                        <v-radio-group v-model="tipo_moneda" inline dense>
-                                            <v-radio label="Guaraniés" value="guaranies"></v-radio>
-                                            <v-radio label="Dólares" value="dolares"></v-radio>
-                                        </v-radio-group>
-                                    </v-col>
-                                </v-col>
-
-                                <v-col cols="12" md="8" class="mt-6 pa-0 d-flex align-center">
-                                    <v-col cols="12" md="7" class="pa-0 d-flex align-center">
+                                
+                                <v-col cols="12" class="mt-5 pa-0 d-flex align-center">
+                                    <v-col cols="12" md="5" class="pa-0 d-flex align-center">
                                         <strong class="mr-4">Ingrese Monto: </strong>
                                         <money3 v-model="eleccion_monto" :prefix="tipo_moneda === 'guaranies' ? '₲' : '$'" maxlength="20" v-bind="config" class="v-field__input v-field border-line"/>
                                     </v-col>
-                                    <v-col cols="12" md="5" class="ml-4 pa-0 d-flex align-center" v-if="eleccion === 1">
-                                        <strong class="mr-4">Cantidad de Cheques: </strong>
-                                        <money3 v-model="eleccion_monto" maxlength="3" v-bind="config" class="v-field__input v-field border-line"/>
-                                    </v-col>
 
                                 </v-col>
-
 
                             </v-col>
                         </v-row>
@@ -116,10 +101,32 @@
                     </v-row>
                 </v-window-item>
 
-                <v-window-item value="proceso_exitoso">
+                <v-window-item value="opcion_qr">
+                    <v-row class="ma-0 pt-2">
+                        <v-col cols="12" md="6" class="cantidad">
+                            <v-text-field v-model.number="cantidad" prefix="₲"
+                                hint="Sólo podés ingresar múltiplos de 100" />
+                            <v-col cols="12" class="px-0">
+                                <v-btn class="btn-add-divisa" variant="outlined" @click="generar_qr()">Generar QR</v-btn>
+                            </v-col>
+                        </v-col>
+                        <v-col cols="12" md="6" v-if="codigo_generado">
+                            <v-col cols="12" class="d-flex justify-end">
+                                <v-img style="max-width: 300px !important; height:auto" src="../../assets/images/qr.svg"
+                                    @click="proceso_espera()" />
+                            </v-col>
+                            <v-col cols="12" class="d-flex justify-end">
+                                <v-btn style="text-transform:none;letter-spacing:0;color:#2D2D8D;font-size: 18px;"
+                                    variant="text" @click="image_zoom = true">Ampliar</v-btn>
+                            </v-col>
+                        </v-col>
+                    </v-row>
+                </v-window-item>
+
+                <v-window-item value="proceso_exitoso" style="min-height: 480px">
                     <v-row class="ma-0 pt-2">
 
-                        <v-col class="d-flex align-center justify-center" style="min-height: 480px">
+                        <v-col class="pa-5 d-flex align-center justify-center">
                             <v-img style="max-width: 55% !important;" src="../../assets/images/loading.png"
                                 @click="proceso_exitoso()" />
                         </v-col>
@@ -128,14 +135,13 @@
 
 
                 <v-window-item value="finalizar_proceso">
-                    <fin_proceso />
+                    <fin_proceso/>
                 </v-window-item>
             </v-window>
 
-            <v-tabs hide-slider style="height:55px" v-if="tab_deposito_efectivo != 'proceso_exitoso'">
+            <v-tabs hide-slider style="height:55px" v-if="tab_extraccion != 'proceso_exitoso'">
 
-                <v-col
-                    :class="tab_deposito_efectivo != 'finalizar_proceso' ? 'd-flex justify-space-between align-center' : 'd-flex justify-end align-center'">
+                <v-col :class="tab_extraccion != 'finalizar_proceso' ? 'd-flex justify-space-between align-center' : 'd-flex justify-end align-center' ">
                     <v-tab style="text-transform:none;letter-spacing:0;color:#2D2D8D;font-size: 18px;"
                         @click="volver_proceso()" v-if="!exito_proceso">
                         <v-icon>
@@ -143,8 +149,7 @@
                         </v-icon> Volver
                     </v-tab>
 
-                    <v-tab :disabled="tab_deposito_efectivo === 'elegir_monto' ? deshabilitar_boton : false"
-                        class="btn-add-divisa" variant="outlined" v-if="tab_deposito_efectivo != 'opcion_qr'"
+                    <v-tab :disabled="deshabilitar_boton" class="btn-add-divisa" variant="outlined" v-if="tab_extraccion != 'opcion_qr'"
                         @click="exito_proceso ? finalizar_proceso() : continuar()">{{
                             exito_proceso ? 'Finalizar' : 'Siguiente' }}</v-tab>
 
@@ -162,13 +167,11 @@
 </template>
 
 <script>
-import { Money3Component } from 'v-money3'
-// import currency from 'currency.js'
-
-
 import fin_proceso from '../FinProceso.vue'
+import { Money3Component } from 'v-money3'
+
 export default {
-    components: {
+    components:{
         fin_proceso,
         money3: Money3Component
     },
@@ -192,17 +195,28 @@ export default {
             shouldRound: true,
             focusOnRight: false,
         },
-        tipo_moneda: 'guaranies',
+        numero_cedula: null,
+        nombre_cliente: null,
 
         validar_formulario: [
-            v => !!v || ""
-        ],
-        tab_deposito_efectivo: null,
-        deshabilitar_boton: true,
+                      v => !!v || ""
+                    ],
+        tab_extraccion: null,
+
         bancoSeleccionado: null,
+        deshabilitar_boton: false,
+        opcionSeleccionada: [
+            'Pago Préstamo',
+            'Depósito en Efectivo',
+            'Extracciones en Efectivo',
+            'Opercaión con Cheques',
+            'Operación CDA',
+            'Pago Tarjeta con Cédula'
+        ],
+        // tipoSeleccionado: null,
         // ************   RADIO BUTON'S   ************
         moneda: null,
-        tipo_cuenta: null,
+        tipo_moneda: 'guaranies',
 
         cantidad: 0,
         banco_elegido: 'BBVA',
@@ -217,40 +231,58 @@ export default {
         documento_ide: '',
 
     }),
-    props: {
+    props:{
         eleccion: null
     },
     computed: {
         banco_seleccionado() {
             return `../assets/images/bancos/${this.bancoSeleccionado}.jpg`
         },
+        opcion_seleccionada() {
+            return this.opcionSeleccionada[this.eleccion]
+        }
     },
+    // watch: {
+    //     tipoSeleccionado(){
+    //         if(this.tipoSeleccionado != null)
+    //         this.deshabilitar_boton = false
+    //     },
+    // },
     methods: {
         continuar() {
-            if (this.tab_deposito_efectivo === 0) {
-                this.tab_deposito_efectivo = 'elegir_monto'
-            }
-            else if (this.tab_deposito_efectivo === 'elegir_monto') {
-                if (this.eleccion_monto === 5) {
-                    this.tab_deposito_efectivo = 'otro_monto'
-                } else {
-                    this.tab_deposito_efectivo = 'proceso_exitoso'
+            // if(this.eleccion_monto === null){this.deshabilitar_boton = true}
+           
+            if (this.tab_extraccion === 'desde_cuenta') {
+                // this.tab_extraccion = 'elegir_monto'
+                this.mostar_datos_de_cliente()
+            } else if (this.tab_extraccion === 'elegir_monto') {
+                if(this.eleccion_monto === 5){
+                this.tab_extraccion = 'otro_monto'
+            }else{
+                this.tab_extraccion = 'proceso_exitoso'
+
                 }
+            }
+            else if (this.tab_extraccion === 'otro_monto'){
+                this.tab_extraccion = 'proceso_exitoso'
 
             }
-
-            else if (this.tab_deposito_efectivo === 'otro_monto') {
-                this.tab_deposito_efectivo = 'finalizar_proceso'
-                this.exito_proceso = true
-            }
-
         },
         volver_proceso() {
-            if (this.tab_deposito_efectivo === 0) {
+            if (this.tab_extraccion === 'desde_cuenta') {
                 this.$emit('volver', 0)
+            }  else if (this.tab_extraccion === 'elegir_monto') {
+                this.tab_extraccion = 'desde_cuenta'
             }
-            else if (this.tab_deposito_efectivo === 'elegir_monto') {
-                this.tab_deposito_efectivo = 0
+
+            else if (this.tab_extraccion === 'opcion_qr') {
+                this.tab_extraccion = 0
+            }
+        },
+        mostar_datos_de_cliente(){
+        // AGREGAR AQUI LA FUNCION QUE TRAE LOS DATOS DEL CLIENTE -- Eliminar el Ejemplo
+            if(this.numero_cedula === '1234'){
+                this.nombre_cliente = 'Alfonso Rodriguez'
             }
         },
         mensaje_seleccionar_banco() {
@@ -266,11 +298,11 @@ export default {
             this.codigo_generado = true
         },
         proceso_espera() {
-            this.tab_deposito_efectivo = 'proceso_exitoso'
+            this.tab_extraccion = 'proceso_exitoso'
             this.esperando_proceso = false
         },
         proceso_exitoso() {
-            this.tab_deposito_efectivo = 'finalizar_proceso'
+            this.tab_extraccion = 'finalizar_proceso'
             this.exito_proceso = true
         },
         finalizar_proceso() {
