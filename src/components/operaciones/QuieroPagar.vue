@@ -1,13 +1,13 @@
 <template>
     <v-row class="ma-0">
         <v-col>
-            <v-col cols="12" class="py-0" v-if="tab_pago_prestamos != 'finalizar_proceso'">
+            <v-col cols="12" class="py-0" v-if="tab_pagar != 'proceso_exitoso' && tab_pagar != 'finalizar_proceso'">
                 <span style="color:#2D2D8D;font-size:18px">Ingresá la siguiente información:</span>
             </v-col>
 
-            <v-window v-model="tab_pago_prestamos" class="divisas">
+            <v-window v-model="tab_pagar" class="divisas">
 
-                <v-window-item>
+                <v-window-item value="proceso_pagar">
                     <v-form ref="form">
                         <v-row class="ma-0 pt-2">
                             <v-col cols="12" style="color:#2D2D8D;">
@@ -65,7 +65,7 @@
                     </v-form>
                 </v-window-item>
 
-                <v-window-item>
+                <!-- <v-window-item>
                     <v-row class="ma-0 pt-2" style="color:#2D2D8D;">
                         <v-col cols="12" md="6" class="pa-0 d-flex flex-column justify-center align-center"
                             style="background: #E1F2FF;border-radius: 8px ;">
@@ -115,6 +115,16 @@
                             </v-col>
                         </v-col>
                     </v-row>
+                </v-window-item> -->
+
+                <v-window-item value="proceso_exitoso">
+                    <v-row class="ma-0 pt-2">
+
+                        <v-col class="d-flex align-center justify-center cursor-pointer" style="min-height: 480px">
+                            <v-img style="max-width: 55% !important;" src="../../assets/images/loading.png"
+                                @click="proceso_exitoso()" />
+                        </v-col>
+                    </v-row>
                 </v-window-item>
 
                 <v-window-item value="finalizar_proceso">
@@ -122,20 +132,16 @@
                 </v-window-item>
             </v-window>
 
-            <v-tabs hide-slider style="height:55px">
+            <v-tabs hide-slider style="height:55px" v-if="tab_pagar != 'proceso_exitoso'">
 
-                <v-col
-                    :class="tab_pago_prestamos != 'finalizar_proceso' ? 'd-flex justify-space-between align-center' : 'd-flex justify-end align-center'">
-                    <v-tab style="text-transform:none;letter-spacing:0;color:#2D2D8D;font-size: 18px;"
-                        @click="volver_proceso()" v-if="!exito_proceso">
+                <v-col :class="tab_pagar != 'finalizar_proceso' ? 'd-flex justify-space-between align-center' : 'd-flex justify-end align-center'">
+                    <v-tab style="text-transform:none;letter-spacing:0;color:#2D2D8D;font-size: 18px;" @click="volver_proceso()" v-if="!exito_proceso">
                         <v-icon>
                             mdi-chevron-left
                         </v-icon> Volver
                     </v-tab>
 
-                    <v-tab class="btn-add-divisa" variant="outlined" v-if="tab_pago_prestamos != 'opcion_qr'"
-                        @click="exito_proceso ? finalizar_proceso() : continuar()">{{
-                            exito_proceso ? 'Finalizar' : 'Siguiente' }}</v-tab>
+                    <v-tab class="btn-add-divisa" variant="outlined" @click="exito_proceso ? finalizar_proceso() : continuar()">{{ exito_proceso ? 'Finalizar' : 'Siguiente' }}</v-tab>
 
                 </v-col>
 
@@ -147,6 +153,7 @@
 <script>
 import fin_proceso from '../FinProceso.vue'
 import { Money3Component } from 'v-money3'
+import { state } from '../../views/HomeView.vue'
 
 export default {
     components: {
@@ -157,7 +164,7 @@ export default {
         validar_formulario: [
             v => !!v || ""
         ],
-        tab_pago_prestamos: null,
+        tab_pagar: null,
         // ************   RADIO BUTON'S   ************
         tipo_moneda: 'guaranies',
         tipo_cuenta: null,
@@ -193,25 +200,31 @@ export default {
     },
     methods: {
         continuar() {
-            if (this.tab_pago_prestamos === 0) {
-                this.tab_pago_prestamos = 1;
+            if (this.tab_pagar === 'proceso_pagar') {
+                this.tab_pagar = 'proceso_exitoso';
             }
-            else if (this.tab_pago_prestamos === 1) {
-                this.tab_pago_prestamos = 'finalizar_proceso'
+            else if (this.tab_pagar === 'proceso_exitoso') {
+                this.tab_pagar = 'finalizar_proceso'
                 this.exito_proceso = true;
             }
         },
         volver_proceso() {
-            if (this.tab_pago_prestamos === 0) {
+            if (this.tab_pagar === 0) {
                 this.$emit("volver", 0);
             }
-            else if (this.tab_pago_prestamos === 1) {
-                this.tab_pago_prestamos = 0;
+            else if (this.tab_pagar === 1) {
+                this.tab_pagar = 0;
             }
         },
 
+        proceso_exitoso() {
+            this.tab_pagar = 'finalizar_proceso'
+            this.exito_proceso = true
+        },
         finalizar_proceso() {
             this.$emit("finalizo_proceso", 0);
+            state.mostrar_seccion_inicial = true
+            state.mostrar_seccion_principal = false
         },
     },
 }

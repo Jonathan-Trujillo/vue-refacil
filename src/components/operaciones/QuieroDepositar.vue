@@ -8,7 +8,7 @@
 
             <v-window v-model="tab_deposito_efectivo" class="divisas">
 
-                <v-window-item>
+                <v-window-item value="deposito_efectivo">
                     <v-form ref="form">
                         <v-row class="ma-0 pt-2">
                             <v-col cols="12" style="color:#2D2D8D">
@@ -107,19 +107,19 @@
                 </v-window-item> -->
 
 
-                <v-window-item value="otro_monto">
+                <!-- <v-window-item value="otro_monto">
                     <v-row class="ma-0 pt-2">
                         <v-col cols="12" md="6" class="cantidad">
                             <v-text-field v-model.number="cantidad" prefix="₲"
                                 hint="Sólo podés ingresar múltiplos de 100" />
                         </v-col>
                     </v-row>
-                </v-window-item>
+                </v-window-item> -->
 
                 <v-window-item value="proceso_exitoso">
                     <v-row class="ma-0 pt-2">
 
-                        <v-col class="d-flex align-center justify-center" style="min-height: 480px">
+                        <v-col class="d-flex align-center justify-center cursor-pointer" style="min-height: 480px">
                             <v-img style="max-width: 55% !important;" src="../../assets/images/loading.png"
                                 @click="proceso_exitoso()" />
                         </v-col>
@@ -144,9 +144,7 @@
                     </v-tab>
 
                     <v-tab :disabled="tab_deposito_efectivo === 'elegir_monto' ? deshabilitar_boton : false"
-                        class="btn-add-divisa" variant="outlined" v-if="tab_deposito_efectivo != 'opcion_qr'"
-                        @click="exito_proceso ? finalizar_proceso() : continuar()">{{
-                            exito_proceso ? 'Finalizar' : 'Siguiente' }}</v-tab>
+                        class="btn-add-divisa" variant="outlined" @click="exito_proceso ? finalizar_proceso() : continuar()">{{ exito_proceso ? 'Finalizar' : 'Siguiente' }}</v-tab>
 
                 </v-col>
 
@@ -163,6 +161,7 @@
 
 <script>
 import { Money3Component } from 'v-money3'
+import { state } from '../../views/HomeView.vue'
 // import currency from 'currency.js'
 
 
@@ -227,19 +226,10 @@ export default {
     },
     methods: {
         continuar() {
-            if (this.tab_deposito_efectivo === 0) {
-                this.tab_deposito_efectivo = 'elegir_monto'
+            if (this.tab_deposito_efectivo === 'deposito_efectivo') {
+                this.tab_deposito_efectivo = 'proceso_exitoso'
             }
-            else if (this.tab_deposito_efectivo === 'elegir_monto') {
-                if (this.eleccion_monto === 5) {
-                    this.tab_deposito_efectivo = 'otro_monto'
-                } else {
-                    this.tab_deposito_efectivo = 'proceso_exitoso'
-                }
-
-            }
-
-            else if (this.tab_deposito_efectivo === 'otro_monto') {
+            else if (this.tab_deposito_efectivo === 'proceso_exitoso') {
                 this.tab_deposito_efectivo = 'finalizar_proceso'
                 this.exito_proceso = true
             }
@@ -275,6 +265,8 @@ export default {
         },
         finalizar_proceso() {
             this.$emit('finalizo_proceso', 0)
+            state.mostrar_seccion_inicial = true
+            state.mostrar_seccion_principal = false
         },
     },
 }

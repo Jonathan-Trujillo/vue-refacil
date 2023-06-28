@@ -35,18 +35,17 @@
 
                                                         <v-col cols="12" md="3" class="pa-0 d-flex align-center">
                                                             <h style="font-size:20px; color:#2D2D8D;" class="mr-4">Tengo </h>
-                                                            
-                                                        <money3 v-model="cierre_caja_filas_guaranies[cierre_caja_key_guaranies].cierre_caja_guraranies_billetes" v-bind="config" class="mt-n4 v-field__input v-field border-line"></money3>
+                                                            <money3 v-model="cierre_caja_filas_guaranies[cierre_caja_key_guaranies].cierre_caja_guraranies_billetes" v-bind="config" class="v-field__input v-field border-line"></money3>
                                                         </v-col>
                                                         <v-col cols="12" md="4" class="pa-0 d-flex align-center">
-                                                            <h style="font-size:20px; color:#2D2D8D;" class="mx-4 pb-4">Billetes de </h>
+                                                            <h style="font-size:20px; color:#2D2D8D;" class="mx-4">Billetes de </h>
                                                             <v-select variant="outlined" v-model="cierre_caja_filas_guaranies[cierre_caja_key_guaranies].cierre_caja_guraranies_valor" :items="tipo_billete" item-title="text" item-value="value" dense class="mb-n1" />
                                                         </v-col>
                                                         <v-col cols="12" md="2" class="pa-0 d-flex align-center">
-                                                            <h style="font-size:20px; color:#2D2D8D;" class="mx-4 pb-4">{{ divisa }}</h>
+                                                            <h style="font-size:20px; color:#2D2D8D;" class="mx-4">{{ tab }}</h>
                                                         </v-col>
-                                                        <v-col cols="12" md="3" class="d-flex align-center justify-end" style="position:relative">
-                                                                <h style="font-size:20px; color:#2D2D8D;" class="pb-4">Total = {{ ver_datos_guaranies }} {{ cierre_caja_filas_guaranies[cierre_caja_key_guaranies].cierre_caja_guraranies_total }}</h>
+                                                        <v-col cols="12" md="3" class="px-0 d-flex align-center justify-end" style="position:relative">
+                                                                <h style="font-size:20px; color:#2D2D8D;">Total = {{ ver_datos_guaranies }} {{ cierre_caja_filas_guaranies[cierre_caja_key_guaranies].cierre_caja_guraranies_total }}</h>
                                                             <v-badge v-if="cierre_caja_filas_guaranies.length >= 2" :content="'X'" color="error" floating @click="eliminar_fila_guaranies( cierre_caja_key_guaranies)"
                                                                 overlap class="pb-8 cursor-pointer" style="position:absolute;right: 0px;"/>
                                                         </v-col>
@@ -87,18 +86,17 @@
 
                                                         <v-col cols="12" md="3" class="pa-0 d-flex align-center">
                                                             <h style="font-size:20px; color:#2D2D8D;" class="mr-4">Tengo </h>
-                                                            
-                                                        <money3 v-model="cierre_caja_filas_dolares[cierre_caja_key_dolares].cierre_caja_dolares_billetes" v-bind="config" class="mt-n4 v-field__input v-field border-line"></money3>
+                                                            <money3 v-model="cierre_caja_filas_dolares[cierre_caja_key_dolares].cierre_caja_dolares_billetes" v-bind="config" class="v-field__input v-field border-line"></money3>
                                                         </v-col>
                                                         <v-col cols="12" md="4" class="pa-0 d-flex align-center">
-                                                            <h style="font-size:20px; color:#2D2D8D;" class="mx-4 pb-4">Billetes de </h>
+                                                            <h style="font-size:20px; color:#2D2D8D;" class="mx-4">Billetes de </h>
                                                             <v-select variant="outlined" v-model="cierre_caja_filas_dolares[cierre_caja_key_dolares].cierre_caja_dolares_valor" :items="tipo_billete" item-title="text" item-value="value" dense class="mb-n1" />
                                                         </v-col>
                                                         <v-col cols="12" md="2" class="pa-0 d-flex align-center">
-                                                            <h style="font-size:20px; color:#2D2D8D;" class="mx-4 pb-4">{{ divisa }}</h>
+                                                            <h style="font-size:20px; color:#2D2D8D;" class="mx-4">{{ tab }}</h>
                                                         </v-col>
-                                                        <v-col cols="12" md="3" class="d-flex align-center justify-end" style="position:relative">
-                                                                <h style="font-size:20px; color:#2D2D8D;" class="pb-4">Total = {{ ver_datos_dolares }} {{ cierre_caja_filas_dolares[cierre_caja_key_dolares].cierre_caja_dolares_total }}</h>
+                                                        <v-col cols="12" md="3" class="px-0 d-flex align-center justify-end" style="position:relative">
+                                                                <h style="font-size:20px; color:#2D2D8D;">Total = {{ ver_datos_dolares }} {{ cierre_caja_filas_dolares[cierre_caja_key_dolares].cierre_caja_dolares_total }}</h>
                                                             <v-badge v-if="cierre_caja_filas_dolares.length >= 2" :content="'X'" color="error" floating @click="eliminar_fila_dolares( cierre_caja_key_dolares)"
                                                                 overlap class="pb-8 cursor-pointer" style="position:absolute;right: 0px;"/>
                                                         </v-col>
