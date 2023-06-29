@@ -56,7 +56,7 @@
 
 
 <script>
-import { funcion_abrir_caja, funcion_cerrar_caja, state } from '../views/HomeView.vue'
+import { funcion_abrir_caja, funcion_cerrar_caja, state } from '../funciones_globales'
 
 export default {
 

@@ -11,35 +11,36 @@
                     <v-form ref="form">
                         <v-row class="ma-0 pt-2">
                             <v-col cols="12" style="color:#2D2D8D;">
+                                
+                                <v-col cols="12" md="8" class="mb-6 pa-0 d-flex align-center" v-if="eleccion === 3">
+                                    <v-col cols="12" md="6" class="pa-0 d-flex align-center">
+                                        <strong class="mr-4">Primeros 4 Números de TC: </strong>
+                                        <money3 v-model="primeros_num_tarjeta" maxlength="4" :precision="0" :thousands="''" class="v-field__input v-field border-line"/>
+                                    </v-col>
+                                    <v-col cols="12" md="6" class="ml-4 pa-0 d-flex align-center">
+                                        <strong class="mr-4">Últimos 4 Números de TC: </strong>
+                                        <money3 v-model="ultimos_num_tarjeta" maxlength="4" :precision="0" :thousands="''" class="v-field__input v-field border-line"/>
+                                    </v-col>
+
+                                </v-col>
                                 <!-- ***********   Datos de "PAGAR PRESTAMO"   *********** -->
-                                <v-col cols="12" md="6" class="pa-0 d-flex align-center" v-if="eleccion === 2">
-                                    <strong class="mr-4">Número de documento: </strong>
-                                    <money3 v-model="no_boleta" :rules="validar_formulario" maxlength="4" :precision="0" :thousands="''" class="v-field__input v-field border-line"/>
+                                <v-col cols="12" md="6" class="pa-0 d-flex align-center">
+                                    <strong class="mr-4">{{ eleccion === 2 ? 'Número de documento':'Número de Documento del Titular de la Tarjeta: '}}</strong>
+                                    <v-text-field v-model="numero_documento" maxlength="15" variant="outlined"/>
                                 </v-col>
 
                                 <v-col cols="12" md="6" class="mt-6 pa-0 d-flex align-center" v-if="eleccion === 2">
                                     <strong class="mr-4">Número de préstamo: </strong>
-                                    <money3 v-model="no_cuenta" :rules="validar_formulario" maxlength="4" :precision="0" :thousands="''" class="v-field__input v-field border-line"/>
+                                    <v-text-field v-model="numero_prestamo" maxlength="20" variant="outlined"/>
                                 </v-col>
                                 
                                 <!-- ***********   Datos de "PAGAR TARJETA DE CREDITO"   *********** -->
 
-                                <v-col cols="12" md="8" class="pa-0 d-flex align-center" v-if="eleccion === 3">
-                                    <v-col cols="12" md="6" class="pa-0 d-flex align-center">
-                                        <strong class="mr-4">Primeros 4 Números de TC: </strong>
-                                        <money3 maxlength="4" :precision="0" :thousands="''" class="v-field__input v-field border-line"/>
-                                    </v-col>
-                                    <v-col cols="12" md="6" class="ml-4 pa-0 d-flex align-center">
-                                        <strong class="mr-4">Últimos 4 Números de TC: </strong>
-                                        <money3 maxlength="4" :precision="0" :thousands="''" class="v-field__input v-field border-line"/>
-                                    </v-col>
 
-                                </v-col>
-
-                                <v-col cols="12" md="8" class="mt-6 pa-0 d-flex align-center" v-if="eleccion === 3">
-                                    <strong class="mr-4">Número de Cédula del Titular de la Tarjeta: </strong>
-                                    <money3 maxlength="20" :precision="0" :thousands="''" class="v-field__input v-field border-line"/>
-                                </v-col>
+                                <!-- <v-col cols="12" md="8" class="mt-6 pa-0 d-flex align-center" v-if="eleccion === 3">
+                                    <strong class="mr-4">Número de Documento del Titular de la Tarjeta: </strong>
+                                    <money3 v-model="numero_documento" maxlength="15" :precision="0" :thousands="''" class="v-field__input v-field border-line"/>
+                                </v-col> -->
                                 
                                 <!-- ***********   DATOS GENERALES   *********** -->
 
@@ -54,7 +55,7 @@
                                 <v-col cols="12" class="mt-4 pa-0 d-flex align-center">
                                     <v-col cols="12" md="5" class="pa-0 d-flex align-center">
                                         <strong class="mr-4">Ingrese Monto: </strong>
-                                        <money3 v-model="eleccion_monto" :prefix="tipo_moneda === 'guaranies' ? '₲' : '$'"
+                                        <money3 v-model="monto_ingresado" :prefix="tipo_moneda === 'guaranies' ? '₲' : '$'"
                                             maxlength="20" v-bind="config" class="v-field__input v-field border-line"/>
                                     </v-col>
 
@@ -64,58 +65,6 @@
                         </v-row>
                     </v-form>
                 </v-window-item>
-
-                <!-- <v-window-item>
-                    <v-row class="ma-0 pt-2" style="color:#2D2D8D;">
-                        <v-col cols="12" md="6" class="pa-0 d-flex flex-column justify-center align-center"
-                            style="background: #E1F2FF;border-radius: 8px ;">
-                            <p><span style="font-size: 36px">Cuota: <strong>04/10</strong></span></p>
-
-                            <p>
-                                <span class="mr-2">Monto de cuota: </span>
-                                <strong>350 USD/Mensual</strong>
-                            </p>
-
-                            <p>
-                                <span class="mr-2">Móneda: </span>
-                                <strong>Dólares (USD)</strong>
-                            </p>
-
-                        </v-col>
-                        <v-col cols="12" md="6">
-
-                            <v-col cols="12">
-                                <v-col cols="12" class="pa-0 d-flex align-center">
-                                    <span class="mr-2">Nombre y Apellido: </span>
-                                    <strong>Alejandro Rodriguez Gomez</strong>
-                                </v-col>
-
-                                <v-col cols="12" class="pa-0 d-flex align-center">
-                                    <span class="mr-2">Número de Documento: </span>
-                                    <strong>42.540.092</strong>
-                                </v-col>
-                                <v-col cols="12">
-                                    <hr style="opacity:0.2">
-                                </v-col>
-
-                                <v-col cols="12" class="pa-0 d-flex align-center">
-                                    <span class="mr-2">Monto Total Préstamos: </span>
-                                    <strong>10.500 USD</strong>
-                                </v-col>
-
-                                <v-col cols="12" class="pa-0 d-flex align-center">
-                                    <span class="mr-2">Saldo Deuda: </span>
-                                    <strong>7500 USD</strong>
-                                </v-col>
-                            </v-col>
-
-                            <v-col cols="12" md="10" class="d-flex align-center">
-                                <spam class="mr-4 pb-4">Pagar Cuota: </spam>
-                                <v-text-field v-model="no_boleta" :rules="validar_formulario" variant="outlined" dense />
-                            </v-col>
-                        </v-col>
-                    </v-row>
-                </v-window-item> -->
 
                 <v-window-item value="proceso_exitoso">
                     <v-row class="ma-0 pt-2">
@@ -153,7 +102,7 @@
 <script>
 import fin_proceso from '../FinProceso.vue'
 import { Money3Component } from 'v-money3'
-import { state } from '../../views/HomeView.vue'
+import { state } from '../../funciones_globales'
 
 export default {
     components: {
@@ -162,20 +111,25 @@ export default {
     },
     data: () => ({
         validar_formulario: [
-            v => !!v || ""
+            v => !!v || 0
         ],
         tab_pagar: null,
         // ************   RADIO BUTON'S   ************
+        numero_documento: null,
+        numero_prestamo: null,
+        primeros_num_tarjeta: null,
+        ultimos_num_tarjeta: null,
         tipo_moneda: 'guaranies',
+        monto_ingresado: null,
+        
         tipo_cuenta: null,
         
-        eleccion_monto: null,
         config: {
             masked: false,
             //prefix: '',
             suffix: '',
-            thousands: ',',
-            decimal: '.',
+            thousands: '.',
+            decimal: ',',
             precision: 0,
             disableNegative: false,
             disabled: false,
@@ -186,14 +140,6 @@ export default {
             shouldRound: true,
             focusOnRight: false,
         },
-
-        cantidad: 0,
-        banco_elegido: 'BBVA',
-        exito_proceso: false,
-        no_cuenta: 7053459203,
-        no_boleta: "",
-        nombre_titular: "",
-        documento_ide: "",
     }),
     props: {
         eleccion: null
@@ -209,7 +155,7 @@ export default {
             }
         },
         volver_proceso() {
-            if (this.tab_pagar === 0) {
+            if (this.tab_pagar === 'proceso_pagar') {
                 this.$emit("volver", 0);
             }
             else if (this.tab_pagar === 1) {
@@ -220,6 +166,12 @@ export default {
         proceso_exitoso() {
             this.tab_pagar = 'finalizar_proceso'
             this.exito_proceso = true
+
+            if(this.tipo_moneda === 'guaranies'){
+                state.efectivo_agregado_guaranies = parseInt(this.monto_ingresado)
+            }else{
+                state.efectivo_agregado_dolares = parseInt(this.monto_ingresado)
+            }
         },
         finalizar_proceso() {
             this.$emit("finalizo_proceso", 0);

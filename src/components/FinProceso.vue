@@ -15,8 +15,8 @@
                 <v-col cols="12">
                     <p style="color:#2D2D8D">¿Comó queres el comprobante?</p>
                     <v-col class="px-0 d-flex justify-space-between" style="gap:10px">
-                        <v-btn class="btn-add-divisa" variant="outlined"> <v-icon></v-icon> Impreso</v-btn>
-                        <v-btn class="btn-add-divisa" variant="outlined"> <v-icon></v-icon> Correo
+                        <v-btn class="btn-outlined" variant="outlined"> <v-icon></v-icon> Impreso</v-btn>
+                        <v-btn class="btn-outlined" variant="outlined"> <v-icon></v-icon> Correo
                             electrónico</v-btn>
 
                     </v-col>

@@ -23,22 +23,21 @@
             </v-text-field>
 
             <v-text-field v-model="password" variant="underlined" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-              :rules="[rules.required, rules.min]" :type="show1 ? 'text' : 'password'" name="input-10-1"
+              :rules="[rules.required, rules.min]" :type="show1 ? 'text' : 'password'" name="input-10-1" maxlength="15"
               label="Contraseña" @click:append="show1 = !show1">
               <template #prepend-inner>
                 <v-icon class="custom-icon">mdi-lock-open-outline</v-icon>
               </template>
             </v-text-field>
 
-            <h class="cursor-pointer" @click="restablecer_contraseña()">¿Olvidaste tu contraseña?</h>
+            <!-- <h class="cursor-pointer" @click="restablecer_contraseña()">¿Olvidaste tu contraseña?</h> -->
             <v-col class="mt-10">
-              <v-btn class="recuperar" variant="outlined" @click="logear()">Iniciar Sesión</v-btn>
-            </v-col>
+              <v-btn :disabled="validar_boton" :class="validar_boton ? 'btn-outlined':'recuperar'" variant="outlined" @click="logear()">Iniciar Sesión</v-btn>
+            </v-col> 
           </v-col>
 
 
           <v-col cols="12" v-if="restablecer">
-            <v-form v-model="valid" ref="form" lazy-validation>
 
 
               <v-card-title class="text-center welcome">Ingresa tu email</v-card-title>
@@ -61,7 +60,6 @@
               <v-col>
                 <h class="cursor-pointer" v-if="!btn_volver" @click="regresar_login()">Regresar a Login</h>
               </v-col>
-            </v-form>
           </v-col>
         </v-col>
 
@@ -90,6 +88,11 @@ export default {
     ],
 
   }),
+  computed:{
+    validar_boton(){
+      return (this.email_login.includes('@') && this.email_login.includes('.')) && this.password != '' ? false:true
+    }
+  },
   methods: {
     restablecer_contraseña() {
       this.login = false

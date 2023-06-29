@@ -22,42 +22,8 @@ import SeccionInicial from '../components/SeccionInicial.vue'
 import AperturaCaja from '../components/AperturaCaja.vue'
 import CierreCaja from '../components/CierreCaja.vue'
 import SeccionPrincipal from '../components/SeccionPrincipal.vue'
+import { state } from '../funciones_globales'
 
-import { reactive, createApp } from 'vue';
-export const state = reactive({
-  cerrar_componente_caja: false,
-  abrir_componente_caja: false,
-  seleccionar_abrir_componente_caja: false,
-
-  mostrar_seccion_principal: false,
-  mostrar_seccion_inicial: true,
-  seleccionar_cerrar_caja: false,
-
-  mostrar_depositar: false,
-  mostrar_pagar: false,
-  mostrar_cobrar: false
-});
-
-export const funcion_abrir_caja = () => {
-  state.cerrar_componente_caja = false,
-  state.abrir_componente_caja = true,
-  state.mostrar_seccion_principal = false,
-
-  state.mostrar_seccion_inicial = false,
-  state.seleccionar_abrir_componente_caja = false
-};
-export const funcion_cerrar_caja = () => {
-  state.cerrar_componente_caja = true,
-  state.abrir_componente_caja = false,
-  state.mostrar_seccion_principal = false,
-
-  state.mostrar_seccion_inicial = false,
-  state.seleccionar_abrir_componente_caja = false
-};
-
-const app = createApp({});
-app.config.globalProperties.funcion_cerrar_caja = funcion_cerrar_caja;
-app.mount('#app');
 
 export default {
   components: {
@@ -68,10 +34,10 @@ export default {
     SeccionPrincipal,
   },
   data: () => ({
-    dato_valor_guaranies: null,
-    dato_valor_dolares: null,
-    cerrar_caja_dato_valor_guaranies: null,
-    cerrar_caja_dato_valor_dolares: null,
+    dato_valor_guaranies: '',
+    dato_valor_dolares: '',
+    cerrar_caja_dato_valor_guaranies: '',
+    cerrar_caja_dato_valor_dolares: '',
   }),
   computed:{
     mostrar_seccion_inicial(){
@@ -102,8 +68,8 @@ export default {
       state.seleccionar_cerrar_caja = true
     },
     mostrar_efectivo(valor_guaranies, valor_dolares, dato_tab) {
-      this.dato_valor_guaranies = valor_guaranies;
-      this.dato_valor_dolares = valor_dolares;
+      this.dato_valor_guaranies = parseInt(valor_guaranies.replace('₲', '').replace('.', ''))
+      this.dato_valor_dolares = parseInt(valor_dolares.replace('$', '').replace('.', ''))
       this.valor_tab = dato_tab;
     },
     mostrar_efectivo_cierre(cerrar_caja_valor_guaranies, cerrar_caja_valor_dolares) {

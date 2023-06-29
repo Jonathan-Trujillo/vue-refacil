@@ -15,6 +15,11 @@
   font-weight:600;
   gap: 30px;
 }
+.btn-calculadora{
+  background: #2D2D8D!important;
+  text-transform: none;
+  letter-spacing: normal;
+}
 .body-box{
   background-color: #ECF6FE!important;
 }
@@ -45,7 +50,8 @@
     text-decoration: underline;
   }
   .recuperar{
-    color: #2D2D8D !important;
+    color: #fff !important;
+    background: linear-gradient(90deg, #48ADFF -4.8%, #7661FE 47.6%, #9331FF 100%);
     text-transform: none !important;
     letter-spacing: normal;
     padding: 18px !important;
@@ -54,11 +60,10 @@
     --v-btn-height: 0 !important;
     width: 220px;
   }
-  .recuperar:hover{
+  /* .recuperar:hover{
     color:#fff !important;
     border-radius:8px !important;
-    background: linear-gradient(90deg, #48ADFF -4.8%, #7661FE 47.6%, #9331FF 100%);
-  }
+  } */
   .perfil{
     border: 3px solid #E1B03E;
     border-radius:100%;
@@ -154,6 +159,18 @@
 
   .btn-add-divisa{
     text-transform: none;
+    color:#fff !important;
+    border-radius:8px !important;
+    background: linear-gradient(90deg, #48ADFF -4.8%, #7661FE 47.6%, #9331FF 100%);
+    text-transform: none !important;
+    letter-spacing: normal;
+    padding: 15px !important;
+    font-size: 18px;
+    --v-btn-height: 0 !important;
+    width: 220px;
+  }
+  .btn-outlined{
+    text-transform: none;
     color: #2D2D8D !important;
     text-transform: none !important;
     letter-spacing: normal;
@@ -163,13 +180,6 @@
     --v-btn-height: 0 !important;
     width: 220px;
   }
-
-  .btn-add-divisa:hover{
-    color:#fff !important;
-    border-radius:8px !important;
-    background: linear-gradient(90deg, #48ADFF -4.8%, #7661FE 47.6%, #9331FF 100%);
-  }
-
   .btn-delete-divisa{
     text-transform: none !important;
     letter-spacing: normal;

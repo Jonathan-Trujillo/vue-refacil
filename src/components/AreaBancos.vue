@@ -88,7 +88,7 @@
                                     <v-col cols="12" md="4" v-if="mostrar_opciones_pagar">
                                         <div class="d-flex align-center justify-center flex-column"
                                             :class="eleccion === 3 ? 'seleccionado' : 'logobanco'" @click="eleccion = 3, continuar()">
-                                            Tareta de Crédito
+                                            Tarjeta de Crédito
                                         </div>
                                     </v-col>
 
@@ -188,7 +188,7 @@ import quiero_depositar from '../components/operaciones/QuieroDepositar'
 import quiero_pagar from '../components/operaciones/QuieroPagar'
 import quiero_cobrar from '../components/operaciones/QuieroCobrar'
 
-import { state } from '../views/HomeView.vue'
+import { state } from '../funciones_globales'
 
 export default {
     components: {

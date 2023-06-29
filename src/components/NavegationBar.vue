@@ -4,28 +4,39 @@
         <v-col class="navegation-bar d-flex align-center justify-start">
             <v-img src="../assets/images/logo.png" style="height: 46px;"/>
             <v-col cols="9" class="d-flex justify-end nav">
+                <v-btn elevation="0" class="btn-calculadora" @click="mostrar_calculadora = true">
+                    <v-icon class="mr-2">mdi-calculator</v-icon> Calculadora
+                </v-btn>
                 <a class="link-nav" to="/ultimo_ticket">Ultimo Ticket</a>
                 <a class="link-nav" to="/operaciones">Operaciones</a>
-                <a class="link-nav" @click="cerrar_caja()" >Cierre de Caja</a>
                 <v-icon @click="logout()">mdi-logout-variant</v-icon>
             </v-col>
         </v-col>
+
+        
+        <v-dialog v-model="mostrar_calculadora">
+            <v-col>
+                <CalculadoraCaja @cerrar_calculadora="mostrar_calculadora = false"/>
+            </v-col>
+        </v-dialog>
 
     </v-row>
 </template>
 
 <script>
-import {funcion_cerrar_caja} from '../views/HomeView.vue'
+import CalculadoraCaja from '../components/CalculadoraCaja.vue'
 
 
 export default {
+    components:{
+        CalculadoraCaja
+    },    
+    data: () => ({
+        mostrar_calculadora: false
+    }),
     methods:{
         logout(){
             this.$router.replace('/');
-        },
-        
-        cerrar_caja(){
-            funcion_cerrar_caja()
         },
     }
 }

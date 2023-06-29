@@ -11,9 +11,6 @@ const routes = [
     path: '/home',
     name: 'Home',
     component: () => import(/* webpackChunkName: "about" */ '../views/HomeView.vue'),
-    meta: {
-      ejecutarFuncion: null
-    }
   }
 ]
 

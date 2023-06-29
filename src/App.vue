@@ -2,7 +2,7 @@
   <v-app>
     <navegationBar v-if="mostrarNavegationBar"  @ejecutar-funcion="guardarFuncion"/>
     <main>
-      <router-view :enviar_funcion="ejecutarFuncion"/>
+      <router-view/>
     </main>
   </v-app>
 </template>
@@ -15,10 +15,6 @@ export default {
   components:{
     navegationBar,
   },
-  data: () => ({
-      ejecutarFuncion: 'Llegamos Lejos'
-
-  }),
   computed: {
     mostrarNavegationBar() {
       return this.$route.path !== '/';
