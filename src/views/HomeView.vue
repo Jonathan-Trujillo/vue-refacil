@@ -68,8 +68,8 @@ export default {
       state.seleccionar_cerrar_caja = true
     },
     mostrar_efectivo(valor_guaranies, valor_dolares, dato_tab) {
-      this.dato_valor_guaranies = parseInt(valor_guaranies.replace('₲', '').replace('.', ''))
-      this.dato_valor_dolares = parseInt(valor_dolares.replace('$', '').replace('.', ''))
+      this.dato_valor_guaranies = valor_guaranies
+      this.dato_valor_dolares = valor_dolares
       this.valor_tab = dato_tab;
     },
     mostrar_efectivo_cierre(cerrar_caja_valor_guaranies, cerrar_caja_valor_dolares) {

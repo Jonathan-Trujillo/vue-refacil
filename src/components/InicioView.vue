@@ -31,12 +31,12 @@
                     <v-col cols="12" md="2" class="pa-0 my-3 d-flex align-center justify-center flex-column"
                     style="border-right:1px solid #2D2D8D; height:100% !important;">
                     <h>Cantidad Trx:</h>
-                    <span>-</span>
+                    <span>{{ transacciones }}</span>
                     </v-col>
                     <v-col cols="12" md="2" class="pa-0 my-3 d-flex align-center justify-center flex-column"
                     style="border-right:1px solid #2D2D8D; height:100% !important;">
                     <h>Cheques:</h>
-                    <span>-</span>
+                    <span>{{ cheques }}</span>
                     </v-col>
                     <v-col cols="12" md="2" class="pa-0 my-3 d-flex align-center justify-center flex-column"
                     style="border-right:1px solid #2D2D8D; height:100% !important;">
@@ -87,7 +87,12 @@ export default {
     saldo_apertura(){
       return currency( this.seleccionar_tipo_billete === 'Guaraníes' ? this.valor_guaranies : this.valor_dolares, {separator: '.', decimal: ',', precision: 0 , symbol: this.seleccionar_tipo_billete === 'Guaraníes' ? '₲' : '$'}).format()
     },
-    
+    transacciones(){
+      return state.transacciones_realizadas
+    },
+    cheques(){
+      return 0 + state.cheques_agregados
+    },
     efectivo(){
       return currency( this.seleccionar_tipo_billete === 'Guaraníes' ?  this.valor_guaranies + state.efectivo_agregado_guaranies : this.valor_dolares + state.efectivo_agregado_dolares, {separator: '.', decimal: ',', precision: 0 , symbol: this.seleccionar_tipo_billete === 'Guaraníes' ? '₲' : '$'}).format()
     },

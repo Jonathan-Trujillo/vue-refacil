@@ -168,10 +168,12 @@ export default {
             this.exito_proceso = true
 
             if(this.tipo_moneda === 'guaranies'){
-                state.efectivo_agregado_guaranies = parseInt(this.monto_ingresado)
+                state.efectivo_agregado_guaranies = state.efectivo_agregado_guaranies + parseInt(this.monto_ingresado)
             }else{
-                state.efectivo_agregado_dolares = parseInt(this.monto_ingresado)
+                state.efectivo_agregado_dolares = state.efectivo_agregado_dolares + parseInt(this.monto_ingresado)
             }
+            
+            state.transacciones_realizadas = parseInt(state.transacciones_realizadas) + 1
         },
         finalizar_proceso() {
             this.$emit("finalizo_proceso", 0);

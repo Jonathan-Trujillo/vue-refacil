@@ -14,7 +14,10 @@ export const state = reactive({
   mostrar_cobrar: false,
 
   efectivo_agregado_guaranies: 0,
-  efectivo_agregado_dolares: 0
+  efectivo_agregado_dolares: 0,
+
+  cheques_agregados: 0,
+  transacciones_realizadas: 0
 });
 
 export const funcion_abrir_caja = () => {

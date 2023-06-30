@@ -181,6 +181,9 @@ export default {
         total_billetes_guaranies: 0,
         total_billetes_dolares: 0,
         suma_total_efectivo: 0,
+
+        ver_datos_totales_guaranies: 0,
+        ver_datos_totales_dolares: 0,
         
 
         config: {
@@ -301,7 +304,7 @@ export default {
                 suma_efectivo_guaranies += this.suma_total_efectivo_guaranies;
             });
 
-            this.ver_datos_totales_guaranies = currency( suma_efectivo_guaranies, {separator: '.', decimal: ',', precision: 0 , symbol: '₲'}).format()
+            this.ver_datos_totales_guaranies = suma_efectivo_guaranies
 
 
             this.total_billetes_guaranies = suma_guaranies;
@@ -323,7 +326,7 @@ export default {
                 suma_efectivo_dolares += this.suma_total_efectivo_dolares;
             });
 
-            this.ver_datos_totales_dolares = currency( suma_efectivo_dolares, {separator: '.', decimal: ',', precision: 0 , symbol: '$'}).format()
+            this.ver_datos_totales_dolares = suma_efectivo_dolares
 
 
             this.total_billetes_dolares = suma_dolares;
