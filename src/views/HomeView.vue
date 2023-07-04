@@ -75,6 +75,10 @@ export default {
     mostrar_efectivo_cierre(cerrar_caja_valor_guaranies, cerrar_caja_valor_dolares) {
       this.cerrar_caja_dato_valor_guaranies = cerrar_caja_valor_guaranies;
       this.cerrar_caja_dato_valor_dolares = cerrar_caja_valor_dolares;
+
+      
+      this.dato_valor_guaranies = 50
+      this.dato_valor_dolares = 50
     }
   }
 }

@@ -22,7 +22,8 @@
                     <!-- *********************************   COBRO DESDE MI CUENTA   ********************************* -->
                                 <v-col cols="12" md="6" class="mt-6 pa-0 d-flex align-center" v-if="mostrar_numero_cuenta">
                                     <strong class="mr-4">Número de Cuenta: </strong>
-                                    <v-select v-model="numero_cuenta" variant="outlined" item-title="text" item-value="value" dense/>
+                                    <!-- <v-select v-model="numero_cuenta" :items="numeros_cuenta_cliente" variant="outlined" clearable=""/> -->
+                                <v-text-field v-model="numero_cuenta" maxlength="15" variant="outlined"/>
                                 </v-col>
                                 <div v-if="mostrar_validar_cliente">
                                     <v-col cols="12" md="6" class="mt-6 pa-0 d-flex align-center">
@@ -126,7 +127,7 @@
 
 
                 <v-window-item value="finalizar_proceso">
-                    <fin_proceso/>
+                    <fin_proceso :numero_cuenta="numero_cuenta" :banco_elegido="banco_elegido.replace(' /','')" :monto_ingresado="monto_ingresado" :tipo_moneda="tipo_moneda"/>
                 </v-window-item>
             </v-window>
 
@@ -193,6 +194,10 @@ export default {
         numero_documento: null,
         nombre_cliente: null,
         numero_cuenta: null,
+        numeros_cuenta_cliente: [
+            '1234567890',
+            '0987654321'
+        ],
         tipo_moneda: 'guaranies',
         monto_ingresado: null,
         monto_validado: null,
@@ -207,7 +212,7 @@ export default {
         tab_cobrar: null,
 
         bancoSeleccionado: null,
-        deshabilitar_boton: false,
+        // deshabilitar_boton: false,
         opcionSeleccionada: [
             'Pago Préstamo',
             'Depósito en Efectivo',
@@ -221,9 +226,13 @@ export default {
 
     }),
     props:{
-        eleccion: null
+        eleccion: null,
+        banco_elegido: null
     },
     computed: {
+        deshabilitar_boton() {
+            return this.eleccion === 5 ? false : this.eleccion === 6 ? false : this.eleccion === 7 ? false : this.numero_cuenta != null && this.monto_ingresado != 0 ? false:true
+        },
         ocultar_btn_en_qr(){
             return this.tab_cobrar === 'desde_cuenta' && this.eleccion === 5 ?  false : true
         },

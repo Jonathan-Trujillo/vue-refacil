@@ -1,6 +1,6 @@
 <template>
     <v-row class="ma-0 pt-5" dense style="position:relative">
-        <div style="position:absolute;top:10px;z-index:3;right:-7px;background:#fff;border-radius:30px;padding:7px;color:#f00;"
+        <div style="position:absolute;top:10px;z-index:3;right:-7px;background:#fff;border-radius:30px;padding:7px;color:#2D2D8D;"
             class="d-flex align-center justify-center link-nav" @click="$emit('cerrar_calculadora', 0)">
         <v-icon>mdi-36px mdi-close-circle</v-icon> </div>
         <v-col cols="12" class="pa-0">
@@ -9,7 +9,7 @@
                     <v-col cols="12" md="8" class="pa-0">
                         <v-row class="pa-4 pr-0" dense>
                             <v-col cols="12" style="border-bottom: 1px solid rgba(0,0,0,0.2)">
-                                <v-card-title class="px-4" style="color:#2D2D8D;font-size:22px;">Calculadora</v-card-title>
+                                <v-card-title class="px-4" style="color:#2D2D8D;font-size:22px;">Calculadora  {{ ver_datos_totales_guaranies }} {{ ver_datos_totales_dolares }}</v-card-title>
                             </v-col>
 
                             <v-col cols="12" class="pa-0">
@@ -63,8 +63,8 @@
                                                         </v-btn>
                                                     </v-col>
                                                     <v-col cols="12" md="6" class="pa-0 d-flex justify-end">
-                                                        <v-btn class="btn-add-divisa" :disabled="filas_guaranies.length >= maximo_filas_guaranies"
-                                                            variant="text" @click="agregar_divisa_guaranies()">
+                                                        <v-btn class="btn-outlined" :disabled="filas_guaranies.length >= maximo_filas_guaranies"
+                                                            variant="outlined" @click="agregar_divisa_guaranies()">
                                                             <v-icon class="pr-2" style="padding-top: 2px;">
                                                                 mdi-plus-circle
                                                             </v-icon> Nueva fila
@@ -116,8 +116,8 @@
                                                         </v-btn>
                                                     </v-col>
                                                     <v-col cols="12" md="6" class="pa-0 d-flex justify-end">
-                                                        <v-btn class="btn-add-divisa" :disabled="filas_dolares.length >= maximo_filas_dolares"
-                                                            variant="text" @click="agregar_divisa_dolares()">
+                                                        <v-btn class="btn-outlined" :disabled="filas_dolares.length >= maximo_filas_dolares"
+                                                            variant="outlined" @click="agregar_divisa_dolares()">
                                                             <v-icon class="pr-2" style="padding-top: 2px;">
                                                                 mdi-plus-circle
                                                             </v-icon> Nueva fila
@@ -334,8 +334,8 @@ export default {
         },
 
         abrir_caja(){
-            this.$emit('abrir_caja', 0)
-            this.$emit('efectivo', this.ver_datos_totales_guaranies, this.ver_datos_totales_dolares, this.tab)
+            // this.$emit('abrir_caja', 0)
+            // this.$emit('efectivo', this.ver_datos_totales_guaranies, this.ver_datos_totales_dolares, this.tab)
         },
         ver_fecha() {
             const fecha_actual = new Date();

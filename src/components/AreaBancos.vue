@@ -2,15 +2,18 @@
     <v-card>
         <v-row>
             <v-col cols="12" class="pa-10 d-flex align-center justify-center">
-                <v-row style="min-height: 627px !important;max-height: 627px !important;" class="pt-3 d-flex align-start">
-                    <v-col cols="12" class="d-flex align-center" style="min-height: 85px;max-height: 85px;">
+                <v-row style="min-height: 627px !important;max-height: 627px !important;" class="pt-3 d-flex align-center">
+                    <v-col cols="12" md="7" class="d-flex align-center" style="min-height: 85px;max-height: 85px;">
                         <v-img class="img-top" :src="require(`../assets/images/bancos/${bancoSeleccionado}.jpg`)"
                             v-if="bancoSeleccionado != null" />
                         <v-card-title style="color:#2D2D8D">{{ banco_elegido }} {{ opcion_seleccionada }} {{ opcion_cheques }}</v-card-title>
                         <!-- {{ tab }}{{ moneda }} -->
 
                     </v-col>
-                    <v-col cols="12">
+                    <v-col cols="12" md="5">
+                        <h style="color:#2D2D8D"><strong>Número de Comprobante: </strong>{{ opcion_seleccionada }}</h>
+                    </v-col>
+                    <v-col cols="12" class="d-flex align-center" >
                         <hr style="border:0; border-bottom: 2px solid rgba(50,100,200,0.2)">
                     </v-col>
 
@@ -144,15 +147,15 @@
 
                     </v-col>
                     <v-col cols="12" class="pa-0">
-                        <quiero_depositar v-if="ver_depositar" :eleccion="eleccion"
+                        <quiero_depositar v-if="ver_depositar" :eleccion="eleccion" :banco_elegido="banco_elegido"
                             @volver="ver_depositar = false, seleccionar_banco = true"
                             @finalizo_proceso="$emit('finalizo_proceso', 0)"/>
                             
-                        <quiero_pagar v-if="ver_pagar" :eleccion="eleccion"
+                        <quiero_pagar v-if="ver_pagar" :eleccion="eleccion" :banco_elegido="banco_elegido"
                             @volver="ver_pagar = false, seleccionar_banco = true"
                             @finalizo_proceso="$emit('finalizo_proceso', 0)" />
 
-                        <quiero_cobrar v-if="ver_cobrar" :eleccion="eleccion"
+                        <quiero_cobrar v-if="ver_cobrar" :eleccion="eleccion" :banco_elegido="banco_elegido"
                             @volver="ver_cobrar = false, seleccionar_banco = true"
                             @finalizo_proceso="$emit('finalizo_proceso', 0)" />
                             

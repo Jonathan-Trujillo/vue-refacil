@@ -14,7 +14,7 @@
         </v-col>
 
         
-        <v-dialog v-model="mostrar_calculadora">
+        <v-dialog v-model="mostrar_calculadora" style="z-index:9999">
             <v-col>
                 <CalculadoraCaja @cerrar_calculadora="mostrar_calculadora = false"/>
             </v-col>

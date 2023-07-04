@@ -62,8 +62,8 @@
                                                         </v-btn>
                                                     </v-col>
                                                     <v-col cols="12" md="6" class="pa-0 d-flex justify-end">
-                                                        <v-btn class="btn-add-divisa" :disabled="cierre_caja_filas_guaranies.length >= maximo_filas_guaranies"
-                                                            variant="text" @click="agregar_divisa_guaranies()">
+                                                        <v-btn class="btn-outlined" :disabled="cierre_caja_filas_guaranies.length >= maximo_filas_guaranies"
+                                                            variant="outlined" @click="agregar_divisa_guaranies()">
                                                             <v-icon class="pr-2" style="padding-top: 2px;">
                                                                 mdi-plus-circle
                                                             </v-icon> Nueva fila
@@ -113,8 +113,8 @@
                                                         </v-btn>
                                                     </v-col>
                                                     <v-col cols="12" md="6" class="pa-0 d-flex justify-end">
-                                                        <v-btn class="btn-add-divisa" :disabled="cierre_caja_filas_dolares.length >= maximo_filas_dolares"
-                                                            variant="text" @click="agregar_divisa_dolares()">
+                                                        <v-btn class="btn-outlined" :disabled="cierre_caja_filas_dolares.length >= maximo_filas_dolares"
+                                                            variant="outlined" @click="agregar_divisa_dolares()">
                                                             <v-icon class="pr-2" style="padding-top: 2px;">
                                                                 mdi-plus-circle
                                                             </v-icon> Nueva fila
@@ -179,6 +179,7 @@
 <script>
 import { Money3Component } from 'v-money3'
 import currency from 'currency.js';
+import { state } from '../funciones_globales'
 
 export default {
     components: { money3: Money3Component },
@@ -332,6 +333,9 @@ export default {
         cerrar_caja() {
             this.$emit('cerrar_caja', 0)
             this.$emit('efectivo_cierre_caja', this.cierre_caja_ver_datos_totales_guaranies, this.cierre_caja_ver_datos_totales_dolares)
+            state.transacciones_realizadas = 0
+            state.efectivo_agregado_guaranies = 0
+            state.cheques_agregados = 0
         },
         ver_fecha() {
             const fecha_actual = new Date();

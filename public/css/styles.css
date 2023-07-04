@@ -144,7 +144,8 @@
   .divisas .v-field__prepend-inner, .divisas .v-field__append-inner, .divisas .v-field__clearable, .v-text-field__prefix, .v-field__input {
     align-items: flex-start !important;
     display: flex !important;
-    padding: 8px 0 !important;
+    padding: 10px !important;
+    padding-right: 4px !important;
   }
   .divisas .border-line{
     outline: 1px solid rgba(0,0,0,0.5) !important;
@@ -288,16 +289,5 @@
 
 /* ************************   STILOS INPUTS   ************************ */
 
-.border-color{
-  border-color: red !important;
-}
-
-.v-input--is-label-active .v-label {
-  color: red;
-}
-
-.v-input--is-label-active .v-input__control::before {
-  border-color: red;
-}
 
 /* ************************   ANIMACIONES   ************************ */

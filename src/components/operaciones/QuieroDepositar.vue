@@ -3,14 +3,14 @@
         <v-col>
             <v-col cols="12" class="py-0" v-if="tab_depositar != 'proceso_exitoso' && tab_depositar != 'finalizar_proceso'">
                 <span style="color:#2D2D8D;font-size:18px">{{ tab_depositar === 0 ? 'Ingresá la siguiente información: ' : 'Elegí el monto que deseas depositar' }}</span> 
-                    {{ numero_documento_depositante }}    
+                    <!-- {{ numero_documento_depositante }}    
                     {{ numero_documento_titular}}
                     {{numero_boleta}}
                     {{numero_cuenta}}
                     {{tipo_cuenta}}
                     {{tipo_moneda}}
                     {{monto_ingresado}}
-                    {{cantidad_cheques }}
+                    {{cantidad_cheques }} -->
             </v-col>
 
             <v-window v-model="tab_depositar" class="divisas">
@@ -35,12 +35,17 @@
                             </v-col>
 
                             <v-col cols="12" class="mt-6 pa-0 d-flex align-center">
-                                <strong class="mr-4">Número y Tipo de Cuenta Bancaria: </strong>
-                                <v-select v-model="numero_cuenta" variant="outlined" dense />
-                                <v-radio-group v-model="tipo_cuenta" inline class="ml-4" dense>
-                                    <v-radio label="CTA CTE" value="cta_cte"></v-radio>
-                                    <v-radio label="CTA AH" value="cta_ah"></v-radio>
-                                </v-radio-group>
+                                <v-col cols="12" md="7" class="pa-0 d-flex align-center">
+                                    <strong class="mr-4">Número y Tipo de Cuenta Bancaria: </strong>
+                                    <!-- <v-select v-model="numero_cuenta" :items="numeros_cuenta_cliente" variant="outlined" clearable /> -->
+                                <v-text-field v-model="numero_cuenta" maxlength="15" variant="outlined"/>
+                                </v-col>
+                                <v-col cols="12" md="5" class="py-0">
+                                    <v-radio-group v-model="tipo_cuenta" inline dense>
+                                        <v-radio label="CTA CTE" value="cta_cte"></v-radio>
+                                        <v-radio label="CTA AH" value="cta_ah"></v-radio>
+                                    </v-radio-group>
+                                </v-col>
                             </v-col>
 
                             <v-col cols="12" class="mt-6 pa-0">
@@ -114,7 +119,7 @@
 
 
                 <v-window-item value="finalizar_proceso">
-                    <fin_proceso />
+                    <fin_proceso :numero_cuenta="numero_cuenta" :banco_elegido="banco_elegido.replace(' /','')" :monto_ingresado="monto_ingresado" :tipo_moneda="tipo_moneda"/>
                 </v-window-item>
             </v-window>
 
@@ -161,6 +166,10 @@ export default {
         numero_documento_titular: null,
         numero_boleta: null,
         numero_cuenta: null,
+        // numeros_cuenta_cliente: [
+        //     '1234567890',
+        //     '0987654321'
+        // ],
         tipo_cuenta: null,
         tipo_moneda: 'guaranies',
         monto_ingresado: null,
@@ -192,11 +201,12 @@ export default {
 
     }),
     props: {
-        eleccion: null
+        eleccion: null,
+        banco_elegido: null
     },
     computed: {
         deshabilitar_boton() {
-            return this.numero_documento_depositante != null && this.numero_boleta != null && this.tipo_cuenta != null && this.monto_ingresado != null ? false:true 
+            return this.numero_documento_depositante != null && this.numero_boleta != null && this.numero_cuenta != null && this.tipo_cuenta != null && this.monto_ingresado != 0 && (this.eleccion === 1 ? this.cantidad_cheques != 0 : this.cantidad_cheques === 0) ? false:true 
         },
         banco_seleccionado() {
             return `../assets/images/bancos/${this.bancoSeleccionado}.jpg`
@@ -240,11 +250,13 @@ export default {
             this.tab_depositar = 'finalizar_proceso'
             this.exito_proceso = true
 
-            if(this.tipo_moneda === 'guaranies'){
-                state.efectivo_agregado_guaranies = state.efectivo_agregado_guaranies + parseInt(this.monto_ingresado)
-            }else{
-                state.efectivo_agregado_dolares = state.efectivo_agregado_dolares + parseInt(this.monto_ingresado)
-            }
+           if(this.eleccion === 0){
+                if(this.tipo_moneda === 'guaranies'){
+                    state.efectivo_agregado_guaranies = state.efectivo_agregado_guaranies + parseInt(this.monto_ingresado)
+                }else{
+                    state.efectivo_agregado_dolares = state.efectivo_agregado_dolares + parseInt(this.monto_ingresado)
+                }
+           }
 
             state.cheques_agregados = parseInt(state.cheques_agregados) + parseInt(this.cantidad_cheques)
             

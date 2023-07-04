@@ -8,9 +8,9 @@
         <v-col cols="7" class="pa-5 d-flex align-center justify-center">
             <v-row>
                 <v-col cols="12">
-                    <spa style="color:#2D2D8D; font-size:22px">El pago por <strong>{{ cantidad }}</strong>
-                        del préstamo No. <strong>{{ no_cuenta }}</strong> ha sido realizado exitosamente en
-                        el banco <strong>{{ banco_elegido }}</strong></spa>
+                    <span style="color:#2D2D8D; font-size:22px">El pago por <strong>{{ monto_final_ingresado }}</strong>
+                        del préstamo No. <strong>{{ numero_cuenta }}</strong> ha sido realizado exitosamente en
+                        el banco <strong>{{ banco_elegido }}</strong></span>
                 </v-col>
                 <v-col cols="12">
                     <p style="color:#2D2D8D">¿Comó queres el comprobante?</p>
@@ -27,13 +27,22 @@
 </template>
 
 <script>
+import currency from 'currency.js'
+
 export default{ 
     data: () => ({
         
     }),
     props:{
-        no_cuenta: null,
-        banco_elegido: null
+        numero_cuenta: null,
+        banco_elegido: null,
+        monto_ingresado: null,
+        tipo_moneda: null
+    },
+    computed:{
+        monto_final_ingresado(){ 
+            return currency(this.monto_ingresado, {separator: '.', decimal: ',', precision: 0 , symbol: this.tipo_moneda === 'guaranies' ? '₲' : '$'}).format()
+        },
     }
 }
 </script>

@@ -24,7 +24,7 @@
 
                                 </v-col>
                                 <!-- ***********   Datos de "PAGAR PRESTAMO"   *********** -->
-                                <v-col cols="12" md="6" class="pa-0 d-flex align-center">
+                                <v-col cols="12" :md="eleccion === 2 ? 6:8" class="pa-0 d-flex align-center">
                                     <strong class="mr-4">{{ eleccion === 2 ? 'Número de documento':'Número de Documento del Titular de la Tarjeta: '}}</strong>
                                     <v-text-field v-model="numero_documento" maxlength="15" variant="outlined"/>
                                 </v-col>
@@ -77,7 +77,7 @@
                 </v-window-item>
 
                 <v-window-item value="finalizar_proceso">
-                    <fin_proceso />
+                    <fin_proceso :numero_cuenta="numero_cuenta" :banco_elegido="banco_elegido.replace(' /','')" :monto_ingresado="monto_ingresado" :tipo_moneda="tipo_moneda"/>
                 </v-window-item>
             </v-window>
 
@@ -142,7 +142,8 @@ export default {
         },
     }),
     props: {
-        eleccion: null
+        eleccion: null,
+        banco_elegido: null
     },
     methods: {
         continuar() {
