@@ -2,7 +2,7 @@
 .navegation-bar{
     height:90px;
     background: linear-gradient(90deg, #48ADFF -4.8%, #7661FE 47.6%, #9331FF 100%);
-    z-index: 9999;
+    z-index: 1;
     position: fixed;
 }
 .link-nav{

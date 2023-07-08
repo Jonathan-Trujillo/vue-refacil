@@ -172,8 +172,10 @@ export default {
         // ],
         tipo_cuenta: null,
         tipo_moneda: 'guaranies',
-        monto_ingresado: null,
         cantidad_cheques: 0,
+
+        monto_ingresado: 0,
+        monto_validado: 0,
 
         config: {
             masked: false,
@@ -206,7 +208,7 @@ export default {
     },
     computed: {
         deshabilitar_boton() {
-            return this.numero_documento_depositante != null && this.numero_boleta != null && this.numero_cuenta != null && this.tipo_cuenta != null && this.monto_ingresado != 0 && (this.eleccion === 1 ? this.cantidad_cheques != 0 : this.cantidad_cheques === 0) ? false:true 
+            return this.eleccion === 1 && this.tab_depositar === 'validar_monto' && this.monto_validado != this.monto_ingresado ? true : this.numero_documento_depositante != null && this.numero_boleta != null && this.numero_cuenta != null && this.tipo_cuenta != null && this.monto_ingresado != 0 && (this.eleccion === 1 ? this.cantidad_cheques != 0 : this.cantidad_cheques === 0) ? false:true 
         },
         banco_seleccionado() {
             return `../assets/images/bancos/${this.bancoSeleccionado}.jpg`
@@ -236,6 +238,9 @@ export default {
             if (this.tab_depositar === 'proceso_depositar') {
                 this.$emit('volver', 0)
             }
+            else if(this.eleccion === 1 && this.tab_depositar === 'validar_monto'){
+                this.tab_depositar = 'proceso_depositar'
+            }
         },
         mensaje_seleccionar_banco() {
             alert('Debes seleccionar un banco')
@@ -249,6 +254,7 @@ export default {
         proceso_exitoso() {
             this.tab_depositar = 'finalizar_proceso'
             this.exito_proceso = true
+            this.$emit('mostrar_comprobante', 0)
 
            if(this.eleccion === 0){
                 if(this.tipo_moneda === 'guaranies'){

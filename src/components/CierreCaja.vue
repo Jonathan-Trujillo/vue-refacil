@@ -6,8 +6,7 @@
                     <v-col cols="12" md="8" class="pa-0">
                         <v-row class="pa-4 pr-0" dense>
                             <v-col cols="12" style="border-bottom: 1px solid rgba(0,0,0,0.2)">
-                                <v-card-title class="px-4" style="color:#2D2D8D;font-size:22px;">Cierre de
-                                    Caja</v-card-title>
+                                <v-card-title class="px-4" style="color:#2D2D8D;font-size:22px;">Cierre de Caja {{ cierre_caja_efectivo_guaranies }} {{ cierre_caja_efectivo_dolares }}</v-card-title>
                             </v-col>
 
                             <v-col cols="12" class="pa-0">
@@ -23,7 +22,7 @@
                                         <!-- <v-tab slider-color="#2D2D8D" class="btn-tabs" value="Euros">Euros</v-tab> -->
                                     </v-tabs>
                                     <v-col class="pa-0 d-flex justify-end">
-                                        <v-btn variant="text" class="cursor-pointer" style="color:red !important" v-if="tab === 'Guaraníes' ? cierre_caja_filas_guaranies.length >= 2 :  cierre_caja_filas_dolares.length >= 2"
+                                        <v-btn variant="text" active class="cursor-pointer" style="color:red !important" v-if="tab === 'Guaraníes' ? cierre_caja_filas_guaranies.length >= 2 :  cierre_caja_filas_dolares.length >= 2"
                                                 @click="tab === 'Guaraníes' ? limpiar_divisas_guaranies() : limpiar_divisas_dolares()">Limpiar</v-btn>
                                     </v-col>
                                 </v-col>
@@ -31,7 +30,7 @@
                                     <v-window-item value="Guaraníes">
                                         <v-card-text class="divisas px-0 divisas-apertura_caja">                                         
                                             <v-row class="contenedor_divisas pl-4 pr-8 py-1" dense>
-                                                     <v-col cols="12" class="d-flex" v-for="(value, cierre_caja_key_guaranies) in cierre_caja_filas_guaranies" :key="cierre_caja_key_guaranies">
+                                                     <v-col cols="12" class="pt-2 d-flex" v-for="(value, cierre_caja_key_guaranies) in cierre_caja_filas_guaranies" :key="cierre_caja_key_guaranies">
 
                                                         <v-col cols="12" md="3" class="pa-0 d-flex align-center">
                                                             <h style="font-size:20px; color:#2D2D8D;" class="mr-4">Tengo </h>
@@ -82,7 +81,7 @@
                                     <v-window-item value="Dólares">
                                         <v-card-text class="divisas px-0 divisas-apertura_caja"> 
                                             <v-row class="contenedor_divisas pl-4 pr-8 py-1" dense>
-                                                     <v-col cols="12" class="d-flex" v-for="(value, cierre_caja_key_dolares) in cierre_caja_filas_dolares" :key="cierre_caja_key_dolares">
+                                                     <v-col cols="12" class="pt-2 d-flex" v-for="(value, cierre_caja_key_dolares) in cierre_caja_filas_dolares" :key="cierre_caja_key_dolares">
 
                                                         <v-col cols="12" md="3" class="pa-0 d-flex align-center">
                                                             <h style="font-size:20px; color:#2D2D8D;" class="mr-4">Tengo </h>
@@ -189,6 +188,14 @@ export default {
         cierre_caja_total_billetes_dolares: 0,
         cierre_caja_suma_total_efectivo: 0,
 
+        cierre_caja_ver_datos_totales_guaranies: currency(0, { separator: '.', decimal: ',', precision: 0, symbol: '₲' }).format(),
+        cierre_caja_ver_datos_totales_dolares: currency(0, { separator: '.', decimal: ',', precision: 0, symbol: '$' }).format(),
+
+        total_suma_fectivo_guaranies: 0,
+        total_suma_fectivo_dolares: 0,
+        cierre_caja_efectivo_guaranies: 0,
+        cierre_caja_efectivo_dolares: 0,
+
 
         config: {
             masked: false,
@@ -215,17 +222,17 @@ export default {
         cierre_caja_divisa: null,
 
 
-        cierre_caja_filas_guaranies: [{ cierre_caja_guraranies_billetes: null, cierre_caja_guraranies_valor: null }],
-        cierre_caja_filas_dolares: [{ cierre_caja_dolares_billetes: null, cierre_caja_dolares_valor: null }],
+        cierre_caja_filas_guaranies: [{ cierre_caja_guraranies_billetes: 0, cierre_caja_guraranies_valor: 0 }],
+        cierre_caja_filas_dolares: [{ cierre_caja_dolares_billetes: 0, cierre_caja_dolares_valor: 0 }],
         index_guaranies: 'Guaraníes',
         index_dolares: 'Dólares',
     }),
     created() {
-        console.log(this.cierre_caja_filas_guaranies.cierre_caja_guraranies_total)
+        // console.log(this.cierre_caja_filas_guaranies.cierre_caja_guraranies_total)
         this.ver_fecha();
-        this.cierre_caja_suma_total = currency(0, { separator: '.', decimal: ',', precision: 0, symbol: this.tab === 'Guaraníes' ? '₲' : '$' }).format()
-        this.$emit('efectivo_cierre_caja', this.cierre_caja_suma_total, this.tab)
-        console.log(this.tab);
+        // this.cierre_caja_suma_total = currency(0, { separator: '.', decimal: ',', precision: 0, symbol: this.tab === 'Guaraníes' ? '₲' : '$' }).format()
+        // this.$emit('efectivo_cierre_caja', this.cierre_caja_suma_total, this.tab)
+        // console.log(this.tab);
     },
     computed: {
         dato_total() {
@@ -286,6 +293,7 @@ export default {
         }
     },
     methods: {
+
         agregar_guaranies_a_divisa() {
             let cierre_caja_suma_guaranies = 0;
             let cierre_caja_suma_efectivo_guaranies = 0;
@@ -302,6 +310,7 @@ export default {
             });
 
             this.cierre_caja_ver_datos_totales_guaranies = currency(cierre_caja_suma_efectivo_guaranies, { separator: '.', decimal: ',', precision: 0, symbol: '₲' }).format()
+            this.total_suma_fectivo_guaranies = cierre_caja_suma_efectivo_guaranies
 
 
             this.cierre_caja_total_billetes_guaranies = cierre_caja_suma_guaranies;
@@ -324,20 +333,30 @@ export default {
             });
 
             this.cierre_caja_ver_datos_totales_dolares = currency(cierre_caja_suma_efectivo_dolares, { separator: '.', decimal: ',', precision: 0, symbol: '$' }).format()
-
+            this.total_suma_fectivo_dolares = cierre_caja_suma_efectivo_dolares
 
             this.cierre_caja_total_billetes_dolares = cierre_caja_suma_dolares;
 
         },
 
         cerrar_caja() {
-            this.$emit('cerrar_caja', 0)
-            this.$emit('efectivo_cierre_caja', this.cierre_caja_ver_datos_totales_guaranies, this.cierre_caja_ver_datos_totales_dolares)
+            // funcion para retornar a Login y dejar valores en 0 
+            this.$router.replace('/')
+            this.$emit('efectivo_cierre_caja', 0, 0)
             state.transacciones_realizadas = 0
             state.efectivo_agregado_guaranies = 0
             state.cheques_agregados = 0
+
+            state.seleccionar_abrir_componente_caja = false
+            state.seleccionar_cerrar_caja = true
+            state.seleccionar_abrir_componente_caja = true
+            
+            // Entrega resultados del efectivo al cierre de caja
+            this.cierre_caja_efectivo_guaranies = this.total_suma_fectivo_guaranies
+            this.cierre_caja_efectivo_dolares = this.total_suma_fectivo_dolares
         },
         ver_fecha() {
+            // Reloj
             const fecha_actual = new Date();
             const dia = fecha_actual.getDate().toString().padStart(2, '0');
             const mes = (fecha_actual.getMonth() + 1).toString().padStart(2, '0');
@@ -351,7 +370,7 @@ export default {
         },
         agregar_divisa_guaranies() {
             if (this.cierre_caja_filas_guaranies.length < this.maximo_filas_guaranies) {
-                this.cierre_caja_filas_guaranies.push({ cierre_caja_guraranies_billetes: null, cierre_caja_guraranies_valor: null });
+                this.cierre_caja_filas_guaranies.push({ cierre_caja_guraranies_billetes: 0, cierre_caja_guraranies_valor: 0 });
             }
         },
         eliminar_fila_guaranies(cierre_caja_key_guaranies) {
@@ -359,18 +378,18 @@ export default {
             this.cierre_caja_filas_guaranies.splice(cierre_caja_key_guaranies, 1);
         },
         limpiar_divisas_guaranies(){
-            this.cierre_caja_filas_guaranies = [ { cierre_caja_guraranies_billetes: null, cierre_caja_guraranies_valor: null } ]
+            this.cierre_caja_filas_guaranies = [ { cierre_caja_guraranies_billetes: 0, cierre_caja_guraranies_valor: 0 } ]
         },
         agregar_divisa_dolares() {
             if (this.cierre_caja_filas_dolares.length < this.maximo_filas_dolares) {
-                this.cierre_caja_filas_dolares.push({ cierre_caja_dolares_billetes: '', cierre_caja_dolares_valor: '' });
+                this.cierre_caja_filas_dolares.push({ cierre_caja_dolares_billetes: 0, cierre_caja_dolares_valor: 0 });
             }
         },
         eliminar_fila_dolares(index_dolares) {
             this.cierre_caja_filas_dolares.splice(index_dolares, 1);
         },
         limpiar_divisas_dolares(){
-            this.cierre_caja_filas_dolares = [ { cierre_caja_dolares_billetes: null, cierre_caja_dolares_valor: null } ]
+            this.cierre_caja_filas_dolares = [ { cierre_caja_dolares_billetes: 0, cierre_caja_dolares_valor: 0 } ]
         },
     }
 

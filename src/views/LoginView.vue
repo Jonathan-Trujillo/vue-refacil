@@ -69,6 +69,8 @@
 </template>
 
 <script>
+import { state } from '../funciones_globales'
+
 export default {
   data: () => ({
     show1: false,
@@ -100,6 +102,8 @@ export default {
     },
     logear() {
       this.$router.replace('/home');
+      state.cerrar_componente_caja = false
+      state.mostrar_seccion_inicial = true
     },
     async recuperar_contraseña() {
       let validado = await this.$refs.form.validate()

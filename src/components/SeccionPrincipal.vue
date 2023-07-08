@@ -42,29 +42,30 @@
             </v-card>
         </v-col>
         <v-col cols="12" md="9" class="px-0 pl-3">
-
-            <!-- <v-card v-if="ninguna_area_seleccionada" style="min-height: 659px !important;" class="d-flex align-center">
-                <v-row class="pa-0">
-                    <v-col class="pa-8 d-flex align-center justify-center">
-                        <v-img style="max-width: 80% !important;" src="../assets/images/principal.png" />
-                    </v-col>
-                </v-row>
-            </v-card> -->
-            <AreaBancos v-if="ver_bancos" @finalizo_proceso="ver_bancos = false"/>
+            <AreaBancos v-if="ver_bancos && !mostrar_pantalla_error" @finalizo_proceso="ver_bancos = false"/>
+            <pantalla_error v-if="mostrar_pantalla_error"/>
         </v-col>
     </v-row>
 </template>
 
 <script>
 import AreaBancos from '../components/AreaBancos.vue';
+import pantalla_error from './pantallas/PantallaError'
+import { state } from '../funciones_globales'
 
 export default {
     components: {
         AreaBancos,
+        pantalla_error,
     },
     data: () => ({
         ver_bancos: true,
     }),
+    computed:{
+        mostrar_pantalla_error(){
+            return state.mostrar_pantalla_error
+        }
+    },
     methods: {
         mostrar_bancos() {
             this.ver_bancos = !this.ver_bancos

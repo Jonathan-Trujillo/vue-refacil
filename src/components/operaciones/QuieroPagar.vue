@@ -167,6 +167,7 @@ export default {
         proceso_exitoso() {
             this.tab_pagar = 'finalizar_proceso'
             this.exito_proceso = true
+            this.$emit('mostrar_comprobante', 0)
 
             if(this.tipo_moneda === 'guaranies'){
                 state.efectivo_agregado_guaranies = state.efectivo_agregado_guaranies + parseInt(this.monto_ingresado)

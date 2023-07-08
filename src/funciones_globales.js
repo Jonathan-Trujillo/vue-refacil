@@ -12,6 +12,7 @@ export const state = reactive({
   mostrar_depositar: false,
   mostrar_pagar: false,
   mostrar_cobrar: false,
+  mostrar_pantalla_error: false,
 
   efectivo_agregado_guaranies: 0,
   efectivo_agregado_dolares: 0,
@@ -30,9 +31,9 @@ export const funcion_abrir_caja = () => {
 };
 export const funcion_cerrar_caja = () => {
   state.cerrar_componente_caja = true,
-  state.abrir_componente_caja = false,
-  state.mostrar_seccion_principal = false,
-
-  state.mostrar_seccion_inicial = false,
-  state.seleccionar_abrir_componente_caja = false
+  state.mostrar_seccion_inicial = false
 };
+
+export const ir_home = () =>{
+  
+}

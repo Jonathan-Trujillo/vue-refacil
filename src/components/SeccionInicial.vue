@@ -1,9 +1,9 @@
 <template>
     <v-row class="ma-0 pt-5" dense>
         <v-col cols="12" class="pa-0">
-            <v-card class="d-flex align-start" style="height: 652px !important;">
+            <v-card class="d-flex align-start" style="height: 659px !important;">
                 <v-row class="ma-0 pa-8">
-                    <v-col cols="12">
+                    <v-col cols="12" class="mb-16">
                         <h style="color:#2D2D8D;font-size:18px">Elegí una de las opciones para operar:</h>
                     </v-col>
                     <v-col cols="12" md="4">
@@ -44,7 +44,7 @@
                     <v-col cols="12" md="4">
                         <v-btn width="100%" elevation="0" class="d-flex align-center justify-center"
                             :disabled="ver_caja === false || ver_cerrar_caja === true" 
-                            :class="eleccion === 5 ? 'seleccionado' : 'logobanco'" @click="eleccion = 5">
+                            :class="eleccion === 5 ? 'seleccionado' : 'logobanco'" @click="pantalla_error()">
                             Pantalla de Error
                         </v-btn>
                     </v-col>
@@ -76,6 +76,15 @@ export default {
         },
         cerrar_caja() {
             funcion_cerrar_caja()
+        },
+        pantalla_error(){
+            state.mostrar_seccion_principal = true
+            state.mostrar_seccion_inicial = false
+
+            state.mostrar_depositar = false
+            state.mostrar_pagar = false
+            state.mostrar_cobrar = false
+            state.mostrar_pantalla_error = true
         },
         abrir_depositar(){
             state.mostrar_seccion_principal = true

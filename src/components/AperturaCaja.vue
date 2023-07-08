@@ -21,7 +21,7 @@
                                         <!-- <v-tab slider-color="#2D2D8D" class="btn-tabs" value="Euros">Euros</v-tab> -->
                                     </v-tabs>
                                     <v-col class="pa-0 d-flex justify-end">
-                                        <v-btn variant="text" class="cursor-pointer" style="color:red !important" v-if="tab === 'Guaraníes' ? filas_guaranies.length >= 2 :  filas_dolares.length >= 2"
+                                        <v-btn variant="text" active class="cursor-pointer" style="color:red !important" v-if="tab === 'Guaraníes' ? filas_guaranies.length >= 2 :  filas_dolares.length >= 2"
                                                 @click="tab === 'Guaraníes' ? limpiar_divisas_guaranies() : limpiar_divisas_dolares()">Limpiar</v-btn>
                                     </v-col>
                                 </v-col>
@@ -29,7 +29,7 @@
                                         <v-window-item value="Guaraníes">
                                             <v-card-text class="divisas px-0 divisas-apertura_caja" style="position: relative;">
                                                 <v-row class="contenedor_divisas pl-4 pr-8 py-1" dense>
-                                                     <v-col cols="12" class="d-flex" v-for="(value, key_guaranies) in filas_guaranies" :key="key_guaranies">
+                                                     <v-col cols="12" class="pt-2 d-flex" v-for="(value, key_guaranies) in filas_guaranies" :key="key_guaranies">
 
                                                         <v-col cols="12" md="3" class="pa-0 d-flex align-center">
                                                             <h style="font-size:20px; color:#2D2D8D;" class="mr-4">Tengo </h>
@@ -82,7 +82,7 @@
 
                                                 
                                                 <v-row class="contenedor_divisas pl-4 pr-8 py-1" dense>
-                                                     <v-col cols="12" class="d-flex" v-for="(value, key_dolares) in filas_dolares" :key="key_dolares">
+                                                     <v-col cols="12" class="pt-2 d-flex" v-for="(value, key_dolares) in filas_dolares" :key="key_dolares">
 
                                                         <v-col cols="12" md="3" class="pa-0 d-flex align-center">
                                                             <h style="font-size:20px; color:#2D2D8D;" class="mr-4">Tengo </h>
@@ -113,8 +113,8 @@
                                                         </v-btn>
                                                     </v-col>
                                                     <v-col cols="12" md="6" class="pa-0 d-flex justify-end">
-                                                        <v-btn class="btn-add-divisa" :disabled="filas_dolares.length >= maximo_filas_dolares"
-                                                            variant="text" @click="agregar_divisa_dolares()">
+                                                        <v-btn class="btn-outlined" :disabled="filas_dolares.length >= maximo_filas_dolares"
+                                                            variant="outlined" @click="agregar_divisa_dolares()">
                                                             <v-icon class="pr-2" style="padding-top: 2px;">
                                                                 mdi-plus-circle
                                                             </v-icon> Nueva fila
@@ -180,10 +180,12 @@ export default {
 
         total_billetes_guaranies: 0,
         total_billetes_dolares: 0,
-        suma_total_efectivo: 0,
 
-        ver_datos_totales_guaranies: 0,
-        ver_datos_totales_dolares: 0,
+        ver_datos_totales_guaranies: currency(0, { separator: '.', decimal: ',', precision: 0, symbol: '₲' }).format(),
+        ver_datos_totales_dolares: currency(0, { separator: '.', decimal: ',', precision: 0, symbol: '$' }).format(),
+
+        total_suma_fectivo_guaranies: 0,
+        total_suma_fectivo_dolares: 0,
         
 
         config: {
@@ -209,9 +211,8 @@ export default {
         fechaHoraFormateada: null,
         tab: null,
        
-        filas_guaranies: [ { guraranies_billetes: null, guraranies_valor: null } ],
-        filas_dolares: [ { dolares_billetes: null, dolares_valor: null } ],
-        // index_guaranies: 'Guaraníes',
+        filas_guaranies: [ { guraranies_billetes: 0, guraranies_valor: 0 } ],
+        filas_dolares: [ { dolares_billetes: 0, dolares_valor: 0 } ],
         index_dolares: 'Dólares',
     }),
     created() {
@@ -221,18 +222,6 @@ export default {
         dato_total(){ 
             return currency(0, {separator: '.', decimal: ',', precision: 0 , symbol: this.tab === 'Guaraníes' ? '₲' : '$'}).format()
         },
-        // ver_datos_guaranies(){
-        //     Object.keys(this.filas_guaranies).forEach((key_guaranies) => {
-                
-        //         let billetes_guaranies = this.filas_guaranies[key_guaranies].guraranies_billetes
-        //         let efectivo_seleccionado_guaranies = this.filas_guaranies[key_guaranies].guraranies_valor
-                
-        //         console.log(this.filas_guaranies[key_guaranies].guraranies_total);
-        //         return this.filas_guaranies[key_guaranies].guraranies_total =  currency( billetes_guaranies * efectivo_seleccionado_guaranies, {separator: '.', decimal: ',', precision: 0 , symbol:'₲'}).format()
-        //     })
-            
-        //     return console.log('Estas Filas: ', this.filas_guaranies);
-        // },
         ver_datos_guaranies() {
             Object.keys(this.filas_guaranies).forEach((key_guaranies) => {
                 let billetes_guaranies = this.filas_guaranies[key_guaranies].guraranies_billetes;
@@ -304,7 +293,8 @@ export default {
                 suma_efectivo_guaranies += this.suma_total_efectivo_guaranies;
             });
 
-            this.ver_datos_totales_guaranies = suma_efectivo_guaranies
+            this.ver_datos_totales_guaranies =  currency(suma_efectivo_guaranies, { separator: '.', decimal: ',', precision: 0, symbol: '₲' }).format()
+            this.total_suma_fectivo_guaranies =  suma_efectivo_guaranies
 
 
             this.total_billetes_guaranies = suma_guaranies;
@@ -326,7 +316,8 @@ export default {
                 suma_efectivo_dolares += this.suma_total_efectivo_dolares;
             });
 
-            this.ver_datos_totales_dolares = suma_efectivo_dolares
+            this.ver_datos_totales_dolares =  currency(suma_efectivo_dolares, { separator: '.', decimal: ',', precision: 0, symbol: '$' }).format()
+            this.total_suma_fectivo_dolares =  suma_efectivo_dolares
 
 
             this.total_billetes_dolares = suma_dolares;
@@ -335,7 +326,7 @@ export default {
 
         abrir_caja(){
             this.$emit('abrir_caja', 0)
-            this.$emit('efectivo', this.ver_datos_totales_guaranies, this.ver_datos_totales_dolares, this.tab)
+            this.$emit('efectivo', this.total_suma_fectivo_guaranies, this.total_suma_fectivo_dolares, this.tab)
         },
         ver_fecha() {
             const fecha_actual = new Date();
@@ -351,26 +342,25 @@ export default {
         },
         agregar_divisa_guaranies() {
             if (this.filas_guaranies.length < this.maximo_filas_guaranies) {
-                this.filas_guaranies.push({ guraranies_billetes: null, guraranies_valor: null });
+                this.filas_guaranies.push({ guraranies_billetes: 0, guraranies_valor: 0 });
             }
         },
         eliminar_fila_guaranies(key_guaranies) {
-            console.log(key_guaranies)
             this.filas_guaranies.splice(key_guaranies, 1);
         },
         limpiar_divisas_guaranies(){
-            this.filas_guaranies = [ { guraranies_billetes: null, guraranies_valor: null } ]
+            this.filas_guaranies = [ { guraranies_billetes: 0, guraranies_valor: 0 } ]
         },
         agregar_divisa_dolares() {
             if (this.filas_dolares.length < this.maximo_filas_dolares) {
-                this.filas_dolares.push({ dolares_billetes: '', dolares_valor: '' });
+                this.filas_dolares.push({ dolares_billetes: 0, dolares_valor: 0 });
             }
         },
-        eliminar_fila_dolares(index_dolares) {
-            this.filas_dolares.splice(index_dolares, 1);
+        eliminar_fila_dolares(key_dolares) {
+            this.filas_dolares.splice(key_dolares, 1);
         },
         limpiar_divisas_dolares(){
-            this.filas_dolares = [ { dolares_billetes: null, dolares_valor: null } ]
+            this.filas_dolares = [ { dolares_billetes: 0, dolares_valor: 0 } ]
         },
     }
 

@@ -2,7 +2,7 @@
     <v-row class="ma-0 pt-2">
 
         <v-col cols="5" class=" d-flex align-center justify-center">
-            <v-img style="max-width: 87% !important;" src="../assets/images/check2.svg" @click="proceso_exitoso()" />
+            <v-img style="max-width: 87% !important;" src="../assets/images/check2.svg"/>
         </v-col>
 
         <v-col cols="7" class="pa-5 d-flex align-center justify-center">
@@ -15,9 +15,8 @@
                 <v-col cols="12">
                     <p style="color:#2D2D8D">¿Comó queres el comprobante?</p>
                     <v-col class="px-0 d-flex justify-space-between" style="gap:10px">
-                        <v-btn class="btn-outlined" variant="outlined"> <v-icon></v-icon> Impreso</v-btn>
-                        <v-btn class="btn-outlined" variant="outlined"> <v-icon></v-icon> Correo
-                            electrónico</v-btn>
+                        <v-btn class="btn-outlined" variant="outlined"> <v-icon class="mr-2">mdi-printer</v-icon> Impreso</v-btn>
+                        <v-btn class="btn-outlined" variant="outlined"> <v-icon class="mr-2">mdi-email</v-icon> Correo electrónico</v-btn>
 
                     </v-col>
                 </v-col>

@@ -1,5 +1,5 @@
 <template>
-  <v-app class="body-box">
+  <v-app class="body-box" style="z-index: 0;">
     <v-container class="py-0 px-8" style="margin-top: 90px;max-width: 100% !important;">
       <v-row class="ma-0 pt-5 align-start">
         <InicioView :valor_guaranies="dato_valor_guaranies" :valor_dolares="dato_valor_dolares" :cerrar_caja_valor_guaranies="cerrar_caja_dato_valor_guaranies" :cerrar_caja_valor_dolares="cerrar_caja_dato_valor_dolares"/>
@@ -73,12 +73,9 @@ export default {
       this.valor_tab = dato_tab;
     },
     mostrar_efectivo_cierre(cerrar_caja_valor_guaranies, cerrar_caja_valor_dolares) {
-      this.cerrar_caja_dato_valor_guaranies = cerrar_caja_valor_guaranies;
-      this.cerrar_caja_dato_valor_dolares = cerrar_caja_valor_dolares;
+      this.dato_valor_guaranies = cerrar_caja_valor_guaranies;
+      this.dato_valor_dolares = cerrar_caja_valor_dolares;
 
-      
-      this.dato_valor_guaranies = 50
-      this.dato_valor_dolares = 50
     }
   }
 }

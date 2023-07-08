@@ -336,6 +336,7 @@ export default {
         proceso_exitoso() {
             this.tab_cobrar = 'finalizar_proceso'
             this.exito_proceso = true
+            this.$emit('mostrar_comprobante', 0)
 
             if(this.tipo_moneda === 'guaranies'){
                 state.efectivo_agregado_guaranies = state.efectivo_agregado_guaranies - parseInt(this.monto_ingresado)
@@ -344,7 +345,10 @@ export default {
             }
             state.transacciones_realizadas = parseInt(state.transacciones_realizadas) + 1
             
+            if(this.eleccion === 7){
+                
             state.cheques_agregados = parseInt(state.cheques_agregados) + 1
+            }
         },
         finalizar_proceso() {
             this.$emit('finalizo_proceso', 0)

@@ -6,15 +6,15 @@
                     <v-col cols="12" md="7" class="d-flex align-center" style="min-height: 85px;max-height: 85px;">
                         <v-img class="img-top" :src="require(`../assets/images/bancos/${bancoSeleccionado}.jpg`)"
                             v-if="bancoSeleccionado != null" />
-                        <v-card-title style="color:#2D2D8D">{{ banco_elegido }} {{ opcion_seleccionada }} {{ opcion_cheques }}</v-card-title>
+                        <v-card-title style="color:#2D2D8D">{{ banco_elegido }} {{ opcion_seleccionada }}</v-card-title>
                         <!-- {{ tab }}{{ moneda }} -->
 
                     </v-col>
-                    <v-col cols="12" md="5">
-                        <h style="color:#2D2D8D"><strong>Número de Comprobante: </strong>{{ opcion_seleccionada }}</h>
+                    <v-col cols="12" md="5" v-if="mostrar_comprobante" class="d-flex justify-end">
+                        <h style="color:#2D2D8D"><strong>Número de Comprobante: </strong>{{ numero_comprobante }}</h>
                     </v-col>
                     <v-col cols="12" class="d-flex align-center" >
-                        <hr style="border:0; border-bottom: 2px solid rgba(50,100,200,0.2)">
+                        <hr style="width:100%;border:0; border-bottom: 1px solid rgba(50,100,200,0.2)">
                     </v-col>
 
                     <v-col cols="12" class="pa-0" v-if="seleccionar_banco">
@@ -147,31 +147,30 @@
 
                     </v-col>
                     <v-col cols="12" class="pa-0">
-                        <quiero_depositar v-if="ver_depositar" :eleccion="eleccion" :banco_elegido="banco_elegido"
-                            @volver="ver_depositar = false, seleccionar_banco = true"
-                            @finalizo_proceso="$emit('finalizo_proceso', 0)"/>
-                            
-                        <quiero_pagar v-if="ver_pagar" :eleccion="eleccion" :banco_elegido="banco_elegido"
-                            @volver="ver_pagar = false, seleccionar_banco = true"
-                            @finalizo_proceso="$emit('finalizo_proceso', 0)" />
+                        <quiero_depositar v-if="ver_depositar"
+                        :eleccion="eleccion"
+                        :banco_elegido="banco_elegido"
 
-                        <quiero_cobrar v-if="ver_cobrar" :eleccion="eleccion" :banco_elegido="banco_elegido"
-                            @volver="ver_cobrar = false, seleccionar_banco = true"
-                            @finalizo_proceso="$emit('finalizo_proceso', 0)" />
+                        @volver="ver_depositar = false, seleccionar_banco = true"
+                        @finalizo_proceso="$emit('finalizo_proceso', 0)"
+                        @mostrar_comprobante="mostrar_comprobante = true"/>
                             
-                        <!-- <pago_prestamos v-if="ver_pago_prestamos"
-                            @volver="ver_pago_prestamos = false, seleccionar_banco = true"
-                            @finalizo_proceso="$emit('finalizo_proceso', 0)" />
-                        <depositos_en_efectivo v-if="ver_depositos_en_efectivo"
-                            @volver="ver_depositos_en_efectivo = false, seleccionar_banco = true"
-                            @finalizo_proceso="$emit('finalizo_proceso', 0)" />
-                        <operacion_con_cheques v-if="ver_cheques" @volver="ver_cheques = false, seleccionar_banco = true"
-                            @tipoSeleccionado="actualizar_datos_cheques" @finalizo_proceso="$emit('finalizo_proceso', 0)" />
-                        <extraccion_efectivo v-if="ver_extraccion"
-                            @volver="ver_extraccion = false, seleccionar_banco = true"
-                            @finalizo_proceso="$emit('finalizo_proceso', 0)" />
-                        <pago_tarjeta v-if="ver_pago_tarjeta" @volver="ver_pago_tarjeta = false, seleccionar_banco = true"
-                            @finalizo_proceso="$emit('finalizo_proceso', 0)" /> -->
+                        <quiero_pagar v-if="ver_pagar"
+                        :eleccion="eleccion"
+                        :banco_elegido="banco_elegido"
+                        
+                        @volver="ver_pagar = false, seleccionar_banco = true"
+                        @finalizo_proceso="$emit('finalizo_proceso', 0)"
+                        @mostrar_comprobante="mostrar_comprobante = true"/>
+
+                        <quiero_cobrar v-if="ver_cobrar"
+                        :eleccion="eleccion"
+                        :banco_elegido="banco_elegido"
+                        
+                        @volver="ver_cobrar = false, seleccionar_banco = true"
+                        @finalizo_proceso="$emit('finalizo_proceso', 0)"
+                        @mostrar_comprobante="mostrar_comprobante = true"/>
+
                     </v-col>
                 </v-row>
             </v-col>
@@ -181,15 +180,10 @@
 
 
 <script>
-// import pago_prestamos from './opciones/PagoPrestamos.vue'
-// import depositos_en_efectivo from './opciones/DepositosEnEfectivo.vue'
-// import operacion_con_cheques from './opciones/OperacionConCheques.vue'
-// import extraccion_efectivo from './opciones/ExtraccionEfectivo.vue'
-// import pago_tarjeta from './opciones/PagoTarjetaConCedula.vue'
-
 import quiero_depositar from '../components/operaciones/QuieroDepositar'
 import quiero_pagar from '../components/operaciones/QuieroPagar'
 import quiero_cobrar from '../components/operaciones/QuieroCobrar'
+
 
 import { state } from '../funciones_globales'
 
@@ -197,12 +191,7 @@ export default {
     components: {
         quiero_depositar,
         quiero_pagar,
-        quiero_cobrar
-        // pago_prestamos,
-        // depositos_en_efectivo,
-        // operacion_con_cheques,
-        // extraccion_efectivo,
-        // pago_tarjeta
+        quiero_cobrar,
     },
     data: () => ({
         tab: null,
@@ -247,30 +236,24 @@ export default {
         moneda: null,
         tipo_cuenta: null,
 
+        mostrar_comprobante: false,
+        numero_comprobante: 5462356623565,
 
 
         eleccion: null,
-        eleccion_monto: null,
-        cantidad: 0,
-        no_cuenta: 7053459203,
-        // banco_elegido: 'BBVA',
-        image_zoom: false,
-        codigo_generado: false,
         esperando_proceso: true,
         exito_proceso: false,
 
         ver_depositar: false,
         ver_pagar: false,
         ver_cobrar: false,
+        ver_pantalla_error: false,
 
         ver_pago_prestamos: false,
         ver_cheques: false,
         ver_extraccion: false,
         ver_pago_tarjeta: false,
 
-        no_boleta: null,
-
-        opcion_cheques: '',
     }),
     computed: {
         banco_elegido(){
@@ -296,11 +279,6 @@ export default {
         }
     },
     watch: {
-        // bancoSeleccionado() {
-        //     if (this.bancoSeleccionado != null) {
-        //         this.deshablitar_boton = false
-        //     }
-        // },
         eleccion() {
             if (this.eleccion != null) {
                 this.deshablitar_boton = false
@@ -339,20 +317,6 @@ export default {
                 }
 
             }
-
-
-
-
-            // else if (this.tab === 2) {
-            //     if (this.tipoSeleccionado === null) { this.mensaje_seleccionar_tipo() } else {
-            //         if (this.tipoSeleccionado === 1) { this.tab = 3 }
-            //         if (this.tipoSeleccionado === 2) { this.tab = this.tab + 2 }
-            //     }
-            // }
-            // else if (this.tab === 3) { this.tab = 4 } else if (this.tab === 4) { this.tab = 6 }
-
-
-
         },
         volver_proceso() {
             if (this.tab === 0){
@@ -386,17 +350,6 @@ export default {
         finalizar_proceso() {
             this.$emit('finalizo_proceso', 0)
         },
-        actualizar_datos_cheques(valor) {
-            this.opcion_cheques = valor
-        }
     },
 }
 </script>
-
-<style>
-.cantidad .v-field__input,
-.cantidad .v-text-field__prefix {
-    color: #2D2D8D !important;
-    font-size: 40px;
-    font-weight: 600;
-}</style>
