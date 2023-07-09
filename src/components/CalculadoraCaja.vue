@@ -5,17 +5,16 @@
         <v-icon>mdi-36px mdi-close-circle</v-icon> </div>
         <v-col cols="12" class="pa-0">
             <v-card class="d-flex align-center">
-                <v-row class="ma-0 pa-0" dense>
-                    <v-col cols="12" md="8" class="pa-0">
-                        <v-row class="pa-4 pr-0" dense>
+                <v-row class="ma-0 pa-0 align-center" dense>
+                    <v-col cols="12" md="8" class="py-0">
+                        <v-row class="px-4 py-0" dense>
                             <v-col cols="12" style="border-bottom: 1px solid rgba(0,0,0,0.2)">
-                                <v-card-title class="px-4" style="color:#2D2D8D;font-size:22px;">Calculadora  {{ cierre_caja_efectivo_guaranies }} {{ cierre_caja_efectivo_dolares }}</v-card-title>
+                                <v-card-title class="px-4" style="color:#2D2D8D;font-size:22px;">Calculadora  | Recibí: {{ datos_recibi_guaranies }} {{ datos_recibi_dolares }} | Devolví:  {{ datos_devolvi_guaranies }} {{ datos_devolvi_dolares }}</v-card-title>
                             </v-col>
 
                             <v-col cols="12" class="pa-0">
-                                <v-col cols="12" class="px-4">
-                                    <h style="color:#2D2D8D;font-size:18px">Carga las divisas que tienes en efectivo para
-                                        continuar:</h>
+                                <v-col cols="3" class="divisas">
+                                    <v-select variant="outlined" v-model="opciones_calculadora" :items="itmes_opciones_calculadora" dense/>
                                 </v-col>
                                 <v-col cols="12" class="px-4 d-flex">
                                     <v-tabs v-model="tab">
@@ -69,12 +68,6 @@
                                                                 mdi-plus-circle
                                                             </v-icon> Nueva fila
                                                         </v-btn>
-                                                        <!-- <v-btn text class="ml-4 btn-delete-divisa" color="error"
-                                                            v-if="filas_guaranies.length >= 2" @click="eliminar_fila_guaranies(index_guaranies)">
-                                                            <v-icon>
-                                                                mdi-close-circle
-                                                            </v-icon>
-                                                        </v-btn> -->
                                                     </v-col>
                                                 </v-row>
                                             </v-card-text>
@@ -139,28 +132,38 @@
                     </v-col>
 
                     <v-row cols="12" md="4" class="ma-0 pl-4 pa-8 justify-center" dense>
-                        <v-card style="background:#E1F2FF !important;position:relative; padding-bottom: 150px !important" elevation="0" class="pa-6" width="100%">
-                            <v-col cols="12" style="border-bottom: 1px solid rgba(0,0,0,0.2)">
-                                <v-card-title class="px-0" style="color:#2D2D8D;font-size:22px;">Totales</v-card-title>
+                        <v-card style="background:#E1F2FF !important;position:relative; padding-bottom: 100px !important" elevation="0" class="px-6 py-4" width="100%">
+                            <v-col cols="12" class="py-0" style="border-bottom: 1px solid rgba(0,0,0,0.2)">
+                                <v-card-title class="pa-0" style="color:#2D2D8D;font-size:22px;">Totales</v-card-title>
                             </v-col>
                             <v-col cols="12" style="border-bottom: 1px solid rgba(0,0,0,0.2)" class="d-flex flex-column">
                                 <!-- <v-card-title class="px-0" style="color:#2D2D8D;font-size:22px;">{{ divisa }}</v-card-title> -->
                                 
-                                <v-card-title class="px-0" style="color:#2D2D8D;font-size:22px;">Guaraníes</v-card-title>
+                                <v-card-title class="pa-0" style="color:#2D2D8D;font-size:22px;text-align: right;">Recibí</v-card-title>
+                                
+                                <v-card-title class="pa-0" style="color:#2D2D8D;font-size:18px;font-weight: 600;">Guaraníes</v-card-title>
+                                <h style="font-size:20px; color:#2D2D8D;">Total Billetes = {{ recibi_total_billetes_guaranies }}</h>
+                                <h style="font-size:20px; color:#2D2D8D;">Total = {{ recibi_ver_datos_totales_guaranies != null ? recibi_ver_datos_totales_guaranies : valor_inicial_guaranies }}</h>
 
-                                <h style="font-size:20px; color:#2D2D8D;" class="pb-4">Total Billetes = {{ total_billetes_guaranies }}</h>
-                                <h style="font-size:20px; color:#2D2D8D;" class="pb-4">Total = {{ ver_datos_totales_guaranies != null ? ver_datos_totales_guaranies : valor_inicial_guaranies }}</h>
+                                <v-card-title class="pa-0 mt-1" style="color:#2D2D8D;font-size:18px;font-weight: 600">Dólares</v-card-title>
+                                <h style="font-size:20px; color:#2D2D8D;">Total Billetes = {{ recibi_total_billetes_dolares }}</h>
+                                <h style="font-size:20px; color:#2D2D8D;">Total = {{ recibi_ver_datos_totales_dolares != null ? recibi_ver_datos_totales_dolares : valor_inicial_dolares }}</h>
                                 
                             </v-col>
                             <v-col cols="12" style="border-bottom: 1px solid rgba(0,0,0,0.2)" class="d-flex flex-column">
                                 
-                                <v-card-title class="px-0" style="color:#2D2D8D;font-size:22px;">Dólares</v-card-title>
+                                <v-card-title class="pa-0" style="color:#2D2D8D;font-size:22px;text-align: right">Devolví</v-card-title>
 
-                                <h style="font-size:20px; color:#2D2D8D;" class="pb-4">Total Billetes = {{ total_billetes_dolares }}</h>
-                                <h style="font-size:20px; color:#2D2D8D;" class="pb-4">Total = {{ ver_datos_totales_dolares != null ? ver_datos_totales_dolares : valor_inicial_dolares }}</h>
+                                <v-card-title class="pa-0" style="color:#2D2D8D;font-size:18px;font-weight: 600;">Guaraníes</v-card-title>
+                                <h style="font-size:20px; color:#2D2D8D;">Total Billetes = {{ devolvi_total_billetes_guaranies }}</h>
+                                <h style="font-size:20px; color:#2D2D8D;">Total = {{ devolvi_ver_datos_totales_guaranies != null ? devolvi_ver_datos_totales_guaranies : valor_inicial_guaranies }}</h>
+
+                                <v-card-title class="pa-0 mt-1" style="color:#2D2D8D;font-size:18px;font-weight: 600">Dólares</v-card-title>
+                                <h style="font-size:20px; color:#2D2D8D;">Total Billetes = {{ devolvi_total_billetes_dolares }}</h>
+                                <h style="font-size:20px; color:#2D2D8D;">Total = {{ devolvi_ver_datos_totales_dolares != null ? devolvi_ver_datos_totales_dolares : valor_inicial_dolares }}</h>
                                 
                             </v-col>
-                            <v-col style="position: absolute; bottom:30px" class="d-flex justify-center">
+                            <v-col style="position: absolute; bottom:20px" class="pa-0 d-flex justify-center">
                                 <v-btn text class="btn-color" @click="agregar_saldos()">Agregar a Saldos</v-btn>
                             </v-col>
                         </v-card>
@@ -181,17 +184,27 @@ export default {
     
     data: () => ({
 
-        total_billetes_guaranies: 0,
-        total_billetes_dolares: 0,
+        recibi_total_billetes_guaranies: 0,
+        recibi_total_billetes_dolares: 0,
 
-        ver_datos_totales_guaranies: currency(0, { separator: '.', decimal: ',', precision: 0, symbol: '₲' }).format(),
-        ver_datos_totales_dolares: currency(0, { separator: '.', decimal: ',', precision: 0, symbol: '$' }).format(),
+        devolvi_total_billetes_guaranies: 0,
+        devolvi_total_billetes_dolares: 0,
+
+        devolvi_ver_datos_totales_guaranies: currency(0, { separator: '.', decimal: ',', precision: 0, symbol: '₲' }).format(),
+        devolvi_ver_datos_totales_dolares: currency(0, { separator: '.', decimal: ',', precision: 0, symbol: '$' }).format(),
+        recibi_ver_datos_totales_guaranies: currency(0, { separator: '.', decimal: ',', precision: 0, symbol: '₲' }).format(),
+        recibi_ver_datos_totales_dolares: currency(0, { separator: '.', decimal: ',', precision: 0, symbol: '$' }).format(),
 
         total_suma_fectivo_guaranies: 0,
         total_suma_fectivo_dolares: 0,
-        cierre_caja_efectivo_guaranies: 0,
-        cierre_caja_efectivo_dolares: 0,
-        
+
+        datos_recibi_guaranies: 0,
+        datos_recibi_dolares: 0,
+        datos_devolvi_guaranies: 0,
+        datos_devolvi_dolares: 0,
+
+        opciones_calculadora: 'Recibí',
+        itmes_opciones_calculadora: ['Recibí', 'Devolví'],        
 
         config: {
           masked: false,
@@ -222,6 +235,13 @@ export default {
     }),
     created() {
         this.ver_fecha();
+    },
+    watch:{
+        opciones_calculadora(){
+            
+        this.filas_guaranies = [ { guraranies_billetes: 0, guraranies_valor: 0 } ]
+        this.filas_dolares = [ { dolares_billetes: 0, dolares_valor: 0 } ]
+        }
     },
     computed: {
         dato_total(){ 
@@ -298,12 +318,16 @@ export default {
                 suma_efectivo_guaranies += this.suma_total_efectivo_guaranies;
             });
 
-            this.ver_datos_totales_guaranies =  currency(suma_efectivo_guaranies, { separator: '.', decimal: ',', precision: 0, symbol: '₲' }).format()
-            this.total_suma_fectivo_guaranies =  suma_efectivo_guaranies
 
-
-            this.total_billetes_guaranies = suma_guaranies;
-
+            if(this.opciones_calculadora === 'Recibí'){
+                this.recibi_ver_datos_totales_guaranies =  currency(suma_efectivo_guaranies, { separator: '.', decimal: ',', precision: 0, symbol: '₲' }).format()
+                this.suma_recibi_fectivo_guaranies =  suma_efectivo_guaranies
+                this.recibi_total_billetes_guaranies = suma_guaranies;
+            }else{
+                this.devolvi_ver_datos_totales_guaranies =  currency(suma_efectivo_guaranies, { separator: '.', decimal: ',', precision: 0, symbol: '₲' }).format()
+                this.suma_devolvi_fectivo_guaranies =  suma_efectivo_guaranies
+                this.devolvi_total_billetes_guaranies = suma_guaranies;
+            }
         },
         
         agregar_dolares_a_divisa() {
@@ -321,18 +345,27 @@ export default {
                 suma_efectivo_dolares += this.suma_total_efectivo_dolares;
             });
 
-            this.ver_datos_totales_dolares =  currency(suma_efectivo_dolares, { separator: '.', decimal: ',', precision: 0, symbol: '$' }).format()
-            this.total_suma_fectivo_dolares =  suma_efectivo_dolares
 
-
-            this.total_billetes_dolares = suma_dolares;
+            if(this.opciones_calculadora === 'Recibí'){
+                this.recibi_ver_datos_totales_dolares =  currency(suma_efectivo_dolares, { separator: '.', decimal: ',', precision: 0, symbol: '$' }).format()
+                this.suma_recibi_efectivo_dolares =  suma_efectivo_dolares
+                this.recibi_total_billetes_dolares = suma_dolares;
+            }
+            else if(this.opciones_calculadora === 'Devolví'){
+                this.devolvi_ver_datos_totales_dolares =  currency(suma_efectivo_dolares, { separator: '.', decimal: ',', precision: 0, symbol: '$' }).format()
+                this.suma_devolvi_efectivo_dolares =  suma_efectivo_dolares
+                this.devolvi_total_billetes_dolares = suma_dolares;
+            }
 
         },
 
         agregar_saldos(){
             
-            this.cierre_caja_efectivo_guaranies = this.total_suma_fectivo_guaranies
-            this.cierre_caja_efectivo_dolares = this.total_suma_fectivo_dolares
+            this.datos_recibi_guaranies = this.suma_recibi_fectivo_guaranies
+            this.datos_recibi_dolares = this.suma_recibi_efectivo_dolares
+            
+            this.datos_devolvi_guaranies = this.suma_devolvi_fectivo_guaranies
+            this.datos_devolvi_dolares = this.suma_devolvi_efectivo_dolares
         },
         ver_fecha() {
             const fecha_actual = new Date();

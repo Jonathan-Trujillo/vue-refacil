@@ -140,6 +140,8 @@
     align-items: center !important;
     justify-items: flex-start;
     display: flex !important;
+    color:#2D2D8D;
+    font-weight: 600;
   }
   .divisas .v-field__prepend-inner, .divisas .v-field__append-inner, .divisas .v-field__clearable, .v-text-field__prefix, .v-field__input {
     align-items: flex-start !important;
