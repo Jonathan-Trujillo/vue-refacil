@@ -21,7 +21,7 @@
                         <v-col cols="12" class="d-flex align-center" >
                             <hr style="width:100%;border:0; border-bottom: 1px solid rgba(50,100,200,0.2)">
                         </v-col>
-                        <fin_proceso class="px-16" :numero_cuenta="numero_cuenta" :banco_elegido="banco_elegido" :monto_ingresado="monto_ingresado" :tipo_moneda="tipo_moneda"/>
+                        <fin_proceso class="px-16"/>
                         </v-row>
                 </v-card>
         </v-dialog>
@@ -84,10 +84,10 @@ export default {
             this.mostrar_ultimo_ticket = true
             this.opcion_seleccionada = 'Deposito en Efectivo'
             
-            this.numero_cuenta = 197411
-            this.banco_elegido = 'Banco Familiar'
-            this.monto_ingresado = '₲500.000'
-            this.tipo_moneda = 'Guaraníes'
+            // this.numero_cuenta = 197411
+            // this.banco_elegido = 'Banco Familiar'
+            // this.monto_ingresado = '₲500.000'
+            // this.tipo_moneda = 'Guaraníes'
             this.numero_comprobante = 5462356623565
         },
     }

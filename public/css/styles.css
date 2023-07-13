@@ -115,6 +115,10 @@
   .contenedor_divisas{
     overflow-x: auto;
     max-height: 350px;
+    /* cambiar el estilo por defecto de la barra de scroll */
+    scrollbar-color: #2D2D8D rgba(0,0,0,0.5);
+    scrollbar-width: 10px !important;
+    
   }
 
   

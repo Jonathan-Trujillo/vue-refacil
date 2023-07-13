@@ -164,7 +164,7 @@
                                 
                             </v-col>
                             <v-col style="position: absolute; bottom:20px" class="pa-0 d-flex justify-center">
-                                <v-btn text class="btn-color" @click="agregar_saldos()">Agregar a Saldos</v-btn>
+                                <v-btn elevation="0" text class="btn-color" @click="agregar_saldos()">Guardar</v-btn>
                             </v-col>
                         </v-card>
                     </v-row>

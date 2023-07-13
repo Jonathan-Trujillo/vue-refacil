@@ -296,8 +296,8 @@ export default {
             if (this.tab_cobrar === 'proceso_cheque') {
                 this.tab_cobrar = 'desde_cuenta'
             }
-            else if (this.tab_cobrar === 'validar_monto') {
-                this.tab_cobrar = 'proceso_cheque'
+            else if(this.eleccion === 7 && this.tab_cobrar === 'validar_monto'){
+                this.tab_cobrar = 'desde_cuenta'
             }
         },
         mostrar_preguntas_validacion(){
